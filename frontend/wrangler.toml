@@ -1,9 +1,6 @@
 name = "web3-portfolio"
-compatibility_date = "2025-12-02"
+compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
 # 环境变量可以在这里添加
-
-# Pages 配置
-pages_build_output_dir = ".vercel/output/static"
