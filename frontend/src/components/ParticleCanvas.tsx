@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
+import { useTheme } from './ThemeProvider';
 
 interface Particle {
   x: number;
@@ -19,8 +20,8 @@ interface ParticleCanvasProps {
   className?: string;
 }
 
-// 霓虹色系 - 更亮更醒目
-const NEON_COLORS = [
+// 霓虹色系 - 暗色模式（更亮更醒目）
+const NEON_COLORS_DARK = [
   '#00ffff', // 青色
   '#ff00ff', // 品红
   '#00ff88', // 绿色
@@ -29,12 +30,25 @@ const NEON_COLORS = [
   '#ffff00', // 黄色
 ];
 
+// 柔和色系 - 白天模式（深色调，适合浅色背景）
+const NEON_COLORS_LIGHT = [
+  '#0891b2', // 深青色
+  '#c026d3', // 深品红
+  '#059669', // 深绿色
+  '#dc2626', // 深红色
+  '#7c3aed', // 深紫色
+  '#d97706', // 深橙色
+];
+
 export function ParticleCanvas({ className = '' }: ParticleCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>(0);
   const mouseRef = useRef({ x: 0, y: 0, isMoving: false });
   const timeRef = useRef(0);
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  const colors = isDark ? NEON_COLORS_DARK : NEON_COLORS_LIGHT;
 
   const createParticle = useCallback((canvas: HTMLCanvasElement, type: 'normal' | 'core' | 'orbit' = 'normal'): Particle => {
     const baseRadius = type === 'core' ? 4 : type === 'orbit' ? 2 : 3;
@@ -44,13 +58,13 @@ export function ParticleCanvas({ className = '' }: ParticleCanvasProps) {
       vx: (Math.random() - 0.5) * 1.2,
       vy: (Math.random() - 0.5) * 1.2,
       radius: Math.random() * baseRadius + 1.5,
-      color: NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)],
+      color: colors[Math.floor(Math.random() * colors.length)],
       alpha: Math.random() * 0.4 + 0.6,
       pulse: Math.random() * Math.PI * 2,
       pulseSpeed: Math.random() * 0.05 + 0.02,
       type,
     };
-  }, []);
+  }, [colors]);
 
   const drawParticle = useCallback((ctx: CanvasRenderingContext2D, particle: Particle, time: number) => {
     const pulseAlpha = Math.sin(particle.pulse + time * particle.pulseSpeed) * 0.3 + 0.7;
@@ -95,7 +109,7 @@ export function ParticleCanvas({ className = '' }: ParticleCanvasProps) {
     const hexHeight = hexSize * Math.sqrt(3);
     const hexWidth = hexSize * 2;
     
-    ctx.strokeStyle = '#00ffff';
+    ctx.strokeStyle = isDark ? '#00ffff' : '#0891b2';
     ctx.lineWidth = 0.3;
     
     for (let row = -1; row < height / hexHeight + 1; row++) {
@@ -121,7 +135,7 @@ export function ParticleCanvas({ className = '' }: ParticleCanvasProps) {
       }
     }
     ctx.globalAlpha = 1;
-  }, []);
+  }, [isDark]);
 
   const drawConnections = useCallback((ctx: CanvasRenderingContext2D, particles: Particle[], time: number) => {
     const maxDistance = 200;
@@ -174,8 +188,8 @@ export function ParticleCanvas({ className = '' }: ParticleCanvasProps) {
         mouse.x, mouse.y, 0,
         mouse.x, mouse.y, 150
       );
-      mouseGlow.addColorStop(0, '#00ffff40');
-      mouseGlow.addColorStop(0.5, '#ff00ff20');
+      mouseGlow.addColorStop(0, isDark ? '#00ffff40' : '#0891b240');
+      mouseGlow.addColorStop(0.5, isDark ? '#ff00ff20' : '#c026d320');
       mouseGlow.addColorStop(1, 'transparent');
       
       ctx.beginPath();
@@ -188,7 +202,7 @@ export function ParticleCanvas({ className = '' }: ParticleCanvasProps) {
       const waveRadius = (time * 0.1) % 200;
       ctx.beginPath();
       ctx.arc(mouse.x, mouse.y, waveRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = '#00ffff';
+      ctx.strokeStyle = isDark ? '#00ffff' : '#0891b2';
       ctx.lineWidth = 2;
       ctx.globalAlpha = (1 - waveRadius / 200) * 0.5;
       ctx.stroke();
@@ -218,7 +232,7 @@ export function ParticleCanvas({ className = '' }: ParticleCanvasProps) {
         }
       }
     }
-  }, []);
+  }, [isDark]);
 
   const updateParticle = useCallback((particle: Particle, canvas: HTMLCanvasElement, time: number) => {
     // 更新脉冲
@@ -333,7 +347,7 @@ export function ParticleCanvas({ className = '' }: ParticleCanvasProps) {
       const rect = canvas.getBoundingClientRect();
       
       // 半透明清除，产生拖尾效果
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillStyle = isDark ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.15)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
       // 绘制六边形网格背景
@@ -359,7 +373,7 @@ export function ParticleCanvas({ className = '' }: ParticleCanvasProps) {
       canvas.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animationRef.current);
     };
-  }, [createParticle, drawParticle, drawHexGrid, drawConnections, updateParticle]);
+  }, [createParticle, drawParticle, drawHexGrid, drawConnections, updateParticle, isDark]);
 
   return (
     <canvas
