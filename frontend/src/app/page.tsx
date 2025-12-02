@@ -6,6 +6,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ProjectCard } from '@/components/ProjectCard';
 import { SkillSection } from '@/components/SkillSection';
+import { ParticleCanvas } from '@/components/ParticleCanvas';
 import { projects } from '@/data/projects';
 
 export default function Home() {
@@ -15,9 +16,12 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+        {/* Particle Canvas Animation */}
+        <ParticleCanvas className="z-0" />
+        
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-cyan-500/10" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-cyan-500/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent pointer-events-none" />
         
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
           <motion.div

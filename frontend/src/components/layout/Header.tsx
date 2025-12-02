@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Github, Twitter, Menu, X } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -50,8 +51,9 @@ export function Header() {
             ))}
           </div>
 
-          {/* Social Links */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* Social Links & Theme Toggle */}
+          <div className="hidden md:flex items-center space-x-2">
+            <ThemeToggle />
             <Button variant="ghost" size="icon" asChild>
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <Github className="h-5 w-5" />
@@ -98,6 +100,7 @@ export function Header() {
               </Link>
             ))}
             <div className="flex items-center space-x-4 pt-4 mt-4 border-t border-border">
+              <ThemeToggle />
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <Github className="h-5 w-5 text-muted-foreground hover:text-primary" />
               </a>
