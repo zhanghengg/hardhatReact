@@ -53,7 +53,7 @@ export default function AboutPage() {
             </span>
             <span className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
-              3+ 年经验
+              7+ 年经验
             </span>
           </div>
         </motion.div>
