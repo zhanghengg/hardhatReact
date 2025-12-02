@@ -1,8 +1,8 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactCompiler: true,
-};
+  // React Compiler 需要 React 19，已禁用
+  // reactCompiler: true,
+}
 
-export default nextConfig;
+export default nextConfig
