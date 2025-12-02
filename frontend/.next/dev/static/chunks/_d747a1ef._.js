@@ -1299,21 +1299,28 @@ var _s = __turbopack_context__.k.signature();
 'use client';
 ;
 ;
-const PARTICLE_COLORS = [
-    '#a855f7',
-    '#ec4899',
-    '#06b6d4',
-    '#8b5cf6',
-    '#f472b6'
+// 霓虹色系 - 更亮更醒目
+const NEON_COLORS = [
+    '#00ffff',
+    // 青色
+    '#ff00ff',
+    // 品红
+    '#00ff88',
+    // 绿色
+    '#ff3366',
+    // 红粉
+    '#8855ff',
+    // 紫色
+    '#ffff00' // 黄色
 ];
 function ParticleCanvas(t0) {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(10);
-    if ($[0] !== "14c70b22e9dcbc54206e22e4fc3e5f4dbce99000eba9df96fe547fe8d3689a9a") {
+    if ($[0] !== "90b0e87ee8d06d40e0fa8bbaa0b57c775303ec815e9c0a66c5b77aa83295b021") {
         for(let $i = 0; $i < 10; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "14c70b22e9dcbc54206e22e4fc3e5f4dbce99000eba9df96fe547fe8d3689a9a";
+        $[0] = "90b0e87ee8d06d40e0fa8bbaa0b57c775303ec815e9c0a66c5b77aa83295b021";
     }
     const { className: t1 } = t0;
     const className = t1 === undefined ? "" : t1;
@@ -1339,49 +1346,78 @@ function ParticleCanvas(t0) {
         t3 = $[2];
     }
     const mouseRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(t3);
+    const timeRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(0);
     const createParticle = _ParticleCanvasCreateParticle;
     const drawParticle = _ParticleCanvasDrawParticle;
+    const drawHexGrid = _ParticleCanvasDrawHexGrid;
     let t4;
     if ($[3] === Symbol.for("react.memo_cache_sentinel")) {
         t4 = ({
-            "ParticleCanvas[drawConnections]": (ctx_0, particles)=>{
-                for(let i = 0; i < particles.length; i++){
-                    for(let j = i + 1; j < particles.length; j++){
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
+            "ParticleCanvas[drawConnections]": (ctx_1, particles, time_1)=>{
+                for(let i_0 = 0; i_0 < particles.length; i_0++){
+                    for(let j = i_0 + 1; j < particles.length; j++){
+                        const dx = particles[i_0].x - particles[j].x;
+                        const dy = particles[i_0].y - particles[j].y;
                         const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < 150) {
-                            const opacity = (1 - distance / 150) * 0.3;
-                            const gradient = ctx_0.createLinearGradient(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
-                            gradient.addColorStop(0, particles[i].color);
-                            gradient.addColorStop(1, particles[j].color);
-                            ctx_0.beginPath();
-                            ctx_0.moveTo(particles[i].x, particles[i].y);
-                            ctx_0.lineTo(particles[j].x, particles[j].y);
-                            ctx_0.strokeStyle = gradient;
-                            ctx_0.globalAlpha = opacity;
-                            ctx_0.lineWidth = 0.5;
-                            ctx_0.stroke();
-                            ctx_0.globalAlpha = 1;
+                        if (distance < 200) {
+                            const opacity = (1 - distance / 200) * 0.5;
+                            const gradient_0 = ctx_1.createLinearGradient(particles[i_0].x, particles[i_0].y, particles[j].x, particles[j].y);
+                            gradient_0.addColorStop(0, particles[i_0].color);
+                            gradient_0.addColorStop(0.5, "#ffffff40");
+                            gradient_0.addColorStop(1, particles[j].color);
+                            ctx_1.beginPath();
+                            ctx_1.moveTo(particles[i_0].x, particles[i_0].y);
+                            ctx_1.lineTo(particles[j].x, particles[j].y);
+                            ctx_1.strokeStyle = gradient_0;
+                            ctx_1.globalAlpha = opacity;
+                            ctx_1.lineWidth = 1;
+                            ctx_1.stroke();
+                            const pulsePos = (time_1 * 0.003 + i_0 * 0.1) % 1;
+                            const pulseX = particles[i_0].x + (particles[j].x - particles[i_0].x) * pulsePos;
+                            const pulseY = particles[i_0].y + (particles[j].y - particles[i_0].y) * pulsePos;
+                            ctx_1.beginPath();
+                            ctx_1.arc(pulseX, pulseY, 2, 0, Math.PI * 2);
+                            ctx_1.fillStyle = "#ffffff";
+                            ctx_1.globalAlpha = opacity * 0.8;
+                            ctx_1.fill();
+                            ctx_1.globalAlpha = 1;
                         }
                     }
                 }
                 const mouse = mouseRef.current;
                 if (mouse.isMoving) {
+                    const mouseGlow = ctx_1.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
+                    mouseGlow.addColorStop(0, "#00ffff40");
+                    mouseGlow.addColorStop(0.5, "#ff00ff20");
+                    mouseGlow.addColorStop(1, "transparent");
+                    ctx_1.beginPath();
+                    ctx_1.arc(mouse.x, mouse.y, 150, 0, Math.PI * 2);
+                    ctx_1.fillStyle = mouseGlow;
+                    ctx_1.globalAlpha = 0.6;
+                    ctx_1.fill();
+                    const waveRadius = time_1 * 0.1 % 200;
+                    ctx_1.beginPath();
+                    ctx_1.arc(mouse.x, mouse.y, waveRadius, 0, Math.PI * 2);
+                    ctx_1.strokeStyle = "#00ffff";
+                    ctx_1.lineWidth = 2;
+                    ctx_1.globalAlpha = (1 - waveRadius / 200) * 0.5;
+                    ctx_1.stroke();
                     for (const particle_0 of particles){
                         const dx_0 = particle_0.x - mouse.x;
                         const dy_0 = particle_0.y - mouse.y;
                         const distance_0 = Math.sqrt(dx_0 * dx_0 + dy_0 * dy_0);
-                        if (distance_0 < 200) {
-                            const opacity_0 = (1 - distance_0 / 200) * 0.6;
-                            ctx_0.beginPath();
-                            ctx_0.moveTo(particle_0.x, particle_0.y);
-                            ctx_0.lineTo(mouse.x, mouse.y);
-                            ctx_0.strokeStyle = particle_0.color;
-                            ctx_0.globalAlpha = opacity_0;
-                            ctx_0.lineWidth = 1;
-                            ctx_0.stroke();
-                            ctx_0.globalAlpha = 1;
+                        if (distance_0 < 250) {
+                            const opacity_0 = (1 - distance_0 / 250) * 0.8;
+                            ctx_1.beginPath();
+                            ctx_1.moveTo(particle_0.x, particle_0.y);
+                            const midX = (particle_0.x + mouse.x) / 2 + (Math.random() - 0.5) * 20;
+                            const midY = (particle_0.y + mouse.y) / 2 + (Math.random() - 0.5) * 20;
+                            ctx_1.quadraticCurveTo(midX, midY, mouse.x, mouse.y);
+                            ctx_1.strokeStyle = particle_0.color;
+                            ctx_1.globalAlpha = opacity_0;
+                            ctx_1.lineWidth = 1.5;
+                            ctx_1.stroke();
+                            ctx_1.globalAlpha = 1;
                         }
                     }
                 }
@@ -1395,7 +1431,8 @@ function ParticleCanvas(t0) {
     let t5;
     if ($[4] === Symbol.for("react.memo_cache_sentinel")) {
         t5 = ({
-            "ParticleCanvas[updateParticle]": (particle_1, canvas_0)=>{
+            "ParticleCanvas[updateParticle]": (particle_1, canvas_0, time_2)=>{
+                particle_1.pulse = particle_1.pulse + particle_1.pulseSpeed;
                 particle_1.x = particle_1.x + particle_1.vx;
                 particle_1.y = particle_1.y + particle_1.vy;
                 const mouse_0 = mouseRef.current;
@@ -1403,34 +1440,36 @@ function ParticleCanvas(t0) {
                     const dx_1 = particle_1.x - mouse_0.x;
                     const dy_1 = particle_1.y - mouse_0.y;
                     const distance_1 = Math.sqrt(dx_1 * dx_1 + dy_1 * dy_1);
-                    if (distance_1 < 100) {
-                        const force = (100 - distance_1) / 100;
-                        particle_1.vx = particle_1.vx + dx_1 / distance_1 * force * 0.2;
-                        particle_1.vy = particle_1.vy + dy_1 / distance_1 * force * 0.2;
+                    if (distance_1 < 150 && distance_1 > 0) {
+                        const force = distance_1 < 80 ? (80 - distance_1) / 80 * 0.5 : -(150 - distance_1) / 150 * 0.1;
+                        particle_1.vx = particle_1.vx + dx_1 / distance_1 * force;
+                        particle_1.vy = particle_1.vy + dy_1 / distance_1 * force;
                     }
                 }
+                particle_1.vx = particle_1.vx + Math.sin(time_2 * 0.001 + particle_1.pulse) * 0.01;
+                particle_1.vy = particle_1.vy + Math.cos(time_2 * 0.001 + particle_1.pulse) * 0.01;
                 const speed = Math.sqrt(particle_1.vx * particle_1.vx + particle_1.vy * particle_1.vy);
-                if (speed > 2) {
-                    particle_1.vx = particle_1.vx / speed * 2;
-                    particle_1.vy = particle_1.vy / speed * 2;
+                if (speed > 3) {
+                    particle_1.vx = particle_1.vx / speed * 3;
+                    particle_1.vy = particle_1.vy / speed * 3;
                 }
-                particle_1.vx = particle_1.vx * 0.99;
-                particle_1.vy = particle_1.vy * 0.99;
-                if (speed < 0.1) {
-                    particle_1.vx = (Math.random() - 0.5) * 0.5;
-                    particle_1.vy = (Math.random() - 0.5) * 0.5;
+                particle_1.vx = particle_1.vx * 0.995;
+                particle_1.vy = particle_1.vy * 0.995;
+                if (speed < 0.3) {
+                    particle_1.vx = (Math.random() - 0.5) * 0.8;
+                    particle_1.vy = (Math.random() - 0.5) * 0.8;
                 }
-                if (particle_1.x < 0) {
-                    particle_1.x = canvas_0.width;
+                if (particle_1.x < -50) {
+                    particle_1.x = canvas_0.width + 50;
                 }
-                if (particle_1.x > canvas_0.width) {
-                    particle_1.x = 0;
+                if (particle_1.x > canvas_0.width + 50) {
+                    particle_1.x = -50;
                 }
-                if (particle_1.y < 0) {
-                    particle_1.y = canvas_0.height;
+                if (particle_1.y < -50) {
+                    particle_1.y = canvas_0.height + 50;
                 }
-                if (particle_1.y > canvas_0.height) {
-                    particle_1.y = 0;
+                if (particle_1.y > canvas_0.height + 50) {
+                    particle_1.y = -50;
                 }
             }
         })["ParticleCanvas[updateParticle]"];
@@ -1448,8 +1487,8 @@ function ParticleCanvas(t0) {
                 if (!canvas_1) {
                     return;
                 }
-                const ctx_1 = canvas_1.getContext("2d");
-                if (!ctx_1) {
+                const ctx_2 = canvas_1.getContext("2d");
+                if (!ctx_2) {
                     return;
                 }
                 const resizeCanvas = {
@@ -1458,19 +1497,33 @@ function ParticleCanvas(t0) {
                         const rect = canvas_1.getBoundingClientRect();
                         canvas_1.width = rect.width * dpr;
                         canvas_1.height = rect.height * dpr;
-                        ctx_1.scale(dpr, dpr);
+                        ctx_2.scale(dpr, dpr);
                         canvas_1.style.width = `${rect.width}px`;
                         canvas_1.style.height = `${rect.height}px`;
-                        const particleCount = Math.min(Math.floor(rect.width * rect.height / 8000), 120);
-                        particlesRef.current = Array.from({
-                            length: particleCount
-                        }, {
-                            "ParticleCanvas[useEffect() > resizeCanvas > Array.from()]": ()=>createParticle({
-                                    ...canvas_1,
-                                    width: rect.width,
-                                    height: rect.height
-                                })
-                        }["ParticleCanvas[useEffect() > resizeCanvas > Array.from()]"]);
+                        const particleCount = Math.min(Math.floor(rect.width * rect.height / 4000), 200);
+                        const particles_0 = [];
+                        for(let i_1 = 0; i_1 < particleCount * 0.2; i_1++){
+                            particles_0.push(createParticle({
+                                ...canvas_1,
+                                width: rect.width,
+                                height: rect.height
+                            }, "core"));
+                        }
+                        for(let i_2 = 0; i_2 < particleCount * 0.6; i_2++){
+                            particles_0.push(createParticle({
+                                ...canvas_1,
+                                width: rect.width,
+                                height: rect.height
+                            }, "normal"));
+                        }
+                        for(let i_3 = 0; i_3 < particleCount * 0.2; i_3++){
+                            particles_0.push(createParticle({
+                                ...canvas_1,
+                                width: rect.width,
+                                height: rect.height
+                            }, "orbit"));
+                        }
+                        particlesRef.current = particles_0;
                     }
                 }["ParticleCanvas[useEffect() > resizeCanvas]"];
                 resizeCanvas();
@@ -1494,17 +1547,21 @@ function ParticleCanvas(t0) {
                 canvas_1.addEventListener("mouseleave", handleMouseLeave);
                 const animate = {
                     "ParticleCanvas[useEffect() > animate]": ()=>{
+                        timeRef.current = timeRef.current + 1;
+                        const time_3 = timeRef.current;
                         const rect_1 = canvas_1.getBoundingClientRect();
-                        ctx_1.clearRect(0, 0, rect_1.width, rect_1.height);
+                        ctx_2.fillStyle = "rgba(0, 0, 0, 0.1)";
+                        ctx_2.fillRect(0, 0, rect_1.width, rect_1.height);
+                        drawHexGrid(ctx_2, rect_1.width, rect_1.height, time_3);
                         for (const particle_2 of particlesRef.current){
                             updateParticle(particle_2, {
                                 ...canvas_1,
                                 width: rect_1.width,
                                 height: rect_1.height
-                            });
-                            drawParticle(ctx_1, particle_2);
+                            }, time_3);
+                            drawParticle(ctx_2, particle_2, time_3);
                         }
-                        drawConnections(ctx_1, particlesRef.current);
+                        drawConnections(ctx_2, particlesRef.current, time_3);
                         animationRef.current = requestAnimationFrame(animate);
                     }
                 }["ParticleCanvas[useEffect() > animate]"];
@@ -1520,6 +1577,7 @@ function ParticleCanvas(t0) {
         t7 = [
             createParticle,
             drawParticle,
+            drawHexGrid,
             drawConnections,
             updateParticle
         ];
@@ -1548,7 +1606,7 @@ function ParticleCanvas(t0) {
             style: t9
         }, void 0, false, {
             fileName: "[project]/src/components/ParticleCanvas.tsx",
-            lineNumber: 250,
+            lineNumber: 316,
             columnNumber: 11
         }, this);
         $[8] = t8;
@@ -1558,25 +1616,75 @@ function ParticleCanvas(t0) {
     }
     return t10;
 }
-_s(ParticleCanvas, "jdCoaAAZ9U43OcOVngkUcv1MRRc=");
+_s(ParticleCanvas, "05Gi3KmFs6oRe7GlCDaRLOcS0X0=");
 _c = ParticleCanvas;
-function _ParticleCanvasDrawParticle(ctx, particle) {
+function _ParticleCanvasDrawHexGrid(ctx_0, width, height, time_0) {
+    const hexHeight = 40 * Math.sqrt(3);
+    ctx_0.strokeStyle = "#00ffff";
+    ctx_0.lineWidth = 0.3;
+    for(let row = -1; row < height / hexHeight + 1; row++){
+        for(let col = -1; col < width / 60 + 1; col++){
+            const x = col * 80 * 0.75;
+            const y = row * hexHeight + (col % 2 === 0 ? 0 : hexHeight / 2);
+            const distToCenter = Math.sqrt(Math.pow(x - width / 2, 2) + Math.pow(y - height / 2, 2));
+            const wave = Math.sin(distToCenter * 0.01 - time_0 * 0.002) * 0.5 + 0.5;
+            ctx_0.globalAlpha = 0.03 + wave * 0.05;
+            ctx_0.beginPath();
+            for(let i = 0; i < 6; i++){
+                const angle = Math.PI / 3 * i + Math.PI / 6;
+                const hx = x + 40 * Math.cos(angle);
+                const hy = y + 40 * Math.sin(angle);
+                if (i === 0) {
+                    ctx_0.moveTo(hx, hy);
+                } else {
+                    ctx_0.lineTo(hx, hy);
+                }
+            }
+            ctx_0.closePath();
+            ctx_0.stroke();
+        }
+    }
+    ctx_0.globalAlpha = 1;
+}
+function _ParticleCanvasDrawParticle(ctx, particle, time) {
+    const pulseAlpha = Math.sin(particle.pulse + time * particle.pulseSpeed) * 0.3 + 0.7;
+    const glowRadius = particle.radius * (1.5 + Math.sin(particle.pulse + time * 0.02) * 0.5);
+    const gradient = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, glowRadius * 3);
+    gradient.addColorStop(0, particle.color);
+    gradient.addColorStop(0.4, particle.color + "80");
+    gradient.addColorStop(1, "transparent");
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, glowRadius * 3, 0, Math.PI * 2);
+    ctx.fillStyle = gradient;
+    ctx.globalAlpha = particle.alpha * pulseAlpha * 0.6;
+    ctx.fill();
     ctx.beginPath();
     ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-    ctx.fillStyle = particle.color;
-    ctx.globalAlpha = particle.alpha;
+    ctx.fillStyle = "#ffffff";
+    ctx.globalAlpha = particle.alpha * pulseAlpha;
     ctx.fill();
+    ctx.beginPath();
+    ctx.arc(particle.x, particle.y, particle.radius * 1.5, 0, Math.PI * 2);
+    ctx.strokeStyle = particle.color;
+    ctx.lineWidth = 1;
+    ctx.globalAlpha = particle.alpha * pulseAlpha * 0.8;
+    ctx.stroke();
     ctx.globalAlpha = 1;
 }
-function _ParticleCanvasCreateParticle(canvas) {
+function _ParticleCanvasCreateParticle(canvas, t0) {
+    const type = t0 === undefined ? "normal" : t0;
+    const baseRadius = type === "core" ? 4 : type === "orbit" ? 2 : 3;
     return {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
-        radius: Math.random() * 2 + 1,
-        color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)],
-        alpha: Math.random() * 0.5 + 0.2
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2,
+        radius: Math.random() * baseRadius + 1.5,
+        color: NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)],
+        alpha: Math.random() * 0.4 + 0.6,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: Math.random() * 0.05 + 0.02,
+        type
     };
 }
 var _c;

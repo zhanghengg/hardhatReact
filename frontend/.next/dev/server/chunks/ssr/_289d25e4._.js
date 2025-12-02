@@ -727,12 +727,14 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 'use client';
 ;
 ;
-const PARTICLE_COLORS = [
-    '#a855f7',
-    '#ec4899',
-    '#06b6d4',
-    '#8b5cf6',
-    '#f472b6'
+// 霓虹色系 - 更亮更醒目
+const NEON_COLORS = [
+    '#00ffff',
+    '#ff00ff',
+    '#00ff88',
+    '#ff3366',
+    '#8855ff',
+    '#ffff00'
 ];
 function ParticleCanvas({ className = '' }) {
     const canvasRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
@@ -743,103 +745,195 @@ function ParticleCanvas({ className = '' }) {
         y: 0,
         isMoving: false
     });
-    const createParticle = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((canvas)=>{
+    const timeRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(0);
+    const createParticle = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((canvas, type = 'normal')=>{
+        const baseRadius = type === 'core' ? 4 : type === 'orbit' ? 2 : 3;
         return {
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.8,
-            vy: (Math.random() - 0.5) * 0.8,
-            radius: Math.random() * 2 + 1,
-            color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)],
-            alpha: Math.random() * 0.5 + 0.2
+            vx: (Math.random() - 0.5) * 1.2,
+            vy: (Math.random() - 0.5) * 1.2,
+            radius: Math.random() * baseRadius + 1.5,
+            color: NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)],
+            alpha: Math.random() * 0.4 + 0.6,
+            pulse: Math.random() * Math.PI * 2,
+            pulseSpeed: Math.random() * 0.05 + 0.02,
+            type
         };
     }, []);
-    const drawParticle = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((ctx, particle)=>{
+    const drawParticle = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((ctx, particle, time)=>{
+        const pulseAlpha = Math.sin(particle.pulse + time * particle.pulseSpeed) * 0.3 + 0.7;
+        const glowRadius = particle.radius * (1.5 + Math.sin(particle.pulse + time * 0.02) * 0.5);
+        // 外发光效果
+        const gradient = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, glowRadius * 3);
+        gradient.addColorStop(0, particle.color);
+        gradient.addColorStop(0.4, particle.color + '80');
+        gradient.addColorStop(1, 'transparent');
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, glowRadius * 3, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.globalAlpha = particle.alpha * pulseAlpha * 0.6;
+        ctx.fill();
+        // 核心亮点
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
-        ctx.globalAlpha = particle.alpha;
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = particle.alpha * pulseAlpha;
         ctx.fill();
+        // 颜色环
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius * 1.5, 0, Math.PI * 2);
+        ctx.strokeStyle = particle.color;
+        ctx.lineWidth = 1;
+        ctx.globalAlpha = particle.alpha * pulseAlpha * 0.8;
+        ctx.stroke();
         ctx.globalAlpha = 1;
     }, []);
-    const drawConnections = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((ctx, particles)=>{
-        const maxDistance = 150;
+    // 绘制六边形网格背景
+    const drawHexGrid = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((ctx, width, height, time)=>{
+        const hexSize = 40;
+        const hexHeight = hexSize * Math.sqrt(3);
+        const hexWidth = hexSize * 2;
+        ctx.strokeStyle = '#00ffff';
+        ctx.lineWidth = 0.3;
+        for(let row = -1; row < height / hexHeight + 1; row++){
+            for(let col = -1; col < width / (hexWidth * 0.75) + 1; col++){
+                const x = col * hexWidth * 0.75;
+                const y = row * hexHeight + (col % 2 === 0 ? 0 : hexHeight / 2);
+                // 距离中心的闪烁效果
+                const distToCenter = Math.sqrt(Math.pow(x - width / 2, 2) + Math.pow(y - height / 2, 2));
+                const wave = Math.sin(distToCenter * 0.01 - time * 0.002) * 0.5 + 0.5;
+                ctx.globalAlpha = 0.03 + wave * 0.05;
+                ctx.beginPath();
+                for(let i = 0; i < 6; i++){
+                    const angle = Math.PI / 3 * i + Math.PI / 6;
+                    const hx = x + hexSize * Math.cos(angle);
+                    const hy = y + hexSize * Math.sin(angle);
+                    if (i === 0) ctx.moveTo(hx, hy);
+                    else ctx.lineTo(hx, hy);
+                }
+                ctx.closePath();
+                ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1;
+    }, []);
+    const drawConnections = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((ctx, particles, time)=>{
+        const maxDistance = 200;
         for(let i = 0; i < particles.length; i++){
             for(let j = i + 1; j < particles.length; j++){
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance < maxDistance) {
-                    const opacity = (1 - distance / maxDistance) * 0.3;
+                    const opacity = (1 - distance / maxDistance) * 0.5;
                     const gradient = ctx.createLinearGradient(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
                     gradient.addColorStop(0, particles[i].color);
+                    gradient.addColorStop(0.5, '#ffffff40');
                     gradient.addColorStop(1, particles[j].color);
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
                     ctx.strokeStyle = gradient;
                     ctx.globalAlpha = opacity;
-                    ctx.lineWidth = 0.5;
+                    ctx.lineWidth = 1;
                     ctx.stroke();
+                    // 能量脉冲效果
+                    const pulsePos = (time * 0.003 + i * 0.1) % 1;
+                    const pulseX = particles[i].x + (particles[j].x - particles[i].x) * pulsePos;
+                    const pulseY = particles[i].y + (particles[j].y - particles[i].y) * pulsePos;
+                    ctx.beginPath();
+                    ctx.arc(pulseX, pulseY, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.globalAlpha = opacity * 0.8;
+                    ctx.fill();
                     ctx.globalAlpha = 1;
                 }
             }
         }
-        // Mouse interactions
+        // 鼠标交互 - 能量波效果
         const mouse = mouseRef.current;
         if (mouse.isMoving) {
+            // 鼠标光环
+            const mouseGlow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
+            mouseGlow.addColorStop(0, '#00ffff40');
+            mouseGlow.addColorStop(0.5, '#ff00ff20');
+            mouseGlow.addColorStop(1, 'transparent');
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, 150, 0, Math.PI * 2);
+            ctx.fillStyle = mouseGlow;
+            ctx.globalAlpha = 0.6;
+            ctx.fill();
+            // 扩散波纹
+            const waveRadius = time * 0.1 % 200;
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, waveRadius, 0, Math.PI * 2);
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 2;
+            ctx.globalAlpha = (1 - waveRadius / 200) * 0.5;
+            ctx.stroke();
             for (const particle of particles){
                 const dx = particle.x - mouse.x;
                 const dy = particle.y - mouse.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 200) {
-                    const opacity = (1 - distance / 200) * 0.6;
+                if (distance < 250) {
+                    const opacity = (1 - distance / 250) * 0.8;
+                    // 电流效果连线
                     ctx.beginPath();
                     ctx.moveTo(particle.x, particle.y);
-                    ctx.lineTo(mouse.x, mouse.y);
+                    // 添加抖动的中间点模拟电流
+                    const midX = (particle.x + mouse.x) / 2 + (Math.random() - 0.5) * 20;
+                    const midY = (particle.y + mouse.y) / 2 + (Math.random() - 0.5) * 20;
+                    ctx.quadraticCurveTo(midX, midY, mouse.x, mouse.y);
                     ctx.strokeStyle = particle.color;
                     ctx.globalAlpha = opacity;
-                    ctx.lineWidth = 1;
+                    ctx.lineWidth = 1.5;
                     ctx.stroke();
                     ctx.globalAlpha = 1;
                 }
             }
         }
     }, []);
-    const updateParticle = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((particle, canvas)=>{
+    const updateParticle = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((particle, canvas, time)=>{
+        // 更新脉冲
+        particle.pulse += particle.pulseSpeed;
         particle.x += particle.vx;
         particle.y += particle.vy;
-        // Mouse repulsion effect
+        // 鼠标吸引/排斥效果
         const mouse = mouseRef.current;
         if (mouse.isMoving) {
             const dx = particle.x - mouse.x;
             const dy = particle.y - mouse.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < 100) {
-                const force = (100 - distance) / 100;
-                particle.vx += dx / distance * force * 0.2;
-                particle.vy += dy / distance * force * 0.2;
+            if (distance < 150 && distance > 0) {
+                // 近距离排斥，远距离轻微吸引
+                const force = distance < 80 ? (80 - distance) / 80 * 0.5 : -(150 - distance) / 150 * 0.1;
+                particle.vx += dx / distance * force;
+                particle.vy += dy / distance * force;
             }
         }
-        // Speed limit
+        // 添加微小的正弦波动
+        particle.vx += Math.sin(time * 0.001 + particle.pulse) * 0.01;
+        particle.vy += Math.cos(time * 0.001 + particle.pulse) * 0.01;
+        // 速度限制
         const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
-        if (speed > 2) {
-            particle.vx = particle.vx / speed * 2;
-            particle.vy = particle.vy / speed * 2;
+        if (speed > 3) {
+            particle.vx = particle.vx / speed * 3;
+            particle.vy = particle.vy / speed * 3;
         }
-        // Friction
-        particle.vx *= 0.99;
-        particle.vy *= 0.99;
-        // Minimum speed
-        if (speed < 0.1) {
-            particle.vx = (Math.random() - 0.5) * 0.5;
-            particle.vy = (Math.random() - 0.5) * 0.5;
+        // 摩擦力
+        particle.vx *= 0.995;
+        particle.vy *= 0.995;
+        // 最小速度
+        if (speed < 0.3) {
+            particle.vx = (Math.random() - 0.5) * 0.8;
+            particle.vy = (Math.random() - 0.5) * 0.8;
         }
-        // Boundary wrapping
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-        if (particle.y > canvas.height) particle.y = 0;
+        // 边界环绕
+        if (particle.x < -50) particle.x = canvas.width + 50;
+        if (particle.x > canvas.width + 50) particle.x = -50;
+        if (particle.y < -50) particle.y = canvas.height + 50;
+        if (particle.y > canvas.height + 50) particle.y = -50;
     }, []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const canvas = canvasRef.current;
@@ -854,15 +948,34 @@ function ParticleCanvas({ className = '' }) {
             ctx.scale(dpr, dpr);
             canvas.style.width = `${rect.width}px`;
             canvas.style.height = `${rect.height}px`;
-            // Reinitialize particles on resize
-            const particleCount = Math.min(Math.floor(rect.width * rect.height / 8000), 120);
-            particlesRef.current = Array.from({
-                length: particleCount
-            }, ()=>createParticle({
+            // 更多粒子，更震撼的效果
+            const particleCount = Math.min(Math.floor(rect.width * rect.height / 4000), 200);
+            const particles = [];
+            // 添加核心粒子
+            for(let i = 0; i < particleCount * 0.2; i++){
+                particles.push(createParticle({
                     ...canvas,
                     width: rect.width,
                     height: rect.height
-                }));
+                }, 'core'));
+            }
+            // 添加普通粒子
+            for(let i = 0; i < particleCount * 0.6; i++){
+                particles.push(createParticle({
+                    ...canvas,
+                    width: rect.width,
+                    height: rect.height
+                }, 'normal'));
+            }
+            // 添加轨道粒子
+            for(let i = 0; i < particleCount * 0.2; i++){
+                particles.push(createParticle({
+                    ...canvas,
+                    width: rect.width,
+                    height: rect.height
+                }, 'orbit'));
+            }
+            particlesRef.current = particles;
         };
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -880,19 +993,25 @@ function ParticleCanvas({ className = '' }) {
         canvas.addEventListener('mousemove', handleMouseMove);
         canvas.addEventListener('mouseleave', handleMouseLeave);
         const animate = ()=>{
+            timeRef.current++;
+            const time = timeRef.current;
             const rect = canvas.getBoundingClientRect();
-            ctx.clearRect(0, 0, rect.width, rect.height);
-            // Update and draw particles
+            // 半透明清除，产生拖尾效果
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, rect.width, rect.height);
+            // 绘制六边形网格背景
+            drawHexGrid(ctx, rect.width, rect.height, time);
+            // 更新并绘制粒子
             for (const particle of particlesRef.current){
                 updateParticle(particle, {
                     ...canvas,
                     width: rect.width,
                     height: rect.height
-                });
-                drawParticle(ctx, particle);
+                }, time);
+                drawParticle(ctx, particle, time);
             }
-            // Draw connections
-            drawConnections(ctx, particlesRef.current);
+            // 绘制连线
+            drawConnections(ctx, particlesRef.current, time);
             animationRef.current = requestAnimationFrame(animate);
         };
         animate();
@@ -905,6 +1024,7 @@ function ParticleCanvas({ className = '' }) {
     }, [
         createParticle,
         drawParticle,
+        drawHexGrid,
         drawConnections,
         updateParticle
     ]);
@@ -916,7 +1036,7 @@ function ParticleCanvas({ className = '' }) {
         }
     }, void 0, false, {
         fileName: "[project]/src/components/ParticleCanvas.tsx",
-        lineNumber: 212,
+        lineNumber: 365,
         columnNumber: 5
     }, this);
 }
