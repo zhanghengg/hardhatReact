@@ -39,6 +39,14 @@ export const en: Locale = {
     tools: 'Dev Tools'
   },
 
+  // Stats
+  stats: {
+    yearsExp: 'Years Experience',
+    projects: 'Projects Done',
+    satisfaction: 'Client Satisfaction',
+    support: 'Tech Support'
+  },
+
   // Footer
   footer: {
     desc: 'Web3 Frontend Engineer, focused on DeFi and smart contract development',

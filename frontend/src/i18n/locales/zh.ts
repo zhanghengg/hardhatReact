@@ -34,6 +34,14 @@ export const zh = {
     tools: '开发工具'
   },
 
+  // 统计数字
+  stats: {
+    yearsExp: '年开发经验',
+    projects: '完成项目',
+    satisfaction: '客户满意度',
+    support: '技术支持'
+  },
+
   // Footer
   footer: {
     desc: 'Web3 前端工程师，专注于 DeFi 和智能合约开发',
@@ -108,6 +116,12 @@ export type Locale = {
     smartContract: string
     blockchain: string
     tools: string
+  }
+  stats: {
+    yearsExp: string
+    projects: string
+    satisfaction: string
+    support: string
   }
   footer: {
     desc: string
