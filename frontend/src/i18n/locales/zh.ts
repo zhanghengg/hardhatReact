@@ -37,9 +37,9 @@ export const zh = {
   // 统计数字
   stats: {
     yearsExp: '年开发经验',
-    projects: '完成项目',
-    satisfaction: '客户满意度',
-    support: '技术支持'
+    projects: '开源项目',
+    commits: '代码提交',
+    techStack: '技术栈'
   },
 
   // Footer
@@ -120,8 +120,8 @@ export type Locale = {
   stats: {
     yearsExp: string
     projects: string
-    satisfaction: string
-    support: string
+    commits: string
+    techStack: string
   }
   footer: {
     desc: string

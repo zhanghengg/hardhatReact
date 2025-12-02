@@ -42,9 +42,9 @@ export const en: Locale = {
   // Stats
   stats: {
     yearsExp: 'Years Experience',
-    projects: 'Projects Done',
-    satisfaction: 'Client Satisfaction',
-    support: 'Tech Support'
+    projects: 'Open Source Projects',
+    commits: 'Code Commits',
+    techStack: 'Tech Stack'
   },
 
   // Footer

@@ -334,9 +334,9 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { value: 7, suffix: '+', label: t.stats.yearsExp },
-              { value: 50, suffix: '+', label: t.stats.projects },
-              { value: 100, suffix: '%', label: t.stats.satisfaction },
-              { value: 24, suffix: '/7', label: t.stats.support },
+              { value: 10, suffix: '+', label: t.stats.projects },
+              { value: 500, suffix: '+', label: t.stats.commits },
+              { value: 20, suffix: '+', label: t.stats.techStack },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
