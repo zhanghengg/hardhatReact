@@ -3,8 +3,11 @@
 import { motion } from 'framer-motion';
 import { ProjectCard } from '@/components/ProjectCard';
 import { projects } from '@/data/projects';
+import { useI18n } from '@/i18n';
 
 export default function ProjectsPage() {
+  const { t } = useI18n();
+
   return (
     <div className="min-h-screen py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,12 +20,11 @@ export default function ProjectsPage() {
         >
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
-              作品集
+              {t.projects.title}
             </span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            这里展示了我的 Web3 项目，包括 DeFi 协议、NFT 应用和各种智能合约实现。
-            每个项目都包含完整的前端界面和经过测试的智能合约代码。
+            {t.projectsPage.subtitle}
           </p>
         </motion.div>
 
@@ -33,11 +35,11 @@ export default function ProjectsPage() {
           transition={{ delay: 0.2 }}
           className="flex flex-wrap justify-center gap-2 mb-12"
         >
-          {['全部', 'DeFi', 'NFT', 'Security'].map((tag) => (
+          {[t.projects.filterAll, 'DeFi', 'NFT', 'Security'].map((tag, index) => (
             <button
               key={tag}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                tag === '全部'
+                index === 0
                   ? 'bg-purple-500 text-white'
                   : 'bg-muted hover:bg-muted/80 text-muted-foreground'
               }`}
@@ -57,7 +59,7 @@ export default function ProjectsPage() {
         {/* Empty State for future projects */}
         {projects.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-muted-foreground">暂无项目，敬请期待...</p>
+            <p className="text-muted-foreground">{t.projectsPage.noProjects}</p>
           </div>
         )}
       </div>

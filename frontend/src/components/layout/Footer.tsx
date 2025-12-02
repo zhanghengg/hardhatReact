@@ -1,7 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { Github, Twitter, Mail } from 'lucide-react';
+import { useI18n } from '@/i18n';
 
 export function Footer() {
+  const { t } = useI18n();
+
   return (
     <footer className="border-t border-border bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -12,27 +17,27 @@ export function Footer() {
               Web3.dev
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              Web3 前端工程师，专注于 DeFi 和智能合约开发
+              {t.footer.desc}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-foreground">快速链接</h3>
+            <h3 className="text-sm font-semibold text-foreground">{t.footer.quickLinks}</h3>
             <ul className="mt-4 space-y-2">
               <li>
                 <Link href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  首页
+                  {t.nav.home}
                 </Link>
               </li>
               <li>
                 <Link href="/projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  作品集
+                  {t.nav.projects}
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  关于我
+                  {t.nav.about}
                 </Link>
               </li>
             </ul>
@@ -40,7 +45,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold text-foreground">联系方式</h3>
+            <h3 className="text-sm font-semibold text-foreground">{t.footer.contact}</h3>
             <div className="mt-4 flex space-x-4">
               <a
                 href="https://github.com"
@@ -73,7 +78,7 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t border-border">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Web3.dev. Built with Next.js & ❤️
+            {t.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
           </p>
         </div>
       </div>

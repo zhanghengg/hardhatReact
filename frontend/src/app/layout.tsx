@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { I18nProvider } from "@/i18n";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -39,9 +40,11 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-sans antialiased bg-background text-foreground`}>
         <ThemeProvider>
-          <Header />
-          <main className="pt-16">{children}</main>
-          <Footer />
+          <I18nProvider>
+            <Header />
+            <main className="pt-16">{children}</main>
+            <Footer />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

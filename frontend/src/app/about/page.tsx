@@ -6,16 +6,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { useI18n } from '@/i18n';
 
 export default function AboutPage() {
+  const { t } = useI18n();
+
   const experiences = [
     {
-      period: '2023 - 现在',
-      title: 'Web3 前端开发',
-      company: '独立开发者',
-      description: '专注于 DeFi 协议和 DApp 开发，使用 React、Next.js 和 Solidity',
+      period: t.about.expPeriod,
+      title: t.about.expTitle,
+      company: t.about.expCompany,
+      description: t.about.expDesc,
     },
-    // 可以添加更多经历
   ];
 
   const socialLinks = [
@@ -41,19 +43,19 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <h1 className="text-4xl font-bold mb-2">Web3 开发者</h1>
+          <h1 className="text-4xl font-bold mb-2">{t.about.pageTitle}</h1>
           <p className="text-lg text-muted-foreground mb-4">
-            前端工程师 / 智能合约开发者
+            {t.about.pageSubtitle}
           </p>
 
           <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
             <span className="flex items-center gap-1">
               <MapPin className="h-4 w-4" />
-              中国
+              {t.about.location}
             </span>
             <span className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
-              7+ 年经验
+              {t.about.experience}
             </span>
           </div>
         </motion.div>
@@ -67,19 +69,11 @@ export default function AboutPage() {
         >
           <Card>
             <CardContent className="pt-6">
-              <h2 className="text-xl font-semibold mb-4">关于我</h2>
+              <h2 className="text-xl font-semibold mb-4">{t.about.aboutMe}</h2>
               <div className="space-y-4 text-muted-foreground">
-                <p>
-                  我是一名热爱 Web3 技术的前端工程师，专注于构建去中心化应用（DApps）和智能合约开发。
-                </p>
-                <p>
-                  我相信区块链技术将重塑互联网，让用户真正拥有自己的数据和资产。
-                  我致力于通过优秀的用户体验，降低 Web3 的使用门槛，让更多人能够参与到去中心化世界中来。
-                </p>
-                <p>
-                  目前我主要关注 DeFi 协议开发、NFT 应用以及智能合约安全领域。
-                  我喜欢学习新技术，也乐于分享我的知识和经验。
-                </p>
+                <p>{t.about.bio1}</p>
+                <p>{t.about.bio2}</p>
+                <p>{t.about.bio3}</p>
               </div>
             </CardContent>
           </Card>
@@ -92,11 +86,11 @@ export default function AboutPage() {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="mb-12"
         >
-          <h2 className="text-xl font-semibold mb-4">专业技能</h2>
+          <h2 className="text-xl font-semibold mb-4">{t.about.skillsTitle}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardContent className="pt-6">
-                <h3 className="font-medium mb-3 text-purple-500">前端开发</h3>
+                <h3 className="font-medium mb-3 text-purple-500">{t.about.frontendDev}</h3>
                 <div className="flex flex-wrap gap-2">
                   {['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'ethers.js', 'wagmi', 'viem'].map((skill) => (
                     <Badge key={skill} variant="secondary">{skill}</Badge>
@@ -106,7 +100,7 @@ export default function AboutPage() {
             </Card>
             <Card>
               <CardContent className="pt-6">
-                <h3 className="font-medium mb-3 text-cyan-500">智能合约</h3>
+                <h3 className="font-medium mb-3 text-cyan-500">{t.about.smartContractDev}</h3>
                 <div className="flex flex-wrap gap-2">
                   {['Solidity', 'Hardhat', 'Foundry', 'OpenZeppelin', 'ERC20', 'ERC721'].map((skill) => (
                     <Badge key={skill} variant="secondary">{skill}</Badge>
@@ -124,7 +118,7 @@ export default function AboutPage() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="mb-12"
         >
-          <h2 className="text-xl font-semibold mb-4">工作经历</h2>
+          <h2 className="text-xl font-semibold mb-4">{t.about.workExperience}</h2>
           <div className="space-y-4">
             {experiences.map((exp, index) => (
               <Card key={index}>
@@ -150,9 +144,9 @@ export default function AboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <h2 className="text-xl font-semibold mb-4 text-center">联系我</h2>
+          <h2 className="text-xl font-semibold mb-4 text-center">{t.about.contactTitle}</h2>
           <p className="text-center text-muted-foreground mb-8">
-            如果你有任何问题或合作意向，欢迎通过以下方式联系我
+            {t.about.contactDesc}
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -179,7 +173,7 @@ export default function AboutPage() {
             <Button size="lg" asChild>
               <a href="mailto:your@email.com">
                 <Mail className="mr-2 h-4 w-4" />
-                发送邮件
+                {t.about.sendEmail}
               </a>
             </Button>
           </div>

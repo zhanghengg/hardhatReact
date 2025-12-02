@@ -5,19 +5,23 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Github, Twitter, Menu, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { LanguageToggle } from '@/components/LanguageToggle';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
 
-const navItems = [
-  { href: '/', label: '首页' },
-  { href: '/projects', label: '作品集' },
-  { href: '/about', label: '关于我' },
-];
 
 export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useI18n();
+
+  const navItems = [
+    { href: '/', label: t.nav.home },
+    { href: '/projects', label: t.nav.projects },
+    { href: '/about', label: t.nav.about },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -51,8 +55,9 @@ export function Header() {
             ))}
           </div>
 
-          {/* Social Links & Theme Toggle */}
+          {/* Social Links & Theme Toggle & Language Toggle */}
           <div className="hidden md:flex items-center space-x-2">
+            <LanguageToggle />
             <ThemeToggle />
             <Button variant="ghost" size="icon" asChild>
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -100,6 +105,7 @@ export function Header() {
               </Link>
             ))}
             <div className="flex items-center space-x-4 pt-4 mt-4 border-t border-border">
+              <LanguageToggle />
               <ThemeToggle />
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <Github className="h-5 w-5 text-muted-foreground hover:text-primary" />

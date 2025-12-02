@@ -4,15 +4,19 @@ import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { skills } from '@/data/projects';
 import { Code2, FileCode, Blocks, Wrench } from 'lucide-react';
+import { useI18n } from '@/i18n';
 
-const skillCategories = [
-  { key: 'frontend' as const, label: '前端开发', icon: Code2 },
-  { key: 'smart_contract' as const, label: '智能合约', icon: FileCode },
-  { key: 'blockchain' as const, label: '区块链', icon: Blocks },
-  { key: 'tools' as const, label: '开发工具', icon: Wrench },
-];
 
 export function SkillSection() {
+  const { t } = useI18n();
+
+  const skillCategories = [
+    { key: 'frontend' as const, label: t.skills.frontend, icon: Code2 },
+    { key: 'smart_contract' as const, label: t.skills.smartContract, icon: FileCode },
+    { key: 'blockchain' as const, label: t.skills.blockchain, icon: Blocks },
+    { key: 'tools' as const, label: t.skills.tools, icon: Wrench },
+  ];
+
   return (
     <section className="py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,9 +27,9 @@ export function SkillSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-4">技术栈</h2>
+          <h2 className="text-3xl font-bold mb-4">{t.skills.title}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            专注于 Web3 全栈开发，从智能合约到前端 DApp
+            {t.skills.subtitle}
           </p>
         </motion.div>
 
