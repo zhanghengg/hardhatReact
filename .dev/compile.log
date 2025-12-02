@@ -1,0 +1,4 @@
+[dotenv@17.2.1] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+Generating typings for: 1 artifacts in dir: typechain-types for target: ethers-v6
+Successfully generated 6 typings!
+Compiled 1 Solidity file successfully (evm target: paris).

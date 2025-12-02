@@ -1,0 +1,5 @@
+[dotenv@17.2.1] injecting env (0) from .env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+[dotenv@17.2.1] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+Counter: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+Wrote address to /Users/Zhuanz1/web3/hardhatReact/frontend/src/contracts.json
+Wrote constants to /Users/Zhuanz1/web3/hardhatReact/frontend/src/constants.ts
