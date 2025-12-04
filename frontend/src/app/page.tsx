@@ -80,26 +80,18 @@ function ParallaxText({ children, baseVelocity = 5 }: { children: string; baseVe
 function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
-  
+  const spring = useSpring(0, { stiffness: 50, damping: 20 });
+  const [display, setDisplay] = useState(0);
+
   useEffect(() => {
-    if (isInView) {
-      const end = value;
-      const duration = 2000;
-      const startTime = Date.now();
-      
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        setCount(Math.floor(eased * end));
-        if (progress < 1) requestAnimationFrame(animate);
-      };
-      animate();
-    }
-  }, [isInView, value]);
-  
-  return <span ref={ref}>{count}{suffix}</span>;
+    if (isInView) spring.set(value);
+  }, [isInView, value, spring]);
+
+  useEffect(() => {
+    return spring.on('change', (v) => setDisplay(Math.round(v)));
+  }, [spring]);
+
+  return <span ref={ref}>{display}{suffix}</span>;
 }
 
 // 技能卡片3D效果
