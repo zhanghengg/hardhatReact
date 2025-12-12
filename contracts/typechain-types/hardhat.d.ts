@@ -14,26 +14,278 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+      name: "IERC1155Errors",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155Errors__factory>;
+    getContractFactory(
+      name: "IERC20Errors",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20Errors__factory>;
+    getContractFactory(
+      name: "IERC721Errors",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Errors__factory>;
+    getContractFactory(
+      name: "ERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20__factory>;
+    getContractFactory(
+      name: "IERC20Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20Metadata__factory>;
+    getContractFactory(
+      name: "IERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20__factory>;
+    getContractFactory(
       name: "Counter",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Counter__factory>;
+    getContractFactory(
+      name: "ERC20Token",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC20Token__factory>;
+    getContractFactory(
+      name: "UniswapV2ERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UniswapV2ERC20__factory>;
+    getContractFactory(
+      name: "UniswapV2Factory",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UniswapV2Factory__factory>;
+    getContractFactory(
+      name: "IUniswapV2Callee",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IUniswapV2Callee__factory>;
+    getContractFactory(
+      name: "IUniswapV2Factory",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IUniswapV2Factory__factory>;
+    getContractFactory(
+      name: "UniswapV2Pair",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UniswapV2Pair__factory>;
+    getContractFactory(
+      name: "UniswapV2Router",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UniswapV2Router__factory>;
+    getContractFactory(
+      name: "WETH",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.WETH__factory>;
 
+    getContractAt(
+      name: "IERC1155Errors",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155Errors>;
+    getContractAt(
+      name: "IERC20Errors",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Errors>;
+    getContractAt(
+      name: "IERC721Errors",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Errors>;
+    getContractAt(
+      name: "ERC20",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20>;
+    getContractAt(
+      name: "IERC20Metadata",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20Metadata>;
+    getContractAt(
+      name: "IERC20",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20>;
     getContractAt(
       name: "Counter",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.Counter>;
+    getContractAt(
+      name: "ERC20Token",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC20Token>;
+    getContractAt(
+      name: "UniswapV2ERC20",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UniswapV2ERC20>;
+    getContractAt(
+      name: "UniswapV2Factory",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UniswapV2Factory>;
+    getContractAt(
+      name: "IUniswapV2Callee",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IUniswapV2Callee>;
+    getContractAt(
+      name: "IUniswapV2Factory",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IUniswapV2Factory>;
+    getContractAt(
+      name: "UniswapV2Pair",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UniswapV2Pair>;
+    getContractAt(
+      name: "UniswapV2Router",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UniswapV2Router>;
+    getContractAt(
+      name: "WETH",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.WETH>;
 
+    deployContract(
+      name: "IERC1155Errors",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155Errors>;
+    deployContract(
+      name: "IERC20Errors",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Errors>;
+    deployContract(
+      name: "IERC721Errors",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Errors>;
+    deployContract(
+      name: "ERC20",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20>;
+    deployContract(
+      name: "IERC20Metadata",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Metadata>;
+    deployContract(
+      name: "IERC20",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20>;
     deployContract(
       name: "Counter",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Counter>;
+    deployContract(
+      name: "ERC20Token",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Token>;
+    deployContract(
+      name: "UniswapV2ERC20",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV2ERC20>;
+    deployContract(
+      name: "UniswapV2Factory",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV2Factory>;
+    deployContract(
+      name: "IUniswapV2Callee",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IUniswapV2Callee>;
+    deployContract(
+      name: "IUniswapV2Factory",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IUniswapV2Factory>;
+    deployContract(
+      name: "UniswapV2Pair",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV2Pair>;
+    deployContract(
+      name: "UniswapV2Router",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV2Router>;
+    deployContract(
+      name: "WETH",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WETH>;
 
+    deployContract(
+      name: "IERC1155Errors",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1155Errors>;
+    deployContract(
+      name: "IERC20Errors",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Errors>;
+    deployContract(
+      name: "IERC721Errors",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC721Errors>;
+    deployContract(
+      name: "ERC20",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20>;
+    deployContract(
+      name: "IERC20Metadata",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20Metadata>;
+    deployContract(
+      name: "IERC20",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC20>;
     deployContract(
       name: "Counter",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Counter>;
+    deployContract(
+      name: "ERC20Token",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC20Token>;
+    deployContract(
+      name: "UniswapV2ERC20",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV2ERC20>;
+    deployContract(
+      name: "UniswapV2Factory",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV2Factory>;
+    deployContract(
+      name: "IUniswapV2Callee",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IUniswapV2Callee>;
+    deployContract(
+      name: "IUniswapV2Factory",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IUniswapV2Factory>;
+    deployContract(
+      name: "UniswapV2Pair",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV2Pair>;
+    deployContract(
+      name: "UniswapV2Router",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.UniswapV2Router>;
+    deployContract(
+      name: "WETH",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.WETH>;
 
     // default types
     getContractFactory(

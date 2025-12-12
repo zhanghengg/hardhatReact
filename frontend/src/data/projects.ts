@@ -27,22 +27,28 @@ export const projects: Project[] = [
 - 提供流动性并获得 LP 代币
 - 移除流动性并赎回代币
 
-合约实现了恒定乘积公式 (x * y = k) 来确定交换价格。`,
-    tags: ['DeFi', 'AMM', 'Solidity'],
+合约实现了恒定乘积公式 (x * y = k) 来确定交换价格。
+
+核心合约包括：
+- UniswapV2Factory: 创建和管理交易对
+- UniswapV2Pair: 实现 AMM 核心逻辑
+- UniswapV2Router: 用户交互入口
+- UniswapV2Library: 价格计算辅助库`,
+    tags: ['DeFi', 'AMM', 'Solidity', 'Uniswap V2'],
     image: '/projects/dex.png',
-    demoUrl: '#',
+    demoUrl: '/projects/simple-dex',
     githubUrl: '#',
-    contractAddress: '0x...',
-    network: 'Sepolia',
+    contractAddress: '本地 Hardhat 节点',
+    network: 'Localhost',
     features: [
-      '代币交换功能',
+      '代币交换功能 (恒定乘积公式)',
       '添加/移除流动性',
       'LP 代币机制',
-      '滑点保护',
-      '价格影响显示'
+      'TWAP 价格预言机',
+      '0.3% 交易手续费'
     ],
-    techStack: ['Solidity', 'Hardhat', 'React', 'ethers.js', 'TailwindCSS'],
-    status: 'planned'
+    techStack: ['Solidity', 'Hardhat', 'Next.js', 'viem', 'TailwindCSS'],
+    status: 'completed'
   },
   {
     slug: 'nft-marketplace',

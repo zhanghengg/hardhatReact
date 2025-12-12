@@ -1,0 +1,128 @@
+import { ethers } from 'hardhat'
+import * as fs from 'fs'
+import * as path from 'path'
+
+async function main() {
+  const [deployer] = await ethers.getSigners()
+  console.log('部署账户:', deployer.address)
+  console.log(
+    '账户余额:',
+    ethers.formatEther(await ethers.provider.getBalance(deployer.address)),
+    'ETH'
+  )
+  console.log('\n========== 开始部署 Uniswap V2 ==========\n')
+
+  // 1. 部署 WETH
+  console.log('1. 部署 WETH...')
+  const WETH = await ethers.getContractFactory('WETH')
+  const weth = await WETH.deploy()
+  await weth.waitForDeployment()
+  console.log('   WETH 地址:', await weth.getAddress())
+
+  // 2. 部署 Factory
+  console.log('\n2. 部署 UniswapV2Factory...')
+  const Factory = await ethers.getContractFactory('UniswapV2Factory')
+  const factory = await Factory.deploy(deployer.address)
+  await factory.waitForDeployment()
+  console.log('   Factory 地址:', await factory.getAddress())
+
+  // 3. 部署 Router
+  console.log('\n3. 部署 UniswapV2Router...')
+  const Router = await ethers.getContractFactory('UniswapV2Router')
+  const router = await Router.deploy(
+    await factory.getAddress(),
+    await weth.getAddress()
+  )
+  await router.waitForDeployment()
+  console.log('   Router 地址:', await router.getAddress())
+
+  // 4. 部署测试代币
+  console.log('\n4. 部署测试代币...')
+  const Token = await ethers.getContractFactory('ERC20Token')
+
+  const tokenA = await Token.deploy(
+    'Token A',
+    'TKA',
+    18,
+    ethers.parseEther('1000000')
+  )
+  await tokenA.waitForDeployment()
+  console.log('   Token A (TKA) 地址:', await tokenA.getAddress())
+
+  const tokenB = await Token.deploy(
+    'Token B',
+    'TKB',
+    18,
+    ethers.parseEther('1000000')
+  )
+  await tokenB.waitForDeployment()
+  console.log('   Token B (TKB) 地址:', await tokenB.getAddress())
+
+  // 5. 创建交易对
+  console.log('\n5. 创建交易对 TKA/TKB...')
+  const tx = await factory.createPair(
+    await tokenA.getAddress(),
+    await tokenB.getAddress()
+  )
+  await tx.wait()
+  const pairAddress = await factory.getPair(
+    await tokenA.getAddress(),
+    await tokenB.getAddress()
+  )
+  console.log('   交易对地址:', pairAddress)
+
+  // 6. 更新前端合约地址配置
+  console.log('\n6. 更新前端合约地址...')
+  const contracts = {
+    WETH: await weth.getAddress(),
+    Factory: await factory.getAddress(),
+    Router: await router.getAddress(),
+    TokenA: await tokenA.getAddress(),
+    TokenB: await tokenB.getAddress(),
+    Pair: pairAddress
+  }
+
+  const configContent = `// Uniswap V2 合约地址 (自动生成，请勿手动修改)
+// 生成时间: ${new Date().toLocaleString()}
+
+export const CONTRACTS = {
+  WETH: '${contracts.WETH}' as \`0x\${string}\`,
+  Factory: '${contracts.Factory}' as \`0x\${string}\`,
+  Router: '${contracts.Router}' as \`0x\${string}\`,
+  TokenA: '${contracts.TokenA}' as \`0x\${string}\`,
+  TokenB: '${contracts.TokenB}' as \`0x\${string}\`,
+  Pair: '${contracts.Pair}' as \`0x\${string}\`,
+} as const
+
+// 检查合约是否已部署
+export const isContractsDeployed = () => {
+  return Object.values(CONTRACTS).every(addr => addr && addr !== '')
+}
+`
+
+  const configPath = path.join(
+    __dirname,
+    '../../frontend/src/config/contracts.ts'
+  )
+  fs.writeFileSync(configPath, configContent)
+  console.log('   ✅ 已更新 frontend/src/config/contracts.ts')
+
+  console.log('\n========== 部署完成 ==========\n')
+
+  // 输出合约地址汇总
+  console.log('合约地址汇总:')
+  console.log('------------------------------------')
+  console.log('WETH:     ', contracts.WETH)
+  console.log('Factory:  ', contracts.Factory)
+  console.log('Router:   ', contracts.Router)
+  console.log('Token A:  ', contracts.TokenA)
+  console.log('Token B:  ', contracts.TokenB)
+  console.log('Pair:     ', contracts.Pair)
+  console.log('------------------------------------')
+  console.log('\n🚀 现在可以访问 http://localhost:3000/uniswap 测试了！')
+}
+
+main().catch(error => {
+  console.error(error)
+  process.exitCode = 1
+})

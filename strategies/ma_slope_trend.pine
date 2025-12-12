@@ -1,0 +1,88 @@
+//@version=5
+strategy("均线斜率趋势策略", overlay=true, initial_capital=5000, default_qty_type=strategy.percent_of_equity, default_qty_value=100)
+
+// ==================== 参数设置 ====================
+maLength = input.int(20, "均线周期", minval=5, maxval=200)
+maType = input.string("EMA", "均线类型", options=["SMA", "EMA"])
+slopePeriod = input.int(3, "斜率计算周期", minval=1, maxval=10)
+slopeThreshold = input.float(0, "斜率阈值", minval=0, step=0.1, tooltip="斜率绝对值大于此值才触发信号，0表示不过滤")
+
+// 支撑阻力位
+showSR = input.bool(true, "显示支撑阻力线")
+resistanceLevel = input.float(0, "阻力位", tooltip="设为0则不显示")
+supportLevel = input.float(0, "支撑位", tooltip="设为0则不显示")
+
+// 风控参数
+useStopLoss = input.bool(true, "启用止损")
+stopLossPercent = input.float(2.0, "止损百分比", minval=0.1, maxval=10, step=0.1)
+useTakeProfit = input.bool(false, "启用止盈")
+takeProfitPercent = input.float(4.0, "止盈百分比", minval=0.1, maxval=20, step=0.1)
+
+// ==================== 均线计算 ====================
+ma = maType == "EMA" ? ta.ema(close, maLength) : ta.sma(close, maLength)
+
+// ==================== 斜率计算 ====================
+// 斜率 = (当前均线值 - N周期前均线值) / N周期前均线值 * 100
+slope = (ma - ma[slopePeriod]) / ma[slopePeriod] * 100
+
+// 斜率方向判断
+slopeUp = slope > slopeThreshold
+slopeDown = slope < -slopeThreshold
+
+// ==================== 交易信号 ====================
+// 做多条件：价格上穿均线 + 均线斜率向上
+longCondition = ta.crossover(close, ma) and slopeUp
+
+// 做空条件：价格下穿均线 + 均线斜率向下
+shortCondition = ta.crossunder(close, ma) and slopeDown
+
+// 平仓条件
+closeLongCondition = ta.crossunder(close, ma)
+closeShortCondition = ta.crossover(close, ma)
+
+// ==================== 执行交易 ====================
+if (longCondition)
+    strategy.entry("Long", strategy.long)
+    
+if (shortCondition)
+    strategy.entry("Short", strategy.short)
+
+if (closeLongCondition)
+    strategy.close("Long")
+    
+if (closeShortCondition)
+    strategy.close("Short")
+
+// 止损止盈
+if (useStopLoss)
+    strategy.exit("Long SL", "Long", stop=strategy.position_avg_price * (1 - stopLossPercent/100))
+    strategy.exit("Short SL", "Short", stop=strategy.position_avg_price * (1 + stopLossPercent/100))
+
+if (useTakeProfit)
+    strategy.exit("Long TP", "Long", limit=strategy.position_avg_price * (1 + takeProfitPercent/100))
+    strategy.exit("Short TP", "Short", limit=strategy.position_avg_price * (1 - takeProfitPercent/100))
+
+// ==================== 图表绘制 ====================
+// 均线颜色根据斜率变化
+maColor = slopeUp ? color.green : slopeDown ? color.red : color.yellow
+plot(ma, "均线", color=maColor, linewidth=2)
+
+// 支撑阻力线
+plot(showSR and resistanceLevel > 0 ? resistanceLevel : na, "阻力位", color=color.blue, linewidth=1, style=plot.style_line)
+plot(showSR and supportLevel > 0 ? supportLevel : na, "支撑位", color=color.blue, linewidth=1, style=plot.style_line)
+
+// 信号标记
+plotshape(longCondition, "做多信号", shape.triangleup, location.belowbar, color.green, size=size.small)
+plotshape(shortCondition, "做空信号", shape.triangledown, location.abovebar, color.red, size=size.small)
+
+// ==================== 信息面板 ====================
+var table infoTable = table.new(position.top_right, 2, 4, bgcolor=color.new(color.black, 80))
+if barstate.islast
+    table.cell(infoTable, 0, 0, "斜率", text_color=color.white)
+    table.cell(infoTable, 1, 0, str.tostring(slope, "#.##") + "%", text_color=slope > 0 ? color.green : color.red)
+    table.cell(infoTable, 0, 1, "方向", text_color=color.white)
+    table.cell(infoTable, 1, 1, slopeUp ? "↑ 多头" : slopeDown ? "↓ 空头" : "— 震荡", text_color=slopeUp ? color.green : slopeDown ? color.red : color.yellow)
+    table.cell(infoTable, 0, 2, "均线", text_color=color.white)
+    table.cell(infoTable, 1, 2, str.tostring(ma, "#.##"), text_color=color.white)
+    table.cell(infoTable, 0, 3, "价格", text_color=color.white)
+    table.cell(infoTable, 1, 3, str.tostring(close, "#.##"), text_color=close > ma ? color.green : color.red)
