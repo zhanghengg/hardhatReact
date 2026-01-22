@@ -99,6 +99,7 @@ async function callCloudflareAI(
       body: JSON.stringify({
         messages: [{ role: 'system', content: systemPrompt }, ...messages],
         stream: true,
+        max_tokens: 2048, // 增加输出长度限制，避免回答被截断
       }),
     }
   )
