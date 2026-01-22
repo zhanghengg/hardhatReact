@@ -12,5 +12,5 @@ export const CONTRACTS = {
 
 // 检查合约是否已部署
 export const isContractsDeployed = () => {
-  return Object.values(CONTRACTS).every(addr => addr && addr !== '')
+  return Object.values(CONTRACTS).every(addr => addr.length > 2)
 }
