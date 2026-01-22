@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -14,6 +16,8 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+  const [imageError, setImageError] = useState(false);
+
   const statusColors = {
     completed: 'bg-green-500/10 text-green-500 border-green-500/20',
     'in-progress': 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
@@ -33,11 +37,21 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       transition={{ delay: index * 0.1, duration: 0.5 }}
     >
       <Card className="h-full flex flex-col overflow-hidden group hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 border-border/50 hover:border-purple-500/30">
-        {/* Project Image Placeholder */}
+        {/* Project Image */}
         <div className="aspect-video bg-gradient-to-br from-purple-500/20 to-cyan-500/20 relative overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-4xl font-bold text-white/20">{project.title[0]}</div>
-          </div>
+          {project.image && !imageError ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-4xl font-bold text-white/20">{project.title[0]}</div>
+            </div>
+          )}
           <div className="absolute top-3 right-3">
             <Badge variant="outline" className={statusColors[project.status]}>
               {statusLabels[project.status]}

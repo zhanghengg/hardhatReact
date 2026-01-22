@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, ExternalLink, Github, FileCode, Layers } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { Button } from '@/components/ui/button';
@@ -75,7 +76,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <Button asChild>
                 <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="mr-2 h-4 w-4" />
-                  在线演示
+                  在线链接
                 </a>
               </Button>
             )}
@@ -92,13 +93,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <Separator className="my-8" />
 
-        {/* Project Image/Demo Area */}
-        <div className="aspect-video bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-xl mb-8 flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-6xl font-bold text-white/20 mb-2">{project.title[0]}</div>
-            <p className="text-muted-foreground">项目演示区域</p>
+        {/* Project Cover Image */}
+        {project.image && (
+          <div className="relative aspect-video rounded-xl overflow-hidden mb-8 border border-border">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
-        </div>
+        )}
+
+        {/* Project Demo Area - 仅当没有封面且 demoUrl 是内部链接时显示 */}
+        {!project.image && project.demoUrl && !project.demoUrl.startsWith('http') && (
+          <div className="aspect-video bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-xl mb-8 flex items-center justify-center">
+            <div className="text-center">
+              <div className="text-6xl font-bold text-white/20 mb-2">{project.title[0]}</div>
+              <p className="text-muted-foreground">项目演示区域</p>
+            </div>
+          </div>
+        )}
 
         {/* Project Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">

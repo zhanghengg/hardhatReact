@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { ArrowRight, ArrowDown, Code2, FileCode, Blocks, Wrench, ChevronRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -150,6 +151,32 @@ function SkillCard3D({ category, index }: { category: { key: string; label: stri
   );
 }
 
+// 项目卡片封面组件
+function ProjectCover({ project }: { project: typeof projects[0] }) {
+  const [imageError, setImageError] = useState(false);
+
+  if (project.image && !imageError) {
+    return (
+      <Image
+        src={project.image}
+        alt={project.title}
+        fill
+        className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+        onError={() => setImageError(true)}
+      />
+    );
+  }
+
+  return (
+    <>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),transparent)]" />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="text-6xl font-bold text-white/20">{project.title[0]}</div>
+      </div>
+    </>
+  );
+}
+
 // 项目卡片水平滚动
 function HorizontalProjectScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -180,36 +207,40 @@ function HorizontalProjectScroll() {
           
           {/* 项目卡片 */}
           {projects.map((project) => (
-            <motion.div
-              key={project.slug}
-              className="flex-shrink-0 w-[400px] h-[500px] rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden group cursor-pointer"
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
-            >
-              <div className="h-48 bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-cyan-500/20 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),transparent)]" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="flex gap-2 flex-wrap">
-                    {project.tags.map((tag) => (
-                      <Badge key={tag} className="bg-background/80 backdrop-blur-sm text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
+            <Link key={project.slug} href={`/projects/${project.slug}`}>
+              <motion.div
+                className="flex-shrink-0 w-[400px] h-[500px] rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden group cursor-pointer"
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              >
+                <div className="h-48 bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-cyan-500/20 relative overflow-hidden">
+                  <ProjectCover project={project} />
+                  <div className="absolute bottom-4 left-4 right-4 z-10">
+                    <div className="flex gap-2 flex-wrap">
+                      {project.tags.map((tag) => (
+                        <Badge 
+                          key={tag} 
+                          className="bg-black/60 backdrop-blur-md text-white text-xs border-0 px-2.5 py-1 font-medium shadow-sm"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-purple-500 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-                <div className="flex items-center text-purple-500 text-sm font-medium">
-                  <span>{t.home.learnMore}</span>
-                  <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-purple-500 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                    {project.description}
+                  </p>
+                  <div className="flex items-center text-purple-500 text-sm font-medium">
+                    <span>{t.home.learnMore}</span>
+                    <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
           
           {/* CTA卡片 */}
