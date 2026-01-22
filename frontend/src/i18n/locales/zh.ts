@@ -88,7 +88,7 @@ export const zh = {
   projectsPage: {
     subtitle:
       '这里展示了我的 Web3 项目，包括 DeFi 协议、NFT 应用和各种智能合约实现。每个项目都包含完整的前端界面和经过测试的智能合约代码。',
-    noProjects: '暂无项目，敬请期待...'
+    noProjects: '暂无项目，敬请期待..'
   },
 
   // AI 聊天机器人
