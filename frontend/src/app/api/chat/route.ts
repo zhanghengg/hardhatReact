@@ -147,7 +147,9 @@ export async function POST(req: Request) {
 
     // 处理 Cloudflare 的 SSE 流式响应
     const reader = response.body?.getReader()
-    const decoder = new TextDecoder()
+    // 使用 stream: true 正确处理多字节 UTF-8 字符（如中文）被拆分到多个 chunk 的情况
+    const decoder = new TextDecoder('utf-8', { fatal: false })
+    let buffer = '' // 缓冲不完整的行
 
     const stream = new ReadableStream({
       async start(controller) {
@@ -159,30 +161,24 @@ export async function POST(req: Request) {
         try {
           while (true) {
             const { done, value } = await reader.read()
-            if (done) break
+            if (done) {
+              // 处理剩余的 buffer
+              if (buffer.trim()) {
+                processLine(buffer, controller)
+              }
+              break
+            }
 
-            const chunk = decoder.decode(value)
-            const lines = chunk.split('\n')
+            // 使用 stream: true 避免中文字符被截断
+            buffer += decoder.decode(value, { stream: true })
+            
+            // 按行分割处理
+            const lines = buffer.split('\n')
+            // 最后一个可能是不完整的行，保留到下次
+            buffer = lines.pop() || ''
 
             for (const line of lines) {
-              if (line.startsWith('data: ')) {
-                const data = line.slice(6)
-                if (data === '[DONE]') continue
-
-                try {
-                  const parsed = JSON.parse(data)
-                  if (parsed.response) {
-                    // 转换为 AI SDK 的数据流格式
-                    controller.enqueue(
-                      new TextEncoder().encode(
-                        `0:${JSON.stringify(parsed.response)}\n`
-                      )
-                    )
-                  }
-                } catch {
-                  // 忽略解析错误
-                }
-              }
+              processLine(line, controller)
             }
           }
         } finally {
@@ -190,6 +186,28 @@ export async function POST(req: Request) {
         }
       },
     })
+
+    // 处理单行数据
+    function processLine(line: string, controller: ReadableStreamDefaultController) {
+      const trimmedLine = line.trim()
+      if (trimmedLine.startsWith('data: ')) {
+        const data = trimmedLine.slice(6)
+        if (data === '[DONE]') return
+
+        try {
+          const parsed = JSON.parse(data)
+          if (parsed.response) {
+            controller.enqueue(
+              new TextEncoder().encode(
+                `0:${JSON.stringify(parsed.response)}\n`
+              )
+            )
+          }
+        } catch {
+          // 忽略解析错误
+        }
+      }
+    }
 
     return new Response(stream, {
       headers: {
