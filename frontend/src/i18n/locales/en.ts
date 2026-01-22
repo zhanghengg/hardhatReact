@@ -97,5 +97,18 @@ export const en: Locale = {
     subtitle:
       'Here are my Web3 projects, including DeFi protocols, NFT applications, and various smart contract implementations. Each project includes a complete frontend interface and tested smart contract code.',
     noProjects: 'No projects yet, stay tuned...'
+  },
+
+  // AI Chatbot
+  chatbot: {
+    title: 'Web3 Assistant',
+    subtitle: 'Here to help ~',
+    welcome: '👋 Hey there! I\'m the developer\'s AI assistant. Feel free to ask me anything about their projects, skills, or how to get in touch!',
+    tryAsking: 'Not sure what to ask? Try these:',
+    q1: 'Tell me about the developer',
+    q2: 'What cool projects have they built?',
+    q3: 'How can I reach out for collaboration?',
+    placeholder: 'Ask me anything...',
+    errorMessage: 'Oops, something went wrong. Please try again later~'
   }
 }

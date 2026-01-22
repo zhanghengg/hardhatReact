@@ -89,6 +89,19 @@ export const zh = {
     subtitle:
       '这里展示了我的 Web3 项目，包括 DeFi 协议、NFT 应用和各种智能合约实现。每个项目都包含完整的前端界面和经过测试的智能合约代码。',
     noProjects: '暂无项目，敬请期待...'
+  },
+
+  // AI 聊天机器人
+  chatbot: {
+    title: 'Web3 小秘书',
+    subtitle: '随时为你解答 ~',
+    welcome: '👋 嗨！我是开发者的 AI 小秘书，关于 TA 的项目经验、技术能力、合作咨询...随便问我吧！',
+    tryAsking: '不知道问什么？试试这些：',
+    q1: '介绍一下开发者吧',
+    q2: '做过哪些厉害的项目？',
+    q3: '想合作怎么联系？',
+    placeholder: '想了解什么，尽管问我...',
+    errorMessage: '哎呀，出了点小问题，稍后再试试吧~'
   }
 }
 
@@ -160,4 +173,15 @@ export type Locale = {
     sendEmail: string
   }
   projectsPage: { subtitle: string; noProjects: string }
+  chatbot: {
+    title: string
+    subtitle: string
+    welcome: string
+    tryAsking: string
+    q1: string
+    q2: string
+    q3: string
+    placeholder: string
+    errorMessage: string
+  }
 }

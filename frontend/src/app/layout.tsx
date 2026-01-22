@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { I18nProvider } from "@/i18n";
 import { Web3Provider } from "@/components/Web3Provider";
+import { ChatBot } from "@/components/ChatBot";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -46,6 +47,7 @@ export default function RootLayout({
               <Header />
               <main className="pt-16">{children}</main>
               <Footer />
+              <ChatBot />
             </I18nProvider>
           </ThemeProvider>
         </Web3Provider>
