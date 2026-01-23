@@ -93,13 +93,13 @@ export const zh = {
 
   // AI 聊天机器人
   chatbot: {
-    title: 'Web3 小秘书',
+    title: '0xMRO 的小秘书',
     subtitle: '随时为你解答 ~',
-    welcome: '👋 嗨！我是开发者的 AI 小秘书，关于 TA 的项目经验、技术能力、合作咨询...随便问我吧！',
+    welcome: '👋 嗨！我是开发者 0xMRO 的 AI 小秘书，关于 TA 的项目经验、技术能力、合作咨询...随便问我吧！',
     tryAsking: '不知道问什么？试试这些：',
     q1: '介绍一下开发者吧',
     q2: '开发过哪些项目？',
-    q3: '想招聘怎么联系？',
+    q3: '我的联系方式？',
     placeholder: '想了解什么，尽管问我...',
     errorMessage: '哎呀，出了点小问题，稍后再试试吧~'
   }

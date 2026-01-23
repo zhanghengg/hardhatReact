@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Github, Twitter, Mail } from 'lucide-react';
+import { Send, Twitter, Mail } from 'lucide-react';
 import { useI18n } from '@/i18n';
 
 export function Footer() {
@@ -48,16 +48,16 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-foreground">{t.footer.contact}</h3>
             <div className="mt-4 flex space-x-4">
               <a
-                href="https://github.com"
+                href="https://t.me/AugustMake"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="GitHub"
+                aria-label="Telegram"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                <Github className="h-5 w-5" />
+                <Send className="h-5 w-5" />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://x.com/zhero85762818"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
@@ -66,7 +66,7 @@ export function Footer() {
                 <Twitter className="h-5 w-5" />
               </a>
               <a
-                href="mailto:your@email.com"
+                href="mailto:zh517113444@gmail.com"
                 aria-label="Email"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >

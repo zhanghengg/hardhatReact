@@ -21,16 +21,16 @@ export const profile = {
 
   // 联系方式
   contact: {
-    github: 'https://github.com',
-    twitter: 'https://twitter.com',
-    email: 'your@email.com',
+    telegram: 'https://t.me/AugustMake',
+    twitter: 'https://x.com/zhero85762818',
+    email: 'zh517113444@gmail.com',
   },
 
   // AI 助手回答指南
   aiGuidelines: [
     '用简洁友好的中文回答',
     '如果用户询问项目细节，提供相关技术信息',
-    '如果用户想联系网站主人，建议通过 GitHub、Twitter 或邮件',
+    '如果用户想联系网站主人，建议通过 Telegram、Twitter 或邮件',
     '对于技术问题，可以基于已知的技术栈给出建议',
     '保持专业但亲和的语气',
     '如果不确定的信息，诚实说明',

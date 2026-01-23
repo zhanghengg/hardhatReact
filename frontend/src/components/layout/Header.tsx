@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Github, Twitter, Menu, X } from 'lucide-react';
+import { Twitter, Menu, X, Send } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { useState } from 'react';
@@ -60,12 +60,12 @@ export function Header() {
             <LanguageToggle />
             <ThemeToggle />
             <Button variant="ghost" size="icon" asChild>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <Github className="h-5 w-5" />
+              <a href="https://t.me/AugustMake" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                <Send className="h-5 w-5" />
               </a>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <a href="https://x.com/zhero85762818" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                 <Twitter className="h-5 w-5" />
               </a>
             </Button>
@@ -107,10 +107,10 @@ export function Header() {
             <div className="flex items-center space-x-4 pt-4 mt-4 border-t border-border">
               <LanguageToggle />
               <ThemeToggle />
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <Github className="h-5 w-5 text-muted-foreground hover:text-primary" />
+              <a href="https://t.me/AugustMake" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                <Send className="h-5 w-5 text-muted-foreground hover:text-primary" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <a href="https://x.com/zhero85762818" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                 <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary" />
               </a>
             </div>

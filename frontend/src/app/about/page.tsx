@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Twitter, Mail, MapPin, Calendar } from 'lucide-react';
+import { Send, Twitter, Mail, MapPin, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,9 +21,9 @@ export default function AboutPage() {
   ];
 
   const socialLinks = [
-    { icon: Github, label: 'GitHub', href: 'https://github.com', username: '@yourname' },
-    { icon: Twitter, label: 'Twitter', href: 'https://twitter.com', username: '@yourname' },
-    { icon: Mail, label: 'Email', href: 'mailto:your@email.com', username: 'your@email.com' },
+    { icon: Send, label: 'Telegram', href: 'https://t.me/AugustMake', username: '@AugustMake' },
+    { icon: Twitter, label: 'Twitter', href: 'https://x.com/zhero85762818', username: '@zhero85762818' },
+    { icon: Mail, label: 'Email', href: 'mailto:zh517113444@gmail.com', username: 'zh517113444@gmail.com' },
   ];
 
   return (
@@ -171,7 +171,7 @@ export default function AboutPage() {
 
           <div className="text-center mt-8">
             <Button size="lg" asChild>
-              <a href="mailto:your@email.com">
+              <a href="mailto:zh517113444@gmail.com">
                 <Mail className="mr-2 h-4 w-4" />
                 {t.about.sendEmail}
               </a>

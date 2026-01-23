@@ -67,7 +67,7 @@ ${p.longDescription}`
 - 理念：${profile.philosophy}
 
 ## 联系方式
-- GitHub: ${profile.contact.github}
+- Telegram: ${profile.contact.telegram}
 - Twitter: ${profile.contact.twitter}
 - Email: ${profile.contact.email}
 
