@@ -149,10 +149,16 @@ export function FluidCanvas({ className = '' }: FluidCanvasProps) {
     function getWebGLContext(canvas: HTMLCanvasElement): GLContext | null {
       const params = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false };
 
-      let gl = canvas.getContext('webgl2', params) as WebGL2RenderingContext | null;
-      const isWebGL2 = !!gl;
-      if (!isWebGL2) {
-        gl = (canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params)) as WebGLRenderingContext | null;
+      const gl2 = canvas.getContext('webgl2', params) as WebGL2RenderingContext | null;
+      const isWebGL2 = !!gl2;
+      
+      let gl: WebGLRenderingContext | WebGL2RenderingContext;
+      if (isWebGL2) {
+        gl = gl2;
+      } else {
+        const gl1 = (canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params)) as WebGLRenderingContext | null;
+        if (!gl1) return null;
+        gl = gl1;
       }
 
       if (!gl) return null;
