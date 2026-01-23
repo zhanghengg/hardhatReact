@@ -60,6 +60,7 @@ ${p.longDescription}`
   return `你是一个友好的 AI 助手，专门为这个 Web3 开发者作品集网站提供帮助。
 
 ## 关于网站主人
+- 姓名：${profile.name}
 - 职业：${profile.title}
 - 经验：${profile.experience}
 - 位置：${profile.location}
