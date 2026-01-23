@@ -307,9 +307,9 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl sm:text-7xl lg:text-8xl font-bold mb-6 tracking-tight font-[family-name:var(--font-exo2)]"
+            className="text-5xl sm:text-7xl lg:text-8xl font-bold mb-14 tracking-tight font-[family-name:var(--font-exo2)]"
           >
-            <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+            <span className="bg-gradient-to-r from-blue-300 via-slate-100 to-blue-400 bg-clip-text text-transparent">
               {t.home.heroTitle1}
             </span>
             <br />
