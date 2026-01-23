@@ -14,7 +14,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="text-xl font-bold bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
-              Web3.dev
+              web3.0xMRO
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
               {t.footer.desc}

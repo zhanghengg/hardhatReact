@@ -33,7 +33,7 @@ export function Header() {
               whileHover={{ scale: 1.05 }}
               className="text-xl font-bold bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent"
             >
-              Web3.dev
+              web3.0xMRO
             </motion.div>
           </Link>
 

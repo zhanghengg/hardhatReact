@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Send, Twitter, Mail, MapPin, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -38,8 +39,14 @@ export default function AboutPage() {
         >
           {/* Avatar */}
           <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 p-1">
-            <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-              <span className="text-4xl font-bold text-purple-500">W3</span>
+            <div className="w-full h-full rounded-full overflow-hidden">
+              <Image
+                src="/0xMRO.jpg"
+                alt="Avatar"
+                width={128}
+                height={128}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 

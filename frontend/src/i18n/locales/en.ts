@@ -44,7 +44,7 @@ export const en: Locale = {
     yearsExp: 'Years Experience',
     projects: 'Projects',
     techStack: 'Tech Stack',
-    coffees: 'Cups of Coffee☕️'
+    web3Exp: 'Years Web3 Experience'
   },
 
   // Footer
@@ -52,7 +52,7 @@ export const en: Locale = {
     desc: 'Web3 Frontend Engineer, focused on DeFi and smart contract development',
     quickLinks: 'Quick Links',
     contact: 'Contact',
-    copyright: ' {year} Web3.dev. Built with Next.js & '
+    copyright: ' {year} web3.0xMRO. Built with Next.js & '
   },
 
   // Projects page
@@ -72,8 +72,8 @@ export const en: Locale = {
     contactTitle: 'Contact Me',
     contactDesc:
       'If you have any questions or collaboration ideas, feel free to reach out',
-    pageTitle: 'Web3 Developer',
-    pageSubtitle: 'Frontend Engineer / Smart Contract Developer',
+    pageTitle: '0xMRO',
+    pageSubtitle: 'Web3 Frontend Engineer / Smart Contract Developer',
     location: 'China',
     experience: '8+ Years Experience',
     aboutMe: 'About Me',

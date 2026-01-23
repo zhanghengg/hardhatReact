@@ -11,7 +11,7 @@ export const zh = {
     badge: 'Web3 开发者',
     heroTitle1: '构建去中心化',
     heroTitle2: '未来',
-    heroDesc1: '专注于 DeFi 协议开发、智能合约安全和现代化 DApp 构建。',
+    heroDesc1: '专注于 DeFi、智能合约开发和现代化 DApp 构建。',
     heroDesc2: '用代码连接区块链与用户体验。',
     viewProjects: '查看作品集',
     learnMore: '了解更多',
@@ -39,7 +39,7 @@ export const zh = {
     yearsExp: '年开发经验',
     projects: '项目作品',
     techStack: '技术栈',
-    coffees: '杯咖啡☕️'
+    web3Exp: '年Web3行业经验'
   },
 
   // Footer
@@ -47,7 +47,7 @@ export const zh = {
     desc: 'Web3 前端工程师，专注于 DeFi 和智能合约开发',
     quickLinks: '快速链接',
     contact: '联系方式',
-    copyright: '© {year} Web3.dev. Built with Next.js & ❤️'
+    copyright: '© {year} web3.0xMRO. Built with Next.js & ❤️'
   },
 
   // 项目页面
@@ -65,8 +65,8 @@ export const zh = {
     subtitle: '一个热爱 Web3 技术的开发者',
     contactTitle: '联系我',
     contactDesc: '如果你有任何问题或合作意向，欢迎通过以下方式联系我',
-    pageTitle: 'Web3 开发者',
-    pageSubtitle: '前端工程师 / 智能合约开发者',
+    pageTitle: '0xMRO',
+    pageSubtitle: 'Web3 前端工程师 / 智能合约开发者',
     location: '中国',
     experience: '8+ 年经验',
     aboutMe: '关于我',
@@ -134,7 +134,7 @@ export type Locale = {
     yearsExp: string
     projects: string
     techStack: string
-    coffees: string
+    web3Exp: string
   }
   footer: {
     desc: string

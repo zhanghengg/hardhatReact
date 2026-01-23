@@ -20,14 +20,9 @@ const exo2 = Exo_2({
 });
 
 export const metadata: Metadata = {
-  title: "Web3.dev | 0xMRO 的 Web3 作品集",
+  title: "web3.dev | 0xMRO 的 Web3 作品集",
   description: "Web3 前端工程师 0xMRO 的作品集，展示 DeFi、NFT、智能合约等 Web3 项目",
-  keywords: ["Web3", "DeFi", "Solidity", "React", "Smart Contract", "区块链"],
-  icons: {
-    icon: "/0xMRO.jpg",
-    shortcut: "/0xMRO.jpg",
-    apple: "/0xMRO.jpg",
-  },
+  keywords: ["Web3", "DeFi", "Solidity", "React", "Smart Contract", "区块链"]
 };
 
 export default function RootLayout({

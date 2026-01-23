@@ -3,14 +3,15 @@
 
 export const profile = {
   // 基本信息
+  name: '0xMRO',
   title: 'Web3 前端工程师 / 智能合约开发者',
   experience: '8+ 年开发经验',
   location: '中国',
 
   // 专长领域
   specialties: [
-    'DeFi 协议开发',
-    '智能合约安全',
+    'DeFi开发',
+    '智能合约开发',
     '现代化 DApp 构建',
     'Web3 前端开发',
   ],
