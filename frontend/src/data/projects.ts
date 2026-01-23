@@ -155,6 +155,100 @@ export const projects: Project[] = [
     status: 'completed'
   },
   {
+    slug: 'hidex-tg-bot',
+    title: 'Hidex Telegram Bot',
+    description:
+      '多链加密货币代币信息查询机器人，支持 Solana/EVM 链代币实时数据查询、安全检测和智能资金信号推送',
+    longDescription: `Hidex Telegram Bot 是一个专业的加密货币代币信息查询机器人，支持多链实时数据查询和智能信号推送。本人负责整个项目的后端开发。
+
+【项目架构】
+
+采用 Node.js + Express + Telegraf 构建，模块化分层设计：
+- 入口层 (app.js)：Express 服务器 + Bot 初始化 + 定时任务调度
+- Bot 层 (bot.js)：Telegraf 消息处理、命令路由、Inline Keyboard 交互
+- Controller 层：消息模板渲染、HTML 构建、命令处理器
+- Data 层：链上数据聚合（Codex SDK、RugCheck API、DexScreener）
+- Utils 层：多链工具函数、配置管理、HTTP 封装
+
+【多链数据聚合】
+
+- 智能地址识别：通过地址长度自动判断链类型（Solana 44字符 / EVM 42字符 0x前缀）
+- Codex GraphQL SDK 集成：封装 CodexSdk 类，实现 filterTokens、getTokenPrices、getHolders 等查询
+- 多源数据聚合：Promise.all 并发查询 RugCheck（安全检测）+ Codex（价格/市值）+ Pumpfun（Solana Meme 状态）
+- EVM 多链并行查询：ETH/BSC/Base 等链同时查询同一地址，聚合返回有效结果
+
+【代币安全检测】
+
+Solana 链检测项：
+- Mint Authority（铸造权限弃权检测）
+- Freeze Authority（黑名单/冻结权限检测）
+- LP Burned Percentage（流动性燃烧比例）
+- Top 10 Holders（前10持仓集中度分析，排除已知账户）
+
+EVM 链检测项：
+- Honeypot Detection（蜜罐检测）
+- Open Source Verification（合约开源验证）
+- LP Locked（流动性锁定检测）
+- Owner Renounced（所有权弃权检测）
+
+【定时任务系统】
+
+基于 node-schedule 实现多任务调度：
+- 母币价格缓存 (*/15s)：定时更新 SOL/ETH/BNB 价格，用于流动性 USD 换算
+- 公告推送 (*/5s)：轮询消息队列，向订阅用户推送运营公告
+- 智能资金信号 (*/2s)：监控 Smart Money 交易信号，实时推送 FOMO 买入提醒
+- 日志清理 (每天0点)：定期清理历史日志，防止磁盘溢出
+- 用户缓存刷新 (每天0点)：更新 Telegram 用户 ID 缓存
+
+【缓存优化】
+
+- node-cache 内存缓存：RugCheck 结果缓存避免重复 API 调用
+- 母币价格缓存：减少高频价格查询压力
+- 用户语言偏好缓存：基于 chatId 存储用户语言设置
+
+【消息渲染引擎】
+
+- Markdown 模板引擎：动态生成格式化代币信息卡片
+- 特殊字符转义：sanitizeMarkdownString 处理 Telegram Markdown 语法冲突
+- 数字格式化：formatNumberZeroToSubscript 处理极小数下标显示（如 $0.₆123）
+- 多语言支持：基于 chatId 的 i18n 方案，支持中英文切换
+
+【Telegram 交互】
+
+- Inline Keyboard：刷新按钮、交易链接、图表链接等动态按钮
+- Callback Query：处理 refresh 等回调事件，实现消息原地更新
+- Reply 模式：引用原消息回复，保持上下文关联
+- 代理支持：SOCKS5 代理配置，解决网络访问限制`,
+    tags: ['Node.js', 'Telegram Bot', 'Web3', 'Solana', 'Multi-Chain'],
+    image: '/projects/telegramBot.png',
+    demoUrl: 'https://t.me/Hidex_Global_Bot',
+    features: [
+      'Solana + EVM 多链代币查询',
+      '智能地址链类型识别',
+      'Codex GraphQL SDK 集成',
+      '代币安全性多维检测',
+      'node-schedule 定时任务',
+      'Smart Money 信号推送',
+      'node-cache 内存缓存',
+      'Markdown 消息模板引擎',
+      'Inline Keyboard 交互',
+      'SOCKS5 代理支持'
+    ],
+    techStack: [
+      'Node.js',
+      'Express',
+      'Telegraf',
+      'Codex SDK',
+      'Solana Web3.js',
+      'node-schedule',
+      'node-cache',
+      'Axios',
+      'SOCKS5 Proxy',
+      'PM2'
+    ],
+    status: 'completed'
+  },
+  {
     slug: 'simple-dex',
     title: 'Simple DEX',
     description:
