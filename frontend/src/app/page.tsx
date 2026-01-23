@@ -368,10 +368,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { value: 7, suffix: '+', label: t.stats.yearsExp },
-              { value: 10, suffix: '+', label: t.stats.projects },
-              { value: 500, suffix: '+', label: t.stats.commits },
+              { value: 8, suffix: '+', label: t.stats.yearsExp },
+              { value: 6, suffix: '+', label: t.stats.projects },
               { value: 20, suffix: '+', label: t.stats.techStack },
+              { value: 500, suffix: '+', label: t.stats.coffees },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}

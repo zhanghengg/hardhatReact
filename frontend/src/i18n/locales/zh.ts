@@ -18,9 +18,9 @@ export const zh = {
     featuredProjects: '精选项目',
     featuredProjectsDesc: '探索我的 Web3 项目，从 DeFi 协议到 NFT 市场',
     viewAllProjects: '查看全部项目',
-    ctaTitle: '想要合作？',
+    ctaTitle: '期待新机会',
     ctaDesc:
-      '如果你有有趣的 Web3 项目想法，或者需要智能合约开发服务，欢迎联系我',
+      '正在寻找 Web3 领域的工作机会，如果您的团队需要有经验的前端/智能合约开发者，欢迎联系我',
     contactMe: '联系我'
   },
 
@@ -37,9 +37,9 @@ export const zh = {
   // 统计数字
   stats: {
     yearsExp: '年开发经验',
-    projects: '开源项目',
-    commits: '代码提交',
-    techStack: '技术栈'
+    projects: '项目作品',
+    techStack: '技术栈',
+    coffees: '杯咖啡☕️'
   },
 
   // Footer
@@ -68,7 +68,7 @@ export const zh = {
     pageTitle: 'Web3 开发者',
     pageSubtitle: '前端工程师 / 智能合约开发者',
     location: '中国',
-    experience: '7+ 年经验',
+    experience: '8+ 年经验',
     aboutMe: '关于我',
     bio1: '我是一名热爱 Web3 技术的前端工程师，专注于构建去中心化应用（DApps）和智能合约开发。',
     bio2: '我相信区块链技术将重塑互联网，让用户真正拥有自己的数据和资产。我致力于通过优秀的用户体验，降低 Web3 的使用门槛，让更多人能够参与到去中心化世界中来。',
@@ -98,8 +98,8 @@ export const zh = {
     welcome: '👋 嗨！我是开发者的 AI 小秘书，关于 TA 的项目经验、技术能力、合作咨询...随便问我吧！',
     tryAsking: '不知道问什么？试试这些：',
     q1: '介绍一下开发者吧',
-    q2: '做过哪些厉害的项目？',
-    q3: '想合作怎么联系？',
+    q2: '开发过哪些项目？',
+    q3: '想招聘怎么联系？',
     placeholder: '想了解什么，尽管问我...',
     errorMessage: '哎呀，出了点小问题，稍后再试试吧~'
   }
@@ -133,8 +133,8 @@ export type Locale = {
   stats: {
     yearsExp: string
     projects: string
-    commits: string
     techStack: string
+    coffees: string
   }
   footer: {
     desc: string

@@ -18,8 +18,23 @@ export function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [hasAutoOpened, setHasAutoOpened] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // 检测是否为PC端（桌面端）
+  const isDesktop = () => {
+    if (typeof window === 'undefined') return false
+    return window.innerWidth >= 768
+  }
+
+  // 按钮动画完成后，PC端自动打开聊天框
+  const handleButtonAnimationComplete = () => {
+    if (!hasAutoOpened && isDesktop()) {
+      setIsOpen(true)
+      setHasAutoOpened(true)
+    }
+  }
 
   // 自动滚动到底部
   const scrollToBottom = () => {
@@ -132,6 +147,7 @@ export function ChatBot() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring' }}
+        onAnimationComplete={handleButtonAnimationComplete}
       >
         <Button
           size="icon-lg"

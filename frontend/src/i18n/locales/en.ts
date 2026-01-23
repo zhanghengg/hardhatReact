@@ -22,9 +22,9 @@ export const en: Locale = {
     featuredProjectsDesc:
       'Explore my Web3 projects, from DeFi protocols to NFT marketplaces',
     viewAllProjects: 'View All Projects',
-    ctaTitle: 'Want to Collaborate?',
+    ctaTitle: 'Looking for Opportunities',
     ctaDesc:
-      'If you have interesting Web3 project ideas or need smart contract development services, feel free to contact me',
+      'Currently seeking opportunities in the Web3 space. If your team needs an experienced frontend/smart contract developer, feel free to reach out',
     contactMe: 'Contact Me'
   },
 
@@ -42,9 +42,9 @@ export const en: Locale = {
   // Stats
   stats: {
     yearsExp: 'Years Experience',
-    projects: 'Open Source Projects',
-    commits: 'Code Commits',
-    techStack: 'Tech Stack'
+    projects: 'Projects',
+    techStack: 'Tech Stack',
+    coffees: 'Cups of Coffee☕️'
   },
 
   // Footer
@@ -75,7 +75,7 @@ export const en: Locale = {
     pageTitle: 'Web3 Developer',
     pageSubtitle: 'Frontend Engineer / Smart Contract Developer',
     location: 'China',
-    experience: '7+ Years Experience',
+    experience: '8+ Years Experience',
     aboutMe: 'About Me',
     bio1: 'I am a frontend engineer passionate about Web3 technology, focused on building decentralized applications (DApps) and smart contract development.',
     bio2: 'I believe blockchain technology will reshape the internet, allowing users to truly own their data and assets. I am committed to lowering the barrier to Web3 through excellent user experience, enabling more people to participate in the decentralized world.',
@@ -106,8 +106,8 @@ export const en: Locale = {
     welcome: '👋 Hey there! I\'m the developer\'s AI assistant. Feel free to ask me anything about their projects, skills, or how to get in touch!',
     tryAsking: 'Not sure what to ask? Try these:',
     q1: 'Tell me about the developer',
-    q2: 'What cool projects have they built?',
-    q3: 'How can I reach out for collaboration?',
+    q2: 'What projects have they built?',
+    q3: 'How can I hire the developer?',
     placeholder: 'Ask me anything...',
     errorMessage: 'Oops, something went wrong. Please try again later~'
   }

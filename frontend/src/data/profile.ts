@@ -4,7 +4,7 @@
 export const profile = {
   // 基本信息
   title: 'Web3 前端工程师 / 智能合约开发者',
-  experience: '7+ 年开发经验',
+  experience: '8+ 年开发经验',
   location: '中国',
 
   // 专长领域
