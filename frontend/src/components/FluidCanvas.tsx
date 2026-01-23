@@ -944,7 +944,7 @@ export function FluidCanvas({ className = '' }: FluidCanvasProps) {
     let curl: FBO;
     let pressure: DoubleFBO;
     let bloom: FBO;
-    let bloomFramebuffers: FBO[] = [];
+    const bloomFramebuffers: FBO[] = [];
     let sunrays: FBO;
     let sunraysTemp: FBO;
 
@@ -1498,6 +1498,7 @@ export function FluidCanvas({ className = '' }: FluidCanvasProps) {
       blit(target);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function drawCheckerboard(target: FBO | null) {
       checkerboardProgram.bind();
       gl.uniform1f(checkerboardProgram.uniforms.aspectRatio, canvas.width / canvas.height);
