@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-mo
 import { ArrowRight, ArrowDown, Code2, FileCode, Blocks, Wrench, ChevronRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ParticleCanvas } from '@/components/ParticleCanvas';
+import { FluidCanvas } from '@/components/FluidCanvas';
 import { projects, skills } from '@/data/projects';
 import { useI18n } from '@/i18n';
 import { useRef, useEffect, useState } from 'react';
@@ -283,7 +283,7 @@ export default function Home() {
       
       {/* Hero Section - 全屏视差 */}
       <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
-        <ParticleCanvas className="z-0" />
+        <FluidCanvas className="z-0" />
         
         {/* 多层渐变背景 */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
