@@ -10,6 +10,7 @@ import { FluidCanvas } from '@/components/FluidCanvas';
 import { projects, skills } from '@/data/projects';
 import { useI18n } from '@/i18n';
 import { useRef, useEffect, useState } from 'react';
+import ShinyText from '@/components/ShinyText';
 
 // 滚动进度指示器
 function ScrollProgress() {
@@ -306,7 +307,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl sm:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
+            className="text-5xl sm:text-7xl lg:text-8xl font-bold mb-6 tracking-tight font-[family-name:var(--font-exo2)]"
           >
             <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
               {t.home.heroTitle1}
@@ -319,9 +320,20 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="text-lg sm:text-xl max-w-2xl mx-auto mb-10"
           >
-            {t.home.heroDesc1}
+            <ShinyText
+              text={t.home.heroDesc1}
+              speed={2}
+              delay={0}
+              color="#b5b5b5"
+              shineColor="#ffffff"
+              spread={120}
+              direction="left"
+              yoyo={false}
+              pauseOnHover={false}
+              disabled={false}
+            />
           </motion.p>
           
           <motion.div

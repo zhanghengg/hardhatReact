@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Exo_2 } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -11,6 +11,12 @@ import { ChatBot } from "@/components/ChatBot";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const exo2 = Exo_2({
+  variable: "--font-exo2",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -40,7 +46,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} font-sans antialiased bg-background text-foreground`}>
+      <body className={`${inter.variable} ${exo2.variable} font-sans antialiased bg-background text-foreground`}>
         <Web3Provider>
           <ThemeProvider>
             <I18nProvider>
