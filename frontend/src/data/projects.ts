@@ -330,5 +330,5 @@ export const skills = {
   ],
   smart_contract: ['Solidity', 'Hardhat', 'Foundry', 'OpenZeppelin'],
   blockchain: ['Ethereum', 'EVM Chains', 'IPFS', 'The Graph'],
-  tools: ['Git', 'VS Code', 'Remix', 'Tenderly']
+  tools: ['Git', 'VS Code', 'Remix','jenkins']
 }
