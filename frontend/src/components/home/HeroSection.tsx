@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { motion, MotionValue } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FluidCanvas } from '@/components/FluidCanvas';
