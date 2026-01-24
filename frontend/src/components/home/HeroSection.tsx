@@ -6,12 +6,12 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FluidCanvas } from '@/components/FluidCanvas';
 import { useI18n } from '@/i18n';
-import { RefObject } from 'react';
+import { Ref } from 'react';
 import ShinyText from '@/components/ShinyText';
 import { ScrollIndicator } from './ScrollIndicator';
 
 interface HeroSectionProps {
-  heroRef: RefObject<HTMLDivElement | null>;
+  heroRef: Ref<HTMLDivElement>;
   heroOpacity: MotionValue<number>;
   heroScale: MotionValue<number>;
   heroY: MotionValue<number>;
