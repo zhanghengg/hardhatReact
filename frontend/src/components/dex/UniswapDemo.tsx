@@ -24,12 +24,16 @@ import UniswapV2PairABI from '@/abi/UniswapV2Pair.json'
 // 判断环境
 const isProduction = process.env.NODE_ENV === 'production'
 
+// RPC URL 配置
+const SEPOLIA_RPC_URL =
+  process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org'
+
 // 根据环境选择网络配置
 const getChainConfig = (): { chain: Chain; rpcUrl: string } => {
   if (isProduction) {
     return {
       chain: sepolia,
-      rpcUrl: 'https://rpc.sepolia.org'
+      rpcUrl: SEPOLIA_RPC_URL
     }
   }
   return {

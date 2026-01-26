@@ -20,11 +20,15 @@ const availableChains = useSepoliaOnly
     ? [hardhat, sepolia] as const
     : [sepolia] as const
 
+// RPC URL 配置
+const SEPOLIA_RPC_URL =
+  process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org'
+
 export const config = createConfig({
   chains: availableChains,
   transports: {
     [hardhat.id]: http('http://127.0.0.1:8545'),
-    [sepolia.id]: http('https://rpc.sepolia.org')
+    [sepolia.id]: http(SEPOLIA_RPC_URL)
   },
   ssr: true
 })
