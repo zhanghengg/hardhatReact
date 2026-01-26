@@ -10,6 +10,7 @@
     "node": "hardhat node",
     "deploy:localhost": "hardhat run scripts/deploy.ts --network localhost",
     "deploy:uniswap": "hardhat run scripts/deploy-uniswap.ts --network localhost",
+    "deploy:uniswap:sepolia": "hardhat run scripts/deploy-uniswap.ts --network sepolia",
     "interact:uniswap": "hardhat run scripts/interact-uniswap.ts --network localhost"
   },
   "keywords": [],

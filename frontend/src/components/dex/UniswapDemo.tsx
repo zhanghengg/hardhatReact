@@ -4,32 +4,57 @@ import { useState, useEffect, useCallback } from 'react'
 import {
   createPublicClient,
   createWalletClient,
+  custom,
   http,
   formatEther,
-  parseEther
+  parseEther,
+  type Chain
 } from 'viem'
-import { hardhat } from 'viem/chains'
+import { hardhat, sepolia } from 'viem/chains'
 import { privateKeyToAccount } from 'viem/accounts'
 import { Button } from '@/components/ui/button'
 import { CONTRACTS, isContractsDeployed } from '@/config/contracts'
-import { TEST_ACCOUNTS } from '@/config/wagmi'
+import { TEST_ACCOUNTS, DEMO_TEST_ACCOUNT } from '@/config/wagmi'
 
 // 导入 ABI
 import ERC20TokenABI from '@/abi/ERC20Token.json'
 import UniswapV2RouterABI from '@/abi/UniswapV2Router.json'
 import UniswapV2PairABI from '@/abi/UniswapV2Pair.json'
 
-// 创建客户端
+// 判断环境
+const isProduction = process.env.NODE_ENV === 'production'
+
+// 根据环境选择网络配置
+const getChainConfig = (): { chain: Chain; rpcUrl: string } => {
+  if (isProduction) {
+    return {
+      chain: sepolia,
+      rpcUrl: 'https://rpc.sepolia.org'
+    }
+  }
+  return {
+    chain: hardhat,
+    rpcUrl: 'http://127.0.0.1:8545'
+  }
+}
+
+const { chain: currentChain, rpcUrl } = getChainConfig()
+
+// 创建公共客户端
 const publicClient = createPublicClient({
-  chain: hardhat,
-  transport: http('http://127.0.0.1:8545')
+  chain: currentChain,
+  transport: http(rpcUrl)
 })
+
+// 账户类型
+type AccountType =
+  | ReturnType<typeof privateKeyToAccount>
+  | { address: `0x${string}`; type: 'injected' }
 
 export function UniswapDemo() {
   const [mounted, setMounted] = useState(false)
-  const [account, setAccount] = useState<ReturnType<
-    typeof privateKeyToAccount
-  > | null>(null)
+  const [account, setAccount] = useState<AccountType | null>(null)
+  const [connectionMode, setConnectionMode] = useState<'test' | 'wallet'>('test')
   const [balances, setBalances] = useState({
     eth: '0',
     tokenA: '0',
@@ -46,33 +71,89 @@ export function UniswapDemo() {
     setMounted(true)
   }, [])
 
-  const connectAccount = useCallback(() => {
-    const acc = privateKeyToAccount(TEST_ACCOUNTS[0].privateKey)
+  // 连接测试账户 (本地用 Hardhat 账户，生产用 Demo 账户)
+  const connectTestAccount = useCallback(() => {
+    const testKey = isProduction
+      ? DEMO_TEST_ACCOUNT.privateKey
+      : TEST_ACCOUNTS[0].privateKey
+    const acc = privateKeyToAccount(testKey)
     setAccount(acc)
+    setConnectionMode('test')
+  }, [])
+
+  // 连接 MetaMask 钱包
+  const connectWallet = useCallback(async () => {
+    if (typeof window === 'undefined' || !window.ethereum) {
+      alert('请安装 MetaMask 钱包')
+      return
+    }
+
+    try {
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts'
+      })
+
+      if (accounts && accounts.length > 0) {
+        // 切换到正确的网络
+        const targetChainId = isProduction ? '0xaa36a7' : '0x7a69' // Sepolia: 11155111, Hardhat: 31337
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: targetChainId }]
+          })
+        } catch (switchError: unknown) {
+          // 如果网络不存在，尝试添加 (仅 Sepolia)
+          if ((switchError as { code?: number })?.code === 4902 && isProduction) {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: '0xaa36a7',
+                  chainName: 'Sepolia',
+                  nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+                  rpcUrls: ['https://rpc.sepolia.org'],
+                  blockExplorerUrls: ['https://sepolia.etherscan.io']
+                }
+              ]
+            })
+          }
+        }
+
+        setAccount({ address: accounts[0] as `0x${string}`, type: 'injected' })
+        setConnectionMode('wallet')
+      }
+    } catch (error) {
+      console.error('连接钱包失败:', error)
+    }
+  }, [])
+
+  const disconnect = useCallback(() => {
+    setAccount(null)
   }, [])
 
   const fetchBalances = useCallback(async () => {
     if (!account) return
     try {
+      const address = 'address' in account ? account.address : account.address
       const [eth, tokenA, tokenB, lp] = await Promise.all([
-        publicClient.getBalance({ address: account.address }),
+        publicClient.getBalance({ address }),
         publicClient.readContract({
           address: CONTRACTS.TokenA,
           abi: ERC20TokenABI,
           functionName: 'balanceOf',
-          args: [account.address]
+          args: [address]
         }),
         publicClient.readContract({
           address: CONTRACTS.TokenB,
           abi: ERC20TokenABI,
           functionName: 'balanceOf',
-          args: [account.address]
+          args: [address]
         }),
         publicClient.readContract({
           address: CONTRACTS.Pair,
           abi: UniswapV2PairABI,
           functionName: 'balanceOf',
-          args: [account.address]
+          args: [address]
         })
       ])
       setBalances({
@@ -132,22 +213,40 @@ export function UniswapDemo() {
 
   return (
     <div className="space-y-6">
+      {/* 网络指示器 */}
+      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <span
+          className={`w-2 h-2 rounded-full ${isProduction ? 'bg-yellow-500' : 'bg-green-500'}`}
+        />
+        {isProduction ? 'Sepolia 测试网' : '本地开发网络'}
+      </div>
+
       {/* 连接区域 */}
       <div className="p-4 rounded-xl border border-border/50 bg-card/50">
         <h3 className="text-lg font-semibold mb-3">🔗 账户</h3>
         {account ? (
           <div className="flex items-center justify-between flex-wrap gap-3">
-            <code className="text-xs bg-background/50 px-2 py-1 rounded">
-              {account.address}
-            </code>
-            <Button variant="outline" size="sm" onClick={() => setAccount(null)}>
+            <div className="flex items-center gap-2">
+              <code className="text-xs bg-background/50 px-2 py-1 rounded">
+                {'address' in account ? account.address : account.address}
+              </code>
+              <span className="text-xs text-muted-foreground">
+                ({connectionMode === 'wallet' ? '钱包' : 'Demo 账户'})
+              </span>
+            </div>
+            <Button variant="outline" size="sm" onClick={disconnect}>
               断开
             </Button>
           </div>
         ) : (
-          <Button size="sm" onClick={connectAccount}>
-            连接测试账户
-          </Button>
+          <div className="flex gap-2 flex-wrap">
+            <Button size="sm" variant="outline" onClick={connectTestAccount}>
+              连接 Demo 账户
+            </Button>
+            <Button size="sm" onClick={connectWallet}>
+              连接钱包
+            </Button>
+          </div>
         )}
       </div>
 
@@ -156,6 +255,7 @@ export function UniswapDemo() {
           <BalanceSection balances={balances} onRefresh={fetchBalances} />
           <SwapSection
             account={account}
+            connectionMode={connectionMode}
             onSuccess={() => {
               fetchBalances()
               fetchReserves()
@@ -163,6 +263,7 @@ export function UniswapDemo() {
           />
           <LiquiditySection
             account={account}
+            connectionMode={connectionMode}
             onSuccess={() => {
               fetchBalances()
               fetchReserves()
@@ -179,16 +280,21 @@ function NotDeployedMessage() {
   return (
     <div className="p-6 rounded-xl border border-yellow-500/50 bg-yellow-500/10">
       <h3 className="text-lg font-bold text-yellow-500 mb-2">⚠️ 合约未部署</h3>
-      <p className="text-sm text-muted-foreground mb-3">请先启动本地节点并部署合约：</p>
-      <pre className="bg-black/50 p-3 rounded text-xs overflow-x-auto">
-        {`cd contracts
+      <p className="text-sm text-muted-foreground mb-3">
+        {isProduction
+          ? '合约地址配置无效，请联系管理员。'
+          : '请先启动本地节点并部署合约：'}
+      </p>
+      {!isProduction && (
+        <pre className="bg-black/50 p-3 rounded text-xs overflow-x-auto">
+          {`cd contracts
 npm run node          # 终端1
 npm run deploy:uniswap  # 终端2`}
-      </pre>
+        </pre>
+      )}
     </div>
   )
 }
-
 
 function BalanceSection({
   balances,
@@ -229,9 +335,11 @@ function BalanceSection({
 
 function SwapSection({
   account,
+  connectionMode,
   onSuccess
 }: {
-  account: ReturnType<typeof privateKeyToAccount>
+  account: AccountType
+  connectionMode: 'test' | 'wallet'
   onSuccess: () => void
 }) {
   const [amountIn, setAmountIn] = useState('')
@@ -264,17 +372,31 @@ function SwapSection({
     fetchQuote()
   }, [amountIn, tokenIn, tokenOut])
 
-  const walletClient = createWalletClient({
-    account,
-    chain: hardhat,
-    transport: http('http://127.0.0.1:8545')
-  })
+  const getWalletClient = () => {
+    const address = 'address' in account ? account.address : account.address
+    if (connectionMode === 'wallet' && typeof window !== 'undefined' && window.ethereum) {
+      return createWalletClient({
+        account: address,
+        chain: currentChain,
+        transport: custom(window.ethereum)
+      })
+    }
+    // 测试账户模式
+    return createWalletClient({
+      account: account as ReturnType<typeof privateKeyToAccount>,
+      chain: currentChain,
+      transport: http(rpcUrl)
+    })
+  }
 
   const handleSwap = async () => {
     if (!amountIn) return
     setLoading(true)
     setStatus('授权中...')
     try {
+      const walletClient = getWalletClient()
+      const address = 'address' in account ? account.address : account.address
+
       const approveHash = await walletClient.writeContract({
         address: tokenIn,
         abi: ERC20TokenABI,
@@ -293,7 +415,7 @@ function SwapSection({
           parseEther(amountIn),
           0n,
           [tokenIn, tokenOut],
-          account.address,
+          address,
           deadline
         ]
       })
@@ -360,12 +482,13 @@ function SwapSection({
   )
 }
 
-
 function LiquiditySection({
   account,
+  connectionMode,
   onSuccess
 }: {
-  account: ReturnType<typeof privateKeyToAccount>
+  account: AccountType
+  connectionMode: 'test' | 'wallet'
   onSuccess: () => void
 }) {
   const [amountA, setAmountA] = useState('')
@@ -375,16 +498,29 @@ function LiquiditySection({
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
 
-  const walletClient = createWalletClient({
-    account,
-    chain: hardhat,
-    transport: http('http://127.0.0.1:8545')
-  })
+  const getWalletClient = () => {
+    const address = 'address' in account ? account.address : account.address
+    if (connectionMode === 'wallet' && typeof window !== 'undefined' && window.ethereum) {
+      return createWalletClient({
+        account: address,
+        chain: currentChain,
+        transport: custom(window.ethereum)
+      })
+    }
+    return createWalletClient({
+      account: account as ReturnType<typeof privateKeyToAccount>,
+      chain: currentChain,
+      transport: http(rpcUrl)
+    })
+  }
 
   const handleAddLiquidity = async () => {
     if (!amountA || !amountB) return
     setLoading(true)
     try {
+      const walletClient = getWalletClient()
+      const address = 'address' in account ? account.address : account.address
+
       setStatus('授权 TKA...')
       const approveAHash = await walletClient.writeContract({
         address: CONTRACTS.TokenA,
@@ -416,7 +552,7 @@ function LiquiditySection({
           parseEther(amountB),
           0n,
           0n,
-          account.address,
+          address,
           deadline
         ]
       })
@@ -437,6 +573,9 @@ function LiquiditySection({
     if (!lpToRemove) return
     setLoading(true)
     try {
+      const walletClient = getWalletClient()
+      const address = 'address' in account ? account.address : account.address
+
       setStatus('授权 LP...')
       const approveLPHash = await walletClient.writeContract({
         address: CONTRACTS.Pair,
@@ -458,7 +597,7 @@ function LiquiditySection({
           parseEther(lpToRemove),
           0n,
           0n,
-          account.address,
+          address,
           deadline
         ]
       })
@@ -577,7 +716,6 @@ function PoolInfoSection({
   const priceAinB = reserveA > 0 ? reserveB / reserveA : 0
   const kValue = reserveA * reserveB
 
-  // 格式化 K 值显示
   const formatK = (k: number) => {
     if (k === 0) return '0'
     if (k >= 1e9) return `${(k / 1e9).toFixed(2)}B`
@@ -616,4 +754,13 @@ function PoolInfoSection({
       </div>
     </div>
   )
+}
+
+// 扩展 Window 类型以支持 ethereum
+declare global {
+  interface Window {
+    ethereum?: {
+      request: (args: { method: string; params?: unknown[] }) => Promise<unknown>
+    }
+  }
 }
