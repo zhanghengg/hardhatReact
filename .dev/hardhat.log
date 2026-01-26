@@ -1,4 +1,4 @@
-[dotenv@17.2.1] injecting env (2) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+[dotenv@17.2.1] injecting env (2) from .env -- tip: ⚙️  enable debug logging with { debug: true }
 Started HTTP and WebSocket JSON-RPC server at http://127.0.0.1:8545/
 
 Accounts
@@ -102,7 +102,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
   Gas used:            97489 of 30000000
-  Block #1:            0xbbb5f46693827b8c191ef3f02ee95284c5ce039529c460b411d6c1b731aa1393
+  Block #1:            0x41637971af0c76ca9d956510731cb0a4e2172b7382a1b68335302283ed187307
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -128,6 +128,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 [32mhardhat_metadata (19)[0m
 [32mhardhat_metadata (20)[0m
 [32meth_getBalance[0m
+[32meth_chainId[0m
 [32meth_accounts[0m
 [32mhardhat_metadata[0m
 [32mhardhat_metadata (2)[0m
@@ -159,7 +160,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
   Gas used:            600029 of 30000000
-  Block #2:            0x997c462619ba108c16022040479803f305e0b421c03dbc9f62f4331767b32ec6
+  Block #2:            0x917d08dc35369065f1561365ed03bf342ceef7be51e9192934ddca8e8a93184d
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -193,7 +194,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
   Gas used:            2276676 of 30000000
-  Block #3:            0x1f281494d90baa07577baecf8ea03b7a8c5f6d65242a6e6df63dd264f30aba44
+  Block #3:            0x2716dd5b3754395b9362dad533bc016e28e1cf349b98d2be9b8a80fe1ea83379
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -227,7 +228,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
   Gas used:            3486490 of 30000000
-  Block #4:            0x4785c2b8f6de3b8e093245f00160a50d38d8eced5f2e084cfb53154789a67455
+  Block #4:            0x548284c9fce85afab14bf760ac1e6938af94ac2db966c7a37ba85af5fff48aa4
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -257,11 +258,11 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 [32meth_sendTransaction[0m
   Contract deployment: ERC20Token
   Contract address:    0xdc64a140aa3e981100a9beca4e685f962f0cf6c9
-  Transaction:         0x56739f606c8c5837d915fae8f1c032ac68f7510ba9f5f80f6289f7cc991e27fa
+  Transaction:         0xe870aa798a58676fc1ac72352e2af859a741a247ea9371cf953430d3cc87f9fa
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
-  Gas used:            604797 of 30000000
-  Block #5:            0xc1bc59d83596f88a8dfcd170b6f729b0182778c0a9283ce04187b75a62c4d7df
+  Gas used:            627262 of 30000000
+  Block #5:            0x5b5240ac2aac555ed198b865f91d5f295352970a7c761fcebb1ad53196f1d9fb
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -270,11 +271,63 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 [32meth_sendTransaction[0m
   Contract deployment: ERC20Token
   Contract address:    0x5fc8d32690cc91d4c39d9d3abcbd16989f875707
-  Transaction:         0x8c421b1e7590efeee720712dd56f097a346068e3bd820f5ce744d9cfe18a0f02
+  Transaction:         0xd9bdcda2b0f4aad5f7433cfcd220a3cb92e45a3f7d493473a334465874f81377
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
-  Gas used:            604797 of 30000000
-  Block #6:            0xcb30bcc0a6c221b179854a804da6f55f9b93d6d4586ef82ffcd8dc3696d963d1
+  Gas used:            627262 of 30000000
+  Block #6:            0xbeef174c454004468bbec12d15cc114872c32da461a593823c233037e24aef7e
+
+[32meth_getTransactionByHash[0m
+[32meth_getTransactionReceipt[0m
+[32meth_blockNumber[0m
+[32meth_feeHistory[0m
+[32meth_sendTransaction[0m
+  Contract call:       ERC20Token#mint
+  Transaction:         0x964e64a07b7c71907dba5ac21c90d2f7924061329dfc19f907fdcd8a07226e1e
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+  To:                  0xdc64a140aa3e981100a9beca4e685f962f0cf6c9
+  Value:               0 ETH
+  Gas used:            70720 of 30000000
+  Block #7:            0x40ff40a7f3570aef6655b4cf0c3f21d5c236f6543b3e28bfe0e1de8a55591308
+
+[32meth_getTransactionByHash[0m
+[32meth_getTransactionReceipt[0m
+[32meth_blockNumber[0m
+[32meth_feeHistory[0m
+[32meth_sendTransaction[0m
+  Contract call:       ERC20Token#mint
+  Transaction:         0x8989281ad875cca65739493fedc3e3fe4b546edd3abaf893687a6cef819250ae
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+  To:                  0x5fc8d32690cc91d4c39d9d3abcbd16989f875707
+  Value:               0 ETH
+  Gas used:            70720 of 30000000
+  Block #8:            0x67c9c6f1a9bb23727fb8110e2cfccc5607b1d47c9e31fd59fa606da45fb0c153
+
+[32meth_getTransactionByHash[0m
+[32meth_getTransactionReceipt[0m
+[32meth_blockNumber[0m
+[32meth_feeHistory[0m
+[32meth_sendTransaction[0m
+  Contract call:       ERC20Token#mint
+  Transaction:         0xeb9da32bdba77d633764cef1738036a766411c58b664d79fbcf7abcc3649c01f
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+  To:                  0xdc64a140aa3e981100a9beca4e685f962f0cf6c9
+  Value:               0 ETH
+  Gas used:            53620 of 30000000
+  Block #9:            0x1edef9f55cd9ea470da606f4ab7ca1602664ebc652e241ba83f9faa19fe8ffcf
+
+[32meth_getTransactionByHash[0m
+[32meth_getTransactionReceipt[0m
+[32meth_blockNumber[0m
+[32meth_feeHistory[0m
+[32meth_sendTransaction[0m
+  Contract call:       ERC20Token#mint
+  Transaction:         0x79ad13054b1838ac793ac95a295b8627a4b0719ad5e6962aec9359fcaaaf5c85
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+  To:                  0x5fc8d32690cc91d4c39d9d3abcbd16989f875707
+  Value:               0 ETH
+  Gas used:            53620 of 30000000
+  Block #10:           0x353b39ae807656206cef6ccb81d080b330cdc8a14f940234a06aed8da17f0298
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -282,12 +335,12 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 [32meth_feeHistory[0m
 [32meth_sendTransaction[0m
   Contract call:       UniswapV2Factory#createPair
-  Transaction:         0x13b8aca8dc2778c6084dcd15d37aa1bf9770b6c3865122166512d368068c6e85
+  Transaction:         0x0b89f9245661a81f25d891f3d9011f0f1383d89229d3c6a5f11374e78a3925fe
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   To:                  0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0
   Value:               0 ETH
   Gas used:            1926342 of 30000000
-  Block #7:            0x0f33c565b5e8efb2e41c5a5540a83d7dfc76f76dcd166a0463904558929f96c4
+  Block #11:           0x712b4499e5230ecaf079f6c9766c47930ae241b84833414d2c90ac1e1dc05763
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
@@ -298,11 +351,10 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 
 [32meth_getBalance[0m
 [32meth_accounts[0m
-[32meth_call[0m
-  Contract call:       ERC20Token#balanceOf
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xdc64a140aa3e981100a9beca4e685f962f0cf6c9
-
+[32meth_accounts (2)[0m
+[32meth_accounts (3)[0m
+[32meth_accounts (4)[0m
+[32meth_accounts (5)[0m
 [32meth_call[0m
   Contract call:       UniswapV2Pair#token0
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
@@ -311,7 +363,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 [32meth_call[0m
   Contract call:       ERC20Token#balanceOf
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0x5fc8d32690cc91d4c39d9d3abcbd16989f875707
+  To:                  0xdc64a140aa3e981100a9beca4e685f962f0cf6c9
 
 [32meth_call[0m
   Contract call:       UniswapV2Pair#balanceOf
@@ -324,378 +376,14 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   To:                  0x0a217f808eb1597314c25d5b4057b308a2f76e83
 
 [32meth_call[0m
-  Contract call:       UniswapV2Pair#totalSupply
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0x0a217f808eb1597314c25d5b4057b308a2f76e83
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-  Error: reverted with reason string 'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
-
-[31meth_fillTransaction - Method not supported[0m
-[32meth_getTransactionCount[0m
-[32meth_getBlockByNumber[0m
-[32meth_maxPriorityFeePerGas[0m
-[32meth_estimateGas[0m
-[32meth_sendRawTransaction[0m
-  Contract call:       ERC20Token#approve
-  Transaction:         0xbf16da0c9db90439f4b317afb2759bffaf112ee3878df9d3e027565a6133eeee
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xdc64a140aa3e981100a9beca4e685f962f0cf6c9
-  Value:               0 ETH
-  Gas used:            46383 of 46383
-  Block #8:            0x32a8fc52008d3de8e3f4bdbe61fa581d8dc0899d03b4b35170a5caf40f424399
-
-[32meth_getTransactionReceipt[0m
-[32meth_getTransactionCount[0m
-[32meth_getBlockByNumber[0m
-[32meth_maxPriorityFeePerGas[0m
-[32meth_estimateGas[0m
-[32meth_sendRawTransaction[0m
-  Contract call:       ERC20Token#approve
-  Transaction:         0xece168bbab3f9c0b6c581df924f0853410c8d58c7169e063413a25d9617cdc2c
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0x5fc8d32690cc91d4c39d9d3abcbd16989f875707
-  Value:               0 ETH
-  Gas used:            46383 of 46383
-  Block #9:            0xae89e34a7bed2aea66a3538be3d979312d11bf93f7ca92d4ceafbcbe534bcaf7
-
-[32meth_getTransactionReceipt[0m
-[32meth_getTransactionCount[0m
-[32meth_getBlockByNumber[0m
-[32meth_maxPriorityFeePerGas[0m
-[32meth_estimateGas[0m
-[32meth_sendRawTransaction[0m
-  Contract call:       UniswapV2Router#addLiquidity
-  Transaction:         0xbabe0e8edbc1c5c80c191bcc47501934bedede49fac90857f3bfa65de37af50d
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-  Value:               0 ETH
-  Gas used:            244657 of 261860
-  Block #10:           0xd014aade9f0528fd52884e1894257c751d9d0419918c485d79e16ce94b121cfc
-
-[32meth_getTransactionReceipt[0m
-[32meth_getBalance[0m
-[32meth_call[0m
-  Contract call:       ERC20Token#balanceOf
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xdc64a140aa3e981100a9beca4e685f962f0cf6c9
-
-[32meth_call[0m
   Contract call:       ERC20Token#balanceOf
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   To:                  0x5fc8d32690cc91d4c39d9d3abcbd16989f875707
 
 [32meth_call[0m
-  Contract call:       UniswapV2Pair#balanceOf
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0x0a217f808eb1597314c25d5b4057b308a2f76e83
-
-[32meth_call[0m
-  Contract call:       UniswapV2Pair#getReserves
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0x0a217f808eb1597314c25d5b4057b308a2f76e83
-
-[32meth_call[0m
   Contract call:       UniswapV2Pair#totalSupply
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   To:                  0x0a217f808eb1597314c25d5b4057b308a2f76e83
-
-[32meth_call[0m
-  Contract call:       UniswapV2Pair#token0
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0x0a217f808eb1597314c25d5b4057b308a2f76e83
-
-[32meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-[32meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-
-[32meth_call[0m
-  Contract call:       UniswapV2Router#getAmountsOut
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
 
 [32meth_getBalance[0m
 [32meth_call[0m
@@ -728,35 +416,6 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   To:                  0x0a217f808eb1597314c25d5b4057b308a2f76e83
 
-[31meth_fillTransaction - Method not supported[0m
-[32meth_getTransactionCount[0m
-[32meth_getBlockByNumber[0m
-[32meth_maxPriorityFeePerGas[0m
-[32meth_estimateGas[0m
-[32meth_sendRawTransaction[0m
-  Contract call:       UniswapV2Pair#approve
-  Transaction:         0x492638c8fb3667b783a15a43d3108a9adc7e44bb93465a83acce61cbd855c611
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0x0a217f808eb1597314c25d5b4057b308a2f76e83
-  Value:               0 ETH
-  Gas used:            46256 of 46256
-  Block #11:           0x810add48a61dec88f2e476ba946ce9bbb387dccea2fdedc69e45fc265c6ac1bb
-
-[32meth_getTransactionReceipt[0m
-[32meth_getTransactionCount[0m
-[32meth_getBlockByNumber[0m
-[32meth_maxPriorityFeePerGas[0m
-[32meth_estimateGas[0m
-[32meth_sendRawTransaction[0m
-  Contract call:       UniswapV2Router#removeLiquidity
-  Transaction:         0xeed8de353882727196b14083688768904328c7f6122b17c73f63e6a349207e23
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9
-  Value:               0 ETH
-  Gas used:            158175 of 189068
-  Block #12:           0x7b6b520890a81768e742a44b6f0c60fb6074cc99d69301734e349ece5db7218d
-
-[32meth_getTransactionReceipt[0m
 [32meth_getBalance[0m
 [32meth_call[0m
   Contract call:       ERC20Token#balanceOf
@@ -764,14 +423,14 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   To:                  0xdc64a140aa3e981100a9beca4e685f962f0cf6c9
 
 [32meth_call[0m
-  Contract call:       ERC20Token#balanceOf
-  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
-  To:                  0x5fc8d32690cc91d4c39d9d3abcbd16989f875707
-
-[32meth_call[0m
   Contract call:       UniswapV2Pair#token0
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   To:                  0x0a217f808eb1597314c25d5b4057b308a2f76e83
+
+[32meth_call[0m
+  Contract call:       ERC20Token#balanceOf
+  From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+  To:                  0x5fc8d32690cc91d4c39d9d3abcbd16989f875707
 
 [32meth_call[0m
   Contract call:       UniswapV2Pair#balanceOf

@@ -12,268 +12,87 @@
    - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1774ms
- ○ Compiling / ...
- ✓ Compiled / in 2.8s (1606 modules)
- GET / 200 in 3268ms
- ○ Compiling /favicon.ico ...
- ✓ Compiled /favicon.ico in 754ms (917 modules)
- GET /favicon.ico 200 in 871ms
- ○ Compiling /_not-found ...
- GET /favicon.ico 200 in 111ms
- ✓ Compiled /_not-found in 1320ms (1628 modules)
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 1748ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 1585ms
- GET / 200 in 346ms
- ○ Compiling /projects ...
- ✓ Compiled /projects in 1051ms (1629 modules)
- GET /projects 200 in 1134ms
- GET /_next/static/chunks/app/projects/LayoutGroupContext.mjs.map 404 in 229ms
+ ✓ Ready in 1898ms
  ○ Compiling /projects/simple-dex ...
- ✓ Compiled /projects/simple-dex in 2.1s (4515 modules)
- GET /projects/simple-dex 200 in 2154ms
- GET /projects/simple-dex 200 in 420ms
- GET /favicon.ico 200 in 168ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 58ms
- GET /favicon.ico 200 in 65ms
- ✓ Compiled in 1211ms (2140 modules)
- GET /projects/simple-dex 200 in 28ms
- ✓ Compiled in 589ms (2140 modules)
- GET /projects/simple-dex 200 in 57ms
- ✓ Compiled in 1978ms (4507 modules)
- GET /projects/simple-dex 200 in 211ms
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- ⨯ ReferenceError: Github is not defined
-    at Header (src/components/layout/Header.tsx:64:17)
-  62 |             <Button variant="ghost" size="icon" asChild>
-  63 |               <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-> 64 |                 <Github className="h-5 w-5" />
-     |                 ^
-  65 |               </a>
-  66 |             </Button>
-  67 |             <Button variant="ghost" size="icon" asChild> {
-  digest: '2319301867'
+ ✓ Compiled /projects/simple-dex in 4.1s (4430 modules)
+ GET /projects/simple-dex 200 in 4562ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1623ms (4452 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 2072ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 1626ms
+ GET /icon.png?c2ed453ef5135195 200 in 59ms
+ GET /projects/simple-dex 200 in 475ms
+ ✓ Compiled in 996ms (4430 modules)
+ GET /projects/simple-dex 200 in 186ms
+ GET /projects/simple-dex 200 in 346ms
+ ✓ Compiled /icon.png in 333ms (2342 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 452ms
+ ✓ Compiled /_not-found in 382ms (4438 modules)
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 595ms
+ GET /icon.png?c2ed453ef5135195 200 in 54ms
+   Reload env: .env.local
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled in 7.1s (4470 modules)
+ GET /projects/simple-dex 200 in 3673ms
+ GET /icon.png?c2ed453ef5135195 200 in 80ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 55ms
+ GET /icon.png?c2ed453ef5135195 200 in 14ms
+ ✓ Compiled in 860ms (4430 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json',
+  page: '/projects/simple-dex'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1326ms (4744 modules)
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'
+}
+ GET /projects/simple-dex 500 in 3159ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json',
+  page: '/projects/simple-dex'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'
+}
+ GET /projects/simple-dex 500 in 430ms
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json',
+  page: '/projects/simple-dex'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'
 }
  GET /projects/simple-dex 500 in 384ms
- ○ Compiling /favicon.ico ...
- ✓ Compiled /favicon.ico in 1630ms (4524 modules)
- GET /favicon.ico 200 in 1744ms
- ○ Compiling /_not-found ...
- ⨯ SyntaxError: Unexpected end of JSON input
-    at JSON.parse (<anonymous>) {
-  page: '/favicon.ico'
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json',
+  page: '/projects/simple-dex'
 }
- GET /favicon.ico 500 in 744ms
- ✓ Compiled /_not-found in 5.7s (4529 modules)
- GET /favicon.ico 200 in 4930ms
- GET /favicon.ico 200 in 4932ms
- ⨯ ReferenceError: Github is not defined
-    at Footer (src/components/layout/Footer.tsx:57:17)
-  55 |                 className="text-muted-foreground hover:text-primary transition-colors"
-  56 |               >
-> 57 |                 <Github className="h-5 w-5" />
-     |                 ^
-  58 |               </a>
-  59 |               <a
-  60 |                 href="https://twitter.com" {
-  digest: '4055485348'
+ ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'
 }
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 500 in 6096ms
-[ResponseAborted: ]
- ⨯ ReferenceError: Github is not defined
-    at Footer (src/components/layout/Footer.tsx:57:17)
-  55 |                 className="text-muted-foreground hover:text-primary transition-colors"
-  56 |               >
-> 57 |                 <Github className="h-5 w-5" />
-     |                 ^
-  58 |               </a>
-  59 |               <a
-  60 |                 href="https://twitter.com" {
-  digest: '4055485348'
-}
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- GET /projects/simple-dex 500 in 696ms
-[ResponseAborted: ]
- GET /projects/simple-dex 200 in 833ms
- ⨯ ReferenceError: Github is not defined
-    at Footer (src/components/layout/Footer.tsx:57:17)
-  55 |                 className="text-muted-foreground hover:text-primary transition-colors"
-  56 |               >
-> 57 |                 <Github className="h-5 w-5" />
-     |                 ^
-  58 |               </a>
-  59 |               <a
-  60 |                 href="https://twitter.com" {
-  digest: '4055485348'
-}
- GET /projects/simple-dex 500 in 89ms
- GET /favicon.ico 200 in 38ms
- ✓ Compiled in 831ms (4529 modules)
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 719ms
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- GET /projects/simple-dex 200 in 1080ms
- ✓ Compiled in 675ms (2144 modules)
- GET /favicon.ico 200 in 66ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 53ms
- GET /favicon.ico 200 in 8ms
- ✓ Compiled in 226ms (2144 modules)
- GET /projects/simple-dex 200 in 35ms
- ✓ Compiled in 752ms (2144 modules)
- GET /projects/simple-dex 200 in 20ms
- ✓ Compiled in 495ms (2144 modules)
- GET /projects/simple-dex 200 in 27ms
- GET / 200 in 63ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 101ms
- ○ Compiling /about ...
- ✓ Compiled /about in 1930ms (4511 modules)
- GET /about 200 in 2183ms
- GET /about 200 in 635ms
- GET /_next/static/chunks/app/about/LayoutGroupContext.mjs.map 404 in 337ms
- GET /projects 200 in 39ms
- GET /_next/static/chunks/app/projects/LayoutGroupContext.mjs.map 404 in 111ms
- GET / 200 in 88ms
- ✓ Compiled in 1324ms (4525 modules)
- GET / 200 in 89ms
- GET / 200 in 394ms
- ○ Compiling /favicon.ico ...
- ✓ Compiled /favicon.ico in 833ms (2392 modules)
- GET /favicon.ico 200 in 965ms
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 606ms (4528 modules)
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 963ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 808ms
- GET /favicon.ico 200 in 28ms
- GET / 200 in 211ms
- GET /favicon.ico 200 in 31ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 67ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 65ms
- GET /favicon.ico 200 in 40ms
- ○ Compiling /api/chat ...
- ✓ Compiled /api/chat in 1041ms (2395 modules)
- POST /api/chat 200 in 2754ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- ✓ Compiled in 1113ms (4521 modules)
- GET / 200 in 595ms
- GET / 200 in 1088ms
- ○ Compiling /favicon.ico ...
- ✓ Compiled /favicon.ico in 1177ms (2392 modules)
- GET /favicon.ico 200 in 1321ms
- ✓ Compiled /_not-found in 383ms (4529 modules)
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 587ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 732ms
- GET /favicon.ico 200 in 35ms
- POST /api/chat 200 in 1590ms
- GET / 200 in 263ms
- GET /favicon.ico 200 in 23ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 53ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 45ms
- GET /favicon.ico 200 in 7ms
- ✓ Compiled in 1439ms (4543 modules)
- GET / 200 in 144ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 200 in 317ms
- GET /favicon.ico 200 in 33ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 66ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 78ms
- GET /favicon.ico 200 in 272ms
- ✓ Compiled in 765ms (4543 modules)
- GET / 200 in 128ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 200 in 464ms
- GET /favicon.ico 200 in 166ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 115ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 71ms
- GET /favicon.ico 200 in 9ms
- ✓ Compiled in 718ms (4543 modules)
- GET / 200 in 66ms
- ✓ Compiled in 701ms (4543 modules)
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 200 in 114ms
- GET / 200 in 207ms
- GET /favicon.ico 200 in 23ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 61ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 48ms
- GET /favicon.ico 200 in 18ms
- ✓ Compiled in 620ms (4543 modules)
- GET / 200 in 54ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 200 in 255ms
- GET /favicon.ico 200 in 27ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 59ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 46ms
- GET /favicon.ico 200 in 39ms
- ✓ Compiled in 956ms (4543 modules)
- GET / 200 in 49ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 200 in 242ms
- GET /favicon.ico 200 in 150ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 148ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 71ms
- GET /favicon.ico 200 in 31ms
- ✓ Compiled in 799ms (4543 modules)
- GET / 200 in 62ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 200 in 310ms
- GET /favicon.ico 200 in 139ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 74ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 44ms
- GET /favicon.ico 200 in 7ms
- ✓ Compiled in 691ms (4543 modules)
- GET / 200 in 61ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 200 in 408ms
- GET /favicon.ico 200 in 19ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 65ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 54ms
- GET /favicon.ico 200 in 5ms
- POST /api/chat 200 in 2067ms
- ✓ Compiled in 643ms (4543 modules)
- GET / 200 in 63ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 200 in 181ms
- GET /favicon.ico 200 in 13ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 86ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 48ms
- GET /favicon.ico 200 in 9ms
- ✓ Compiled in 626ms (4543 modules)
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET / 200 in 264ms
- GET / 200 in 319ms
- GET /favicon.ico 200 in 53ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 111ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 47ms
- GET /favicon.ico 200 in 14ms
- POST /api/chat 200 in 1290ms
- GET / 200 in 130ms
- GET /favicon.ico 200 in 25ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 52ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 104ms
- GET /favicon.ico 200 in 11ms
- GET /projects 200 in 91ms
- GET /_next/static/chunks/app/projects/LayoutGroupContext.mjs.map 404 in 111ms
- ✓ Compiled in 1490ms (4526 modules)
- GET /projects 200 in 123ms
- GET /projects 200 in 368ms
- ○ Compiling /favicon.ico ...
- ✓ Compiled /favicon.ico in 1027ms (2393 modules)
- GET /favicon.ico 200 in 1218ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 615ms
- GET /_next/static/chunks/app/projects/LayoutGroupContext.mjs.map 404 in 139ms
- GET /favicon.ico 200 in 144ms
- GET / 200 in 145ms
- GET / 200 in 17ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 106ms
- ✓ Compiled in 1644ms (4521 modules)
- GET / 200 in 132ms
- GET / 200 in 413ms
- ✓ Compiled /favicon.ico in 503ms (2392 modules)
- GET /favicon.ico 200 in 841ms
- ✓ Compiled /_not-found in 470ms (4529 modules)
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 729ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 619ms
- GET /favicon.ico 200 in 18ms
- GET / 200 in 273ms
- GET /favicon.ico 200 in 29ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 63ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 55ms
- GET /favicon.ico 200 in 24ms
+ GET /projects/simple-dex 500 in 385ms

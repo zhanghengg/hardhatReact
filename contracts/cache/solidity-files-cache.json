@@ -38,8 +38,8 @@
       ]
     },
     "/Users/Zhuanz1/web3/hardhatReact/contracts/contracts/tokens/ERC20Token.sol": {
-      "lastModificationDate": 1765292503269,
-      "contentHash": "65063dbcd5fd456fa199e3297efc8a57",
+      "lastModificationDate": 1769418019311,
+      "contentHash": "2f7c6fd6dc0c2a4bd864227554086a0d",
       "sourceName": "contracts/tokens/ERC20Token.sol",
       "solcConfig": {
         "version": "0.8.24",
@@ -66,7 +66,8 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [
         "^0.8.24"
@@ -565,6 +566,44 @@
       ],
       "artifacts": [
         "WETH"
+      ]
+    },
+    "/Users/Zhuanz1/web3/hardhatReact/contracts/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1755532454158,
+      "contentHash": "d3c790edc9ccf808a17c5a6cd13614fd",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "Ownable"
       ]
     }
   }

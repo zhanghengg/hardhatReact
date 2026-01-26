@@ -1,18 +1,41 @@
 import { http, createConfig } from 'wagmi'
 import { hardhat, sepolia } from 'wagmi/chains'
 
-// 判断是否为生产环境
+// 网络配置
+// NEXT_PUBLIC_NETWORK 可选值: 'local' | 'sepolia' | 'auto'
+// - 'local': 强制使用本地 Hardhat 网络
+// - 'sepolia': 强制使用 Sepolia 测试网
+// - 'auto' (默认): 开发环境用本地，生产环境用 Sepolia
+const networkEnv = process.env.NEXT_PUBLIC_NETWORK || 'auto'
 const isProduction = process.env.NODE_ENV === 'production'
 
-// 本地开发使用 Hardhat，生产环境使用 Sepolia
+const useLocalNetwork =
+  networkEnv === 'local' || (networkEnv === 'auto' && !isProduction)
+const useSepoliaOnly = networkEnv === 'sepolia' || (networkEnv === 'auto' && isProduction)
+
+// 根据配置选择可用链
+const availableChains = useSepoliaOnly
+  ? [sepolia] as const
+  : useLocalNetwork
+    ? [hardhat, sepolia] as const
+    : [sepolia] as const
+
 export const config = createConfig({
-  chains: isProduction ? [sepolia] : [hardhat, sepolia],
+  chains: availableChains,
   transports: {
     [hardhat.id]: http('http://127.0.0.1:8545'),
     [sepolia.id]: http('https://rpc.sepolia.org')
   },
   ssr: true
 })
+
+// 导出当前网络配置信息（用于调试）
+export const networkConfig = {
+  env: networkEnv,
+  isLocal: useLocalNetwork,
+  isSepolia: useSepoliaOnly,
+  defaultChain: availableChains[0]
+}
 
 // Hardhat 默认测试账户 (本地开发用)
 // 这些私钥仅用于本地测试，不要在生产环境使用！
