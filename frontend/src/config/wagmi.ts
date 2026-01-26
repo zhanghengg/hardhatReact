@@ -55,9 +55,8 @@ export const TEST_ACCOUNTS = [
 // Sepolia 测试账户 (仅用于 Demo 演示)
 // ⚠️ 警告：这是一个公开的测试私钥，任何人都可以访问！
 // 请勿往此地址转入任何有价值的资产！
-// 地址: 0x06d7dc89efd6e9ec0bcd5cfe4000b55c3779bc47
 export const DEMO_TEST_ACCOUNT = {
-  address: '0x06d7dc89efd6e9ec0bcd5cfe4000b55c3779bc47' as `0x${string}`,
+  address: '0xa2eEbbc8F48192EC1CdDe45127ef2bD4253CbCDa' as `0x${string}`,
   privateKey:
     '0xd9a022572ef305d7ddae450935e9642131e8dcfac3adc80ae7162e7232bfeece' as `0x${string}`
 } as const

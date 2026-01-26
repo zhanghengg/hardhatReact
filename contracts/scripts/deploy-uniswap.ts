@@ -10,7 +10,7 @@ const TEST_ACCOUNTS = [
 ] as const
 
 // Sepolia 测试账户 (仅用于 Demo 演示)
-const DEMO_TEST_ACCOUNT = '0x06d7dc89efd6e9ec0bcd5cfe4000b55c3779bc47'
+const DEMO_TEST_ACCOUNT = '0xa2eEbbc8F48192EC1CdDe45127ef2bD4253CbCDa'
 
 // 每个账户铸造的代币数量
 const MINT_AMOUNT_PER_ACCOUNT = ethers.parseEther('100000')

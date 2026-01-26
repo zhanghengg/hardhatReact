@@ -29,3 +29,8 @@
  GET /projects/simple-dex 200 in 28ms
  ✓ Compiled in 299ms (2150 modules)
  GET /projects/simple-dex 200 in 32ms
+ ✓ Compiled in 1031ms (4524 modules)
+ GET /projects/simple-dex 200 in 120ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 681ms (4515 modules)
+ GET /_next/static/css/app/layout.css?v=1769424228793 404 in 925ms
