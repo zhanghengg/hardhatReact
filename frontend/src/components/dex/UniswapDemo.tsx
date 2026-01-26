@@ -91,7 +91,7 @@ export function UniswapDemo() {
     try {
       const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts'
-      })
+      }) as string[]
 
       if (accounts && accounts.length > 0) {
         // 切换到正确的网络
@@ -134,7 +134,7 @@ export function UniswapDemo() {
   const fetchBalances = useCallback(async () => {
     if (!account) return
     try {
-      const address = 'address' in account ? account.address : account.address
+      const address = account.address
       const [eth, tokenA, tokenB, lp] = await Promise.all([
         publicClient.getBalance({ address }),
         publicClient.readContract({
@@ -228,7 +228,7 @@ export function UniswapDemo() {
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div className="flex items-center gap-2">
               <code className="text-xs bg-background/50 px-2 py-1 rounded">
-                {'address' in account ? account.address : account.address}
+                {account.address}
               </code>
               <span className="text-xs text-muted-foreground">
                 ({connectionMode === 'wallet' ? '钱包' : 'Demo 账户'})
@@ -373,7 +373,7 @@ function SwapSection({
   }, [amountIn, tokenIn, tokenOut])
 
   const getWalletClient = () => {
-    const address = 'address' in account ? account.address : account.address
+    const address = account.address
     if (connectionMode === 'wallet' && typeof window !== 'undefined' && window.ethereum) {
       return createWalletClient({
         account: address,
@@ -395,7 +395,7 @@ function SwapSection({
     setStatus('授权中...')
     try {
       const walletClient = getWalletClient()
-      const address = 'address' in account ? account.address : account.address
+      const address = account.address
 
       const approveHash = await walletClient.writeContract({
         address: tokenIn,
@@ -499,7 +499,7 @@ function LiquiditySection({
   const [status, setStatus] = useState('')
 
   const getWalletClient = () => {
-    const address = 'address' in account ? account.address : account.address
+    const address = account.address
     if (connectionMode === 'wallet' && typeof window !== 'undefined' && window.ethereum) {
       return createWalletClient({
         account: address,
@@ -519,7 +519,7 @@ function LiquiditySection({
     setLoading(true)
     try {
       const walletClient = getWalletClient()
-      const address = 'address' in account ? account.address : account.address
+      const address = account.address
 
       setStatus('授权 TKA...')
       const approveAHash = await walletClient.writeContract({
@@ -574,7 +574,7 @@ function LiquiditySection({
     setLoading(true)
     try {
       const walletClient = getWalletClient()
-      const address = 'address' in account ? account.address : account.address
+      const address = account.address
 
       setStatus('授权 LP...')
       const approveLPHash = await walletClient.writeContract({
