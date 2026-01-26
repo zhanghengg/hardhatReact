@@ -1,4 +1,4 @@
-[dotenv@17.2.1] injecting env (2) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
-[dotenv@17.2.1] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+[dotenv@17.2.1] injecting env (2) from .env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+[dotenv@17.2.1] injecting env (0) from .env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar
 Counter: 0x5FbDB2315678afecb367f032d93F642f64180aa3
 Wrote contracts to /Users/Zhuanz1/web3/hardhatReact/frontend/src/lib/contracts.ts

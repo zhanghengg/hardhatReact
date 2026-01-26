@@ -8,29 +8,16 @@
 
    ▲ Next.js 15.4.10
    - Local:        http://localhost:5173
-   - Network:      http://192.168.8.199:5173
+   - Network:      http://192.168.10.193:5173
    - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1725ms
- ○ Compiling / ...
- ✓ Compiled / in 4.6s (1652 modules)
- GET / 200 in 5024ms
- ○ Compiling /icon.png ...
- ✓ Compiled /icon.png in 1080ms (931 modules)
- GET /icon.png?c2ed453ef5135195 200 in 1203ms
- GET /icon.png?c2ed453ef5135195 200 in 13ms
+ ✓ Ready in 2s
  ○ Compiling /projects/simple-dex ...
- ✓ Compiled /projects/simple-dex in 3.7s (4541 modules)
- GET /projects/simple-dex 200 in 3852ms
- GET /projects/simple-dex 200 in 12ms
- GET /projects/simple-dex 200 in 43ms
- ✓ Compiled in 602ms (2150 modules)
- GET /projects/simple-dex 200 in 28ms
- ✓ Compiled in 299ms (2150 modules)
- GET /projects/simple-dex 200 in 32ms
- ✓ Compiled in 1031ms (4524 modules)
- GET /projects/simple-dex 200 in 120ms
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 681ms (4515 modules)
- GET /_next/static/css/app/layout.css?v=1769424228793 404 in 925ms
+ ✓ Compiled /_not-found in 4.3s (4435 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/78f3c073387a37ce.webpack.hot-update.json 404 in 3462ms
+ GET /projects/simple-dex 200 in 4836ms
+ ✓ Compiled /icon.png in 348ms (2343 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 469ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 273ms

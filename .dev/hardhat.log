@@ -1,4 +1,4 @@
-[dotenv@17.2.1] injecting env (2) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+[dotenv@17.2.1] injecting env (2) from .env -- tip: ⚙️  override existing env vars with { override: true }
 Started HTTP and WebSocket JSON-RPC server at http://127.0.0.1:8545/
 
 Accounts
@@ -102,7 +102,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
   Gas used:            97489 of 30000000
-  Block #1:            0xf22a62d7999963aa47f8635045b32c6212f9244233c9111320fcefbca521e035
+  Block #1:            0xd822d36ccbe48b63fbccb9523340df5f371d6b96258e73b8dd1d09303424cef4
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m

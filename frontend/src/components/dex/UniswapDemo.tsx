@@ -21,8 +21,16 @@ import ERC20TokenABI from '@/abi/ERC20Token.json'
 import UniswapV2RouterABI from '@/abi/UniswapV2Router.json'
 import UniswapV2PairABI from '@/abi/UniswapV2Pair.json'
 
-// 判断环境
+// 网络配置
+// NEXT_PUBLIC_NETWORK 可选值: 'local' | 'sepolia' | 'auto'
+// - 'local': 强制使用本地 Hardhat 网络
+// - 'sepolia': 强制使用 Sepolia 测试网
+// - 'auto' (默认): 开发环境用本地，生产环境用 Sepolia
+const networkEnv = process.env.NEXT_PUBLIC_NETWORK || 'auto'
 const isProduction = process.env.NODE_ENV === 'production'
+
+const useSepoliaNetwork =
+  networkEnv === 'sepolia' || (networkEnv === 'auto' && isProduction)
 
 // RPC URL 配置
 const SEPOLIA_RPC_URL =
@@ -30,7 +38,7 @@ const SEPOLIA_RPC_URL =
 
 // 根据环境选择网络配置
 const getChainConfig = (): { chain: Chain; rpcUrl: string } => {
-  if (isProduction) {
+  if (useSepoliaNetwork) {
     return {
       chain: sepolia,
       rpcUrl: SEPOLIA_RPC_URL
@@ -71,13 +79,10 @@ export function UniswapDemo() {
     totalSupply: '0'
   })
 
+  // 自动连接 Demo 账户
   useEffect(() => {
     setMounted(true)
-  }, [])
-
-  // 连接测试账户 (本地用 Hardhat 账户，生产用 Demo 账户)
-  const connectTestAccount = useCallback(() => {
-    const testKey = isProduction
+    const testKey = useSepoliaNetwork
       ? DEMO_TEST_ACCOUNT.privateKey
       : TEST_ACCOUNTS[0].privateKey
     const acc = privateKeyToAccount(testKey)
@@ -85,55 +90,6 @@ export function UniswapDemo() {
     setConnectionMode('test')
   }, [])
 
-  // 连接 MetaMask 钱包
-  const connectWallet = useCallback(async () => {
-    if (typeof window === 'undefined' || !window.ethereum) {
-      alert('请安装 MetaMask 钱包')
-      return
-    }
-
-    try {
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts'
-      }) as string[]
-
-      if (accounts && accounts.length > 0) {
-        // 切换到正确的网络
-        const targetChainId = isProduction ? '0xaa36a7' : '0x7a69' // Sepolia: 11155111, Hardhat: 31337
-        try {
-          await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: targetChainId }]
-          })
-        } catch (switchError: unknown) {
-          // 如果网络不存在，尝试添加 (仅 Sepolia)
-          if ((switchError as { code?: number })?.code === 4902 && isProduction) {
-            await window.ethereum.request({
-              method: 'wallet_addEthereumChain',
-              params: [
-                {
-                  chainId: '0xaa36a7',
-                  chainName: 'Sepolia',
-                  nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-                  rpcUrls: ['https://rpc.sepolia.org'],
-                  blockExplorerUrls: ['https://sepolia.etherscan.io']
-                }
-              ]
-            })
-          }
-        }
-
-        setAccount({ address: accounts[0] as `0x${string}`, type: 'injected' })
-        setConnectionMode('wallet')
-      }
-    } catch (error) {
-      console.error('连接钱包失败:', error)
-    }
-  }, [])
-
-  const disconnect = useCallback(() => {
-    setAccount(null)
-  }, [])
 
   const fetchBalances = useCallback(async () => {
     if (!account) return
@@ -220,39 +176,26 @@ export function UniswapDemo() {
       {/* 网络指示器 */}
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
         <span
-          className={`w-2 h-2 rounded-full ${isProduction ? 'bg-yellow-500' : 'bg-green-500'}`}
+          className={`w-2 h-2 rounded-full ${useSepoliaNetwork ? 'bg-yellow-500' : 'bg-green-500'}`}
         />
-        {isProduction ? 'Sepolia 测试网' : '本地开发网络'}
+        {useSepoliaNetwork ? 'Sepolia 测试网' : '本地开发网络'}
       </div>
 
-      {/* 连接区域 */}
-      <div className="p-4 rounded-xl border border-border/50 bg-card/50">
-        <h3 className="text-lg font-semibold mb-3">🔗 账户</h3>
-        {account ? (
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <div className="flex items-center gap-2">
-              <code className="text-xs bg-background/50 px-2 py-1 rounded">
-                {account.address}
-              </code>
-              <span className="text-xs text-muted-foreground">
-                ({connectionMode === 'wallet' ? '钱包' : 'Demo 账户'})
-              </span>
-            </div>
-            <Button variant="outline" size="sm" onClick={disconnect}>
-              断开
-            </Button>
-          </div>
-        ) : (
-          <div className="flex gap-2 flex-wrap">
-            <Button size="sm" variant="outline" onClick={connectTestAccount}>
-              连接 Demo 账户
-            </Button>
-            <Button size="sm" onClick={connectWallet}>
-              连接钱包
-            </Button>
-          </div>
-        )}
-      </div>
+      {/* 账户信息 */}
+      {account && (
+        <div className="p-4 rounded-xl border border-border/50 bg-card/50">
+          <h3 className="text-lg font-semibold mb-2">🔗 Demo 账户</h3>
+          <code className="text-xs bg-background/50 px-2 py-1 rounded">
+            {account.address}
+          </code>
+          <p className="text-xs text-muted-foreground mt-2">
+            ⚠️ 硬编码账户，仅作为演示使用
+          </p>
+        </div>
+      )}
+
+      {/* 合约地址信息 - 始终显示 */}
+      <ContractAddressesSection />
 
       {account && (
         <>
@@ -285,11 +228,11 @@ function NotDeployedMessage() {
     <div className="p-6 rounded-xl border border-yellow-500/50 bg-yellow-500/10">
       <h3 className="text-lg font-bold text-yellow-500 mb-2">⚠️ 合约未部署</h3>
       <p className="text-sm text-muted-foreground mb-3">
-        {isProduction
+        {useSepoliaNetwork
           ? '合约地址配置无效，请联系管理员。'
           : '请先启动本地节点并部署合约：'}
       </p>
-      {!isProduction && (
+      {!useSepoliaNetwork && (
         <pre className="bg-black/50 p-3 rounded text-xs overflow-x-auto">
           {`cd contracts
 npm run node          # 终端1
@@ -756,6 +699,78 @@ function PoolInfoSection({
           </p>
         </div>
       </div>
+    </div>
+  )
+}
+
+function ContractAddressesSection() {
+  const SEPOLIA_EXPLORER = 'https://sepolia.etherscan.io/address'
+
+  const contracts = [
+    { name: 'Factory', address: CONTRACTS.Factory, description: '工厂合约' },
+    { name: 'Router', address: CONTRACTS.Router, description: '路由合约' },
+    { name: 'TokenA (TKA)', address: CONTRACTS.TokenA, description: '测试代币 A' },
+    { name: 'TokenB (TKB)', address: CONTRACTS.TokenB, description: '测试代币 B' },
+    { name: 'Pair (LP)', address: CONTRACTS.Pair, description: '交易对合约' },
+  ]
+
+  const truncateAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`
+  }
+
+  return (
+    <div className="p-4 rounded-xl border border-border/50 bg-card/50">
+      <h3 className="text-lg font-semibold mb-3">📋 合约地址</h3>
+      <div className="space-y-2">
+        {contracts.map((contract) => (
+          <div
+            key={contract.name}
+            className="flex items-center justify-between p-3 rounded-lg bg-background/50 hover:bg-background/70 transition-colors"
+          >
+            <div className="flex flex-col">
+              <span className="text-sm font-medium">{contract.name}</span>
+              <span className="text-xs text-muted-foreground">{contract.description}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <code className="text-xs bg-background px-2 py-1 rounded border border-border">
+                {truncateAddress(contract.address)}
+              </code>
+              {useSepoliaNetwork ? (
+                <a
+                  href={`${SEPOLIA_EXPLORER}/${contract.address}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-blue-500 hover:text-blue-400 hover:underline flex items-center gap-1"
+                >
+                  <span>查看</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
+              ) : (
+                <span className="text-xs text-muted-foreground">本地</span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      {useSepoliaNetwork && (
+        <p className="text-xs text-muted-foreground mt-3">
+          点击「查看」可在 Sepolia Etherscan 上查看合约详情
+        </p>
+      )}
     </div>
   )
 }
