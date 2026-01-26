@@ -12,12 +12,233 @@
    - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 2s
+ ✓ Ready in 2.8s
  ○ Compiling /projects/simple-dex ...
- ✓ Compiled /_not-found in 4.3s (4435 modules)
+ ✓ Compiled /projects/simple-dex in 3.9s (4458 modules)
+ GET /projects/simple-dex 200 in 4417ms
+ ✓ Compiled /icon.png in 453ms (2356 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 587ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 754ms (4480 modules)
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 1074ms
+ GET /icon.png?c2ed453ef5135195 200 in 252ms
+ ✓ Compiled in 1258ms (4458 modules)
+ GET /projects/simple-dex 200 in 283ms
+ ✓ Compiled in 702ms (4458 modules)
+ GET /projects/simple-dex 200 in 76ms
+ ✓ Compiled in 695ms (4458 modules)
+ GET /projects/simple-dex 200 in 59ms
+ ✓ Compiled in 741ms (4458 modules)
+ GET /projects/simple-dex 200 in 49ms
+ ✓ Compiled in 833ms (4458 modules)
+ GET /projects/simple-dex 200 in 49ms
+ ✓ Compiled in 659ms (4458 modules)
+ GET /projects/simple-dex 200 in 147ms
+ ✓ Compiled in 1355ms (4458 modules)
+ GET /projects/simple-dex 200 in 232ms
+ ✓ Compiled in 820ms (4458 modules)
+ GET /projects/simple-dex 200 in 149ms
+ ✓ Compiled in 690ms (4458 modules)
+ GET /projects/simple-dex 200 in 78ms
+ ✓ Compiled in 455ms (4458 modules)
+ GET /projects/simple-dex 200 in 81ms
+ ✓ Compiled in 657ms (4458 modules)
+ GET /projects/simple-dex 200 in 95ms
+ ✓ Compiled in 1334ms (4458 modules)
+ GET /projects/simple-dex 200 in 115ms
  ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- GET /_next/static/webpack/78f3c073387a37ce.webpack.hot-update.json 404 in 3462ms
- GET /projects/simple-dex 200 in 4836ms
- ✓ Compiled /icon.png in 348ms (2343 modules)
- GET /icon.png?c2ed453ef5135195 200 in 469ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 273ms
+ ✓ Compiled in 767ms (4458 modules)
+ GET /projects/simple-dex 200 in 802ms
+ ✓ Compiled /icon.png in 440ms (2356 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 554ms
+ ✓ Compiled /_not-found in 493ms (4466 modules)
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 852ms
+ GET /icon.png?c2ed453ef5135195 200 in 148ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 930ms (4480 modules)
+ ⨯ ReferenceError: useReserves is not defined
+    at UniswapDemo (src/components/dex/UniswapDemo.tsx:39:38)
+  37 |   // 使用自定义 Hooks
+  38 |   const { balances, fetchBalances } = useBalances(account)
+> 39 |   const { reserves, fetchReserves } = useReserves()
+     |                                      ^
+  40 |
+  41 |   // 自动连接 Demo 账户
+  42 |   useEffect(() => { {
+  digest: '2260870944'
+}
+ GET /projects/simple-dex 500 in 634ms
+ GET /icon.png?c2ed453ef5135195 200 in 52ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 130ms
+ GET /icon.png?c2ed453ef5135195 200 in 15ms
+ ✓ Compiled in 772ms (4480 modules)
+ ⨯ ReferenceError: fetchReserves is not defined
+    at UniswapDemo (src/components/dex/UniswapDemo.tsx:57:30)
+  55 |       fetchReserves()
+  56 |     }
+> 57 |   }, [account, fetchBalances, fetchReserves])
+     |                              ^
+  58 |
+  59 |   // 操作成功后的回调
+  60 |   const handleSuccess = () => { {
+  digest: '1075360991'
+}
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /projects/simple-dex 500 in 395ms
+ GET /icon.png?c2ed453ef5135195 200 in 124ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 67ms
+ GET /icon.png?c2ed453ef5135195 200 in 14ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 814ms (4480 modules)
+ GET /projects/simple-dex 200 in 593ms
+ GET /icon.png?c2ed453ef5135195 200 in 83ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 56ms
+ GET /icon.png?c2ed453ef5135195 200 in 30ms
+ ✓ Compiled in 1800ms (4480 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /projects/simple-dex 200 in 289ms
+ GET /icon.png?c2ed453ef5135195 200 in 43ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 66ms
+ GET /icon.png?c2ed453ef5135195 200 in 11ms
+ ✓ Compiled in 1336ms (4480 modules)
+ GET /projects/simple-dex 200 in 76ms
+ ✓ Compiled in 1248ms (4480 modules)
+ GET /projects/simple-dex 200 in 52ms
+ ✓ Compiled in 1491ms (4458 modules)
+ GET /projects/simple-dex 200 in 233ms
+ ✓ Compiled in 644ms (4458 modules)
+ GET /projects/simple-dex 200 in 151ms
+ ✓ Compiled in 522ms (4458 modules)
+ GET /projects/simple-dex 200 in 70ms
+ ✓ Compiled in 1093ms (4458 modules)
+ GET /projects/simple-dex 200 in 116ms
+ ✓ Compiled in 741ms (4458 modules)
+ GET /projects/simple-dex 200 in 194ms
+ ✓ Compiled in 1170ms (4458 modules)
+ GET /projects/simple-dex 200 in 209ms
+ ✓ Compiled in 758ms (2119 modules)
+ GET /projects/simple-dex 200 in 35ms
+ ✓ Compiled in 441ms (2119 modules)
+ GET /projects/simple-dex 200 in 56ms
+ ✓ Compiled in 385ms (2119 modules)
+ GET /projects/simple-dex 200 in 38ms
+ ✓ Compiled in 1004ms (4460 modules)
+ GET /projects/simple-dex 200 in 91ms
+ ✓ Compiled in 341ms (4462 modules)
+ GET /projects/simple-dex 200 in 67ms
+ ✓ Compiled in 847ms (4462 modules)
+ GET /projects/simple-dex 200 in 50ms
+ ✓ Compiled in 650ms (4462 modules)
+ GET /projects/simple-dex 200 in 309ms
+ GET /projects/simple-dex 200 in 783ms
+ ✓ Compiled /icon.png in 479ms (2358 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 590ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 509ms (4470 modules)
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 928ms
+ GET /icon.png?c2ed453ef5135195 200 in 89ms
+ GET /projects/simple-dex 200 in 259ms
+ GET /icon.png?c2ed453ef5135195 200 in 20ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 71ms
+ GET /icon.png?c2ed453ef5135195 200 in 29ms
+ ✓ Compiled in 1665ms (4462 modules)
+ GET /projects/simple-dex 200 in 279ms
+ ✓ Compiled in 1310ms (4462 modules)
+ GET /projects/simple-dex 200 in 111ms
+ ✓ Compiled in 698ms (4462 modules)
+ GET /projects/simple-dex 200 in 59ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /projects/simple-dex 200 in 419ms
+ ✓ Compiled /icon.png in 201ms (2358 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 349ms
+ ✓ Compiled /_not-found in 339ms (4470 modules)
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 664ms
+ GET /icon.png?c2ed453ef5135195 200 in 38ms
+ GET /projects/simple-dex 200 in 430ms
+ ✓ Compiled in 3.4s (4484 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 544ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 299ms
+ ✓ Compiled in 1781ms (4484 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /projects/simple-dex 200 in 450ms
+ GET /icon.png?c2ed453ef5135195 200 in 47ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 76ms
+ GET /icon.png?c2ed453ef5135195 200 in 16ms
+ ✓ Compiled in 536ms (4484 modules)
+ GET /projects/simple-dex 200 in 94ms
+ ✓ Compiled in 2.9s (4484 modules)
+ ✓ Compiled in 341ms (2125 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.8s (4564 modules)
+ GET / 200 in 4062ms
+ GET /icon.png?c2ed453ef5135195 200 in 56ms
+ ○ Compiling /projects ...
+ ✓ Compiled /projects in 3.1s (4572 modules)
+ GET /projects 200 in 3247ms
+ GET /projects 200 in 16ms
+ ✓ Compiled in 3s (4586 modules)
+ ○ Compiling /_not-found ...
+ GET /projects 200 in 979ms
+ ✓ Compiled /_not-found in 1751ms (4577 modules)
+ GET /_next/static/chunks/app/projects/LayoutGroupContext.mjs.map 404 in 1622ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 2211ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 2223ms
+ GET /projects/simple-dex 200 in 97ms
+ ✓ Compiled in 1449ms (4591 modules)
+ GET /projects/simple-dex 200 in 101ms
+ ✓ Compiled in 390ms (2175 modules)
+ GET /projects/simple-dex 200 in 22ms
+ ✓ Compiled in 2.2s (4591 modules)
+ GET /projects/simple-dex 200 in 142ms
+ ✓ Compiled in 394ms (2175 modules)
+ GET /projects/simple-dex 200 in 31ms
+ GET /projects/simple-dex 200 in 453ms
+ GET /icon.png?c2ed453ef5135195 200 in 75ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 55ms
+ GET /icon.png?c2ed453ef5135195 200 in 15ms
+ GET /projects/simple-dex 200 in 104ms
+ GET /icon.png?c2ed453ef5135195 200 in 14ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 43ms
+ GET /icon.png?c2ed453ef5135195 200 in 13ms
+ ✓ Compiled in 2.8s (4569 modules)
+ GET /projects/simple-dex 200 in 186ms
+ ✓ Compiled in 2.3s (4569 modules)
+ GET /projects/simple-dex 200 in 139ms
+ ✓ Compiled in 593ms (4569 modules)
+ GET /projects/simple-dex 200 in 111ms
+ GET /projects/simple-dex 200 in 527ms
+ ○ Compiling /icon.png ...
+ ✓ Compiled /icon.png in 1201ms (2415 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 1314ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1112ms (4577 modules)
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 1697ms
+ GET /icon.png?c2ed453ef5135195 200 in 47ms
+ ✓ Compiled in 2.2s (4569 modules)
+ GET /projects/simple-dex 200 in 121ms
+ GET /projects/simple-dex 200 in 346ms
+ ○ Compiling /icon.png ...
+ ✓ Compiled /icon.png in 973ms (2415 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 1087ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 874ms (4577 modules)
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 1123ms
+ GET /icon.png?c2ed453ef5135195 200 in 288ms
+ ✓ Compiled in 1776ms (4591 modules)
+ GET /projects/simple-dex 200 in 152ms
+ GET /projects/simple-dex 200 in 487ms
+ GET /icon.png?c2ed453ef5135195 200 in 77ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 59ms
+ GET /icon.png?c2ed453ef5135195 200 in 32ms
+ GET /projects/simple-dex 200 in 162ms
+ GET /icon.png?c2ed453ef5135195 200 in 40ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 51ms
+ GET /icon.png?c2ed453ef5135195 200 in 10ms
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.4.10
+   - Local:        http://localhost:5173
+   - Network:      http://192.168.10.193:5173
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2s

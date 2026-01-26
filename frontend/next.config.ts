@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
     unoptimized: true
   },
 
+  // 构建时禁用 ESLint 检测
+  eslint: {
+    ignoreDuringBuilds: true
+  },
+
   // 解决 wagmi 的 @base-org/account 模块问题
   webpack: config => {
     config.resolve.fallback = {

@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { UniswapDemo } from '@/components/dex/UniswapDemo'
+import { ContractAddresses, PoolInfoSection } from '@/components/dex/components'
 
 const project = {
   title: 'Simple DEX',
@@ -87,6 +88,12 @@ export default function SimpleDexPage() {
 
           {/* 右侧: 项目信息 */}
           <div className="space-y-6">
+            {/* 合约地址 */}
+            <ContractAddresses />
+
+            {/* 池子信息 */}
+            <PoolInfoSection />
+
             {/* Features */}
             <Card>
               <CardHeader>
@@ -139,22 +146,6 @@ export default function SimpleDexPage() {
                     </p>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* 使用说明 */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">🚀 本地运行</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <pre className="bg-black/50 p-3 rounded-lg text-xs overflow-x-auto">
-{`# 终端1: 启动本地节点
-cd contracts && npm run node
-
-# 终端2: 部署合约
-cd contracts && npm run deploy:uniswap`}
-                </pre>
               </CardContent>
             </Card>
           </div>

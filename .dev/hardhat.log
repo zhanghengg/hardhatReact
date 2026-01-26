@@ -1,4 +1,4 @@
-[dotenv@17.2.1] injecting env (2) from .env -- tip: ⚙️  override existing env vars with { override: true }
+[dotenv@17.2.1] injecting env (2) from .env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar
 Started HTTP and WebSocket JSON-RPC server at http://127.0.0.1:8545/
 
 Accounts
@@ -102,7 +102,7 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
   From:                0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
   Value:               0 ETH
   Gas used:            97489 of 30000000
-  Block #1:            0xd822d36ccbe48b63fbccb9523340df5f371d6b96258e73b8dd1d09303424cef4
+  Block #1:            0x8d0442cd286063638adf6232d83a72fa533d70e6d6af2ec966144ddd16ca4d1b
 
 [32meth_getTransactionByHash[0m
 [32meth_getTransactionReceipt[0m
