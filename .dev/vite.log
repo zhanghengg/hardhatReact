@@ -12,87 +12,20 @@
    - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1898ms
+ ✓ Ready in 1725ms
+ ○ Compiling / ...
+ ✓ Compiled / in 4.6s (1652 modules)
+ GET / 200 in 5024ms
+ ○ Compiling /icon.png ...
+ ✓ Compiled /icon.png in 1080ms (931 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 1203ms
+ GET /icon.png?c2ed453ef5135195 200 in 13ms
  ○ Compiling /projects/simple-dex ...
- ✓ Compiled /projects/simple-dex in 4.1s (4430 modules)
- GET /projects/simple-dex 200 in 4562ms
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 1623ms (4452 modules)
- GET /icon.png?c2ed453ef5135195 200 in 2072ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 1626ms
- GET /icon.png?c2ed453ef5135195 200 in 59ms
- GET /projects/simple-dex 200 in 475ms
- ✓ Compiled in 996ms (4430 modules)
- GET /projects/simple-dex 200 in 186ms
- GET /projects/simple-dex 200 in 346ms
- ✓ Compiled /icon.png in 333ms (2342 modules)
- GET /icon.png?c2ed453ef5135195 200 in 452ms
- ✓ Compiled /_not-found in 382ms (4438 modules)
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 595ms
- GET /icon.png?c2ed453ef5135195 200 in 54ms
-   Reload env: .env.local
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- ✓ Compiled in 7.1s (4470 modules)
- GET /projects/simple-dex 200 in 3673ms
- GET /icon.png?c2ed453ef5135195 200 in 80ms
- GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 55ms
- GET /icon.png?c2ed453ef5135195 200 in 14ms
- ✓ Compiled in 860ms (4430 modules)
- ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json',
-  page: '/projects/simple-dex'
-}
- ○ Compiling /_error ...
- ✓ Compiled /_error in 1326ms (4744 modules)
- ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'
-}
- GET /projects/simple-dex 500 in 3159ms
- ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json',
-  page: '/projects/simple-dex'
-}
- ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'
-}
- GET /projects/simple-dex 500 in 430ms
- ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json',
-  page: '/projects/simple-dex'
-}
- ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'
-}
- GET /projects/simple-dex 500 in 384ms
- ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json',
-  page: '/projects/simple-dex'
-}
- ⨯ [Error: ENOENT: no such file or directory, open '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/Users/Zhuanz1/web3/hardhatReact/frontend/.next/routes-manifest.json'
-}
- GET /projects/simple-dex 500 in 385ms
+ ✓ Compiled /projects/simple-dex in 3.7s (4541 modules)
+ GET /projects/simple-dex 200 in 3852ms
+ GET /projects/simple-dex 200 in 12ms
+ GET /projects/simple-dex 200 in 43ms
+ ✓ Compiled in 602ms (2150 modules)
+ GET /projects/simple-dex 200 in 28ms
+ ✓ Compiled in 299ms (2150 modules)
+ GET /projects/simple-dex 200 in 32ms

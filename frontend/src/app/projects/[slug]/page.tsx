@@ -12,14 +12,26 @@ interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
 
+// 有专门页面的项目 slug 列表（这些项目有独立的 /projects/xxx/page.tsx）
+const projectsWithDedicatedPages = ['simple-dex']
+
 export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+  // 排除有专门页面的项目，避免路由冲突
+  return projects
+    .filter((project) => !projectsWithDedicatedPages.includes(project.slug))
+    .map((project) => ({
+      slug: project.slug,
+    }));
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
+
+  // 有专门页面的项目应该由其独立页面处理，这里返回 404 避免冲突
+  if (projectsWithDedicatedPages.includes(slug)) {
+    notFound();
+  }
+
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
