@@ -15,15 +15,22 @@ interface TransactionToastProps {
 /**
  * 交易结果 Toast 通知组件
  * 显示交易成功/失败状态和区块浏览器链接
+ * 居中显示，更加醒目
  */
 export function TransactionToast({ toasts, onRemove }: TransactionToastProps) {
   if (toasts.length === 0) return null
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm">
-      {toasts.map(toast => (
-        <ToastItem key={toast.id} toast={toast} onRemove={onRemove} />
-      ))}
+    <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+      {/* 半透明背景遮罩 */}
+      <div className="absolute inset-0 bg-background/60 backdrop-blur-sm pointer-events-auto" onClick={() => toasts.forEach(t => onRemove(t.id))} />
+      
+      {/* Toast 容器 - 居中显示 */}
+      <div className="relative flex flex-col gap-3 max-w-md w-full mx-4 pointer-events-auto">
+        {toasts.map(toast => (
+          <ToastItem key={toast.id} toast={toast} onRemove={onRemove} />
+        ))}
+      </div>
     </div>
   )
 }
@@ -69,73 +76,75 @@ function ToastItem({ toast, onRemove }: ToastItemProps) {
   return (
     <div
       className={`
-        relative overflow-hidden rounded-xl border shadow-lg backdrop-blur-sm
-        transition-all duration-200 ease-out
-        ${isExiting ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'}
+        relative overflow-hidden rounded-2xl border-2 shadow-2xl backdrop-blur-md
+        transition-all duration-300 ease-out transform
+        ${isExiting ? 'scale-95 opacity-0' : 'scale-100 opacity-100'}
         ${isSuccess 
-          ? 'bg-emerald-500/10 border-emerald-500/30' 
-          : 'bg-red-500/10 border-red-500/30'
+          ? 'bg-emerald-500/15 border-emerald-500/50 shadow-emerald-500/20' 
+          : 'bg-red-500/15 border-red-500/50 shadow-red-500/20'
         }
       `}
     >
-      <div className="p-4">
-        <div className="flex items-start gap-3">
-          {/* 图标 */}
+      <div className="p-5">
+        <div className="flex items-start gap-4">
+          {/* 图标 - 更大更醒目 */}
           <div className={`
-            flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center
-            ${isSuccess ? 'bg-emerald-500/20' : 'bg-red-500/20'}
+            flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center
+            ${isSuccess ? 'bg-emerald-500/30 ring-2 ring-emerald-500/50' : 'bg-red-500/30 ring-2 ring-red-500/50'}
           `}>
             {isSuccess ? (
-              <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <svg className="w-7 h-7 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
               </svg>
             ) : (
-              <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg className="w-7 h-7 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
           </div>
 
-          {/* 内容 */}
+          {/* 内容 - 更大的字体 */}
           <div className="flex-1 min-w-0">
-            <h4 className={`font-semibold text-sm ${isSuccess ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
+            <h4 className={`font-bold text-base ${isSuccess ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
               {toast.title}
             </h4>
             {toast.message && (
-              <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+              <p className="mt-1.5 text-sm text-muted-foreground line-clamp-2">
                 {toast.message}
               </p>
             )}
-            {/* 区块浏览器链接 */}
+            {/* 区块浏览器链接 - 更醒目的按钮样式 */}
             {explorerUrl && (
               <a
                 href={explorerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center gap-1 text-xs text-blue-500 hover:text-blue-600 transition-colors"
+                className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-blue-500 hover:text-blue-600 bg-blue-500/10 hover:bg-blue-500/20 rounded-lg transition-colors"
               >
                 <span>在 Etherscan 查看</span>
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
             )}
           </div>
 
-          {/* 关闭按钮 */}
+          {/* 关闭按钮 - 更大更易点击 */}
           <button
             onClick={handleClose}
-            className="flex-shrink-0 p-1 rounded-lg hover:bg-muted/50 transition-colors"
+            title="关闭"
+            aria-label="关闭通知"
+            className="flex-shrink-0 p-2 rounded-xl hover:bg-muted/50 transition-colors"
           >
-            <svg className="w-4 h-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-5 h-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
       </div>
 
-      {/* 进度条 */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-muted/20">
+      {/* 进度条 - 更粗更明显 */}
+      <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-muted/20">
         <div
           className={`h-full transition-all duration-100 ${isSuccess ? 'bg-emerald-500' : 'bg-red-500'}`}
           style={{ width: `${progress}%` }}
