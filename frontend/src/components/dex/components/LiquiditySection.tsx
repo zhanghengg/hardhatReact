@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { parseEther } from 'viem'
 import { Button } from '@/components/ui/button'
 import { CONTRACTS } from '@/config/contracts'
 import { publicClient } from '../hooks'
 import { useWalletClient } from '../hooks/useWalletClient'
+import { useReserves } from '../hooks/useReserves'
 import { useTransactionToast } from '../hooks/useTransactionToast'
 import { TransactionToast, TransactionLoading } from './TransactionToast'
 import type { AccountType, ConnectionMode, LiquidityAction } from '../types'
@@ -13,6 +14,34 @@ import type { AccountType, ConnectionMode, LiquidityAction } from '../types'
 import ERC20TokenABI from '@/abi/ERC20Token.json'
 import UniswapV2RouterABI from '@/abi/UniswapV2Router.json'
 import UniswapV2PairABI from '@/abi/UniswapV2Pair.json'
+
+// 防抖 hook
+function useDebouncedCallback<T extends (...args: Parameters<T>) => void>(
+  callback: T,
+  delay: number
+) {
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const debouncedCallback = useCallback((...args: Parameters<T>) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    timeoutRef.current = setTimeout(() => {
+      callback(...args)
+    }, delay)
+  }, [callback, delay])
+
+  // 清理
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  return debouncedCallback
+}
 
 interface LiquiditySectionProps {
   account: AccountType
@@ -57,7 +86,7 @@ export function LiquiditySection({
             <button
               onClick={() => handleTabChange('add')}
               disabled={txToast.isLoading}
-              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all disabled:opacity-50 ${
+              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all disabled:opacity-50 cursor-pointer ${
                 activeTab === 'add'
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-sm'
                   : 'text-muted-foreground hover:text-foreground'
@@ -68,7 +97,7 @@ export function LiquiditySection({
             <button
               onClick={() => handleTabChange('remove')}
               disabled={txToast.isLoading}
-              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all disabled:opacity-50 ${
+              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all disabled:opacity-50 cursor-pointer ${
                 activeTab === 'remove'
                   ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-sm'
                   : 'text-muted-foreground hover:text-foreground'
@@ -119,6 +148,53 @@ function AddLiquidityForm({
 }: LiquidityFormProps) {
   const [amountA, setAmountA] = useState('')
   const [amountB, setAmountB] = useState('')
+  
+  // 获取池子储备量
+  const { reserves } = useReserves()
+  const reserveA = parseFloat(reserves.reserveA) || 0
+  const reserveB = parseFloat(reserves.reserveB) || 0
+  const hasLiquidity = reserveA > 0 && reserveB > 0
+
+  // 根据储备量比例计算另一个代币的数量
+  const calculateAmountB = useCallback((inputA: string) => {
+    if (!hasLiquidity || !inputA || parseFloat(inputA) <= 0) {
+      return
+    }
+    const ratio = reserveB / reserveA
+    const calculatedB = (parseFloat(inputA) * ratio).toFixed(6)
+    setAmountB(calculatedB)
+  }, [hasLiquidity, reserveA, reserveB])
+
+  const calculateAmountA = useCallback((inputB: string) => {
+    if (!hasLiquidity || !inputB || parseFloat(inputB) <= 0) {
+      return
+    }
+    const ratio = reserveA / reserveB
+    const calculatedA = (parseFloat(inputB) * ratio).toFixed(6)
+    setAmountA(calculatedA)
+  }, [hasLiquidity, reserveA, reserveB])
+
+  // 防抖处理
+  const debouncedCalculateB = useDebouncedCallback(calculateAmountB, 300)
+  const debouncedCalculateA = useDebouncedCallback(calculateAmountA, 300)
+
+  // 处理 Token A 输入
+  const handleAmountAChange = (value: string) => {
+    const val = value.replace(/[^0-9.]/g, '')
+    setAmountA(val)
+    if (hasLiquidity && val) {
+      debouncedCalculateB(val)
+    }
+  }
+
+  // 处理 Token B 输入
+  const handleAmountBChange = (value: string) => {
+    const val = value.replace(/[^0-9.]/g, '')
+    setAmountB(val)
+    if (hasLiquidity && val) {
+      debouncedCalculateA(val)
+    }
+  }
 
   const handleAddLiquidity = async () => {
     if (!amountA || !amountB) return
@@ -202,9 +278,10 @@ function AddLiquidityForm({
         </div>
         <div className="flex items-center gap-3">
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             value={amountA}
-            onChange={e => setAmountA(e.target.value)}
+            onChange={e => handleAmountAChange(e.target.value)}
             placeholder="0.0"
             disabled={txToast.isLoading}
             className="flex-1 bg-transparent text-xl font-medium outline-none placeholder:text-muted-foreground/50 disabled:opacity-70"
@@ -232,9 +309,10 @@ function AddLiquidityForm({
         </div>
         <div className="flex items-center gap-3">
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             value={amountB}
-            onChange={e => setAmountB(e.target.value)}
+            onChange={e => handleAmountBChange(e.target.value)}
             placeholder="0.0"
             disabled={txToast.isLoading}
             className="flex-1 bg-transparent text-xl font-medium outline-none placeholder:text-muted-foreground/50 disabled:opacity-70"
@@ -350,9 +428,13 @@ function RemoveLiquidityForm({
         </div>
         <div className="flex items-center gap-3">
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             value={lpToRemove}
-            onChange={e => setLpToRemove(e.target.value)}
+            onChange={e => {
+              const val = e.target.value.replace(/[^0-9.]/g, '')
+              setLpToRemove(val)
+            }}
             placeholder="0.0"
             disabled={txToast.isLoading}
             className="flex-1 bg-transparent text-xl font-medium outline-none placeholder:text-muted-foreground/50 disabled:opacity-70"

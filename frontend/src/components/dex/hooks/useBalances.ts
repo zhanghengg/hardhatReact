@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { formatEther } from 'viem'
 import { useBalance, useReadContracts } from 'wagmi'
 import { CONTRACTS } from '@/config/contracts'
@@ -78,14 +78,23 @@ export function useBalances(account: AccountType | null) {
     }
   }, [ethBalance, tokenBalances])
 
+  // 手动刷新状态
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
   // 手动刷新所有余额
-  const fetchBalances = async () => {
-    await Promise.all([refetchEth(), refetchTokens()])
-  }
+  const fetchBalances = useCallback(async () => {
+    setIsRefreshing(true)
+    try {
+      await Promise.all([refetchEth(), refetchTokens()])
+    } finally {
+      setIsRefreshing(false)
+    }
+  }, [refetchEth, refetchTokens])
 
   return { 
     balances, 
-    loading: isLoadingEth || isLoadingTokens, 
+    loading: isLoadingEth || isLoadingTokens,
+    isRefreshing,
     fetchBalances 
   }
 }

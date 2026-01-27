@@ -14,7 +14,7 @@ interface PoolInfoSectionProps {
  * 可以传入 reserves 或自动获取
  */
 export function PoolInfoSection({ reserves: externalReserves }: PoolInfoSectionProps) {
-  const { reserves: internalReserves, fetchReserves } = useReserves()
+  const { reserves: internalReserves, fetchReserves, isRefreshing } = useReserves()
   const reserves = externalReserves || internalReserves
 
   // 自动获取 reserves（仅在没有外部传入时）
@@ -45,10 +45,16 @@ export function PoolInfoSection({ reserves: externalReserves }: PoolInfoSectionP
           </span>
           <button
             onClick={fetchReserves}
-            className="p-1.5 rounded-lg hover:bg-muted/50 transition-colors"
+            disabled={isRefreshing}
+            className="p-1.5 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             title="刷新"
           >
-            <svg className="w-4 h-4 text-muted-foreground hover:text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg 
+              className={`w-4 h-4 text-muted-foreground hover:text-foreground ${isRefreshing ? 'animate-spin' : ''}`} 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
           </button>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useDeferredValue } from 'react'
+import { useState, useMemo, useDeferredValue, useRef, useEffect } from 'react'
 import { formatEther, parseEther } from 'viem'
 import { useReadContract } from 'wagmi'
 import { Button } from '@/components/ui/button'
@@ -27,6 +27,9 @@ const TOKEN_INFO = {
   TKB: { symbol: 'TKB', name: 'Token B', color: 'from-purple-500 to-purple-600' }
 }
 
+// 预设滑点选项 (-1 表示无视滑点)
+const SLIPPAGE_OPTIONS = [-1, 0.5, 1.0, 5.0]
+
 /**
  * 代币交换组件 - Uniswap 风格界面
  */
@@ -37,6 +40,10 @@ export function SwapSection({
 }: SwapSectionProps) {
   const [amountIn, setAmountIn] = useState('')
   const [direction, setDirection] = useState<SwapDirection>('AtoB')
+  const [slippage, setSlippage] = useState(-1) // 默认无视滑点（教学模式）
+  const [customSlippage, setCustomSlippage] = useState('')
+  const [showSettings, setShowSettings] = useState(false)
+  const settingsRef = useRef<HTMLDivElement>(null)
 
   const { getWalletClient } = useWalletClient(account, connectionMode)
   // useReserves 使用 wagmi 的缓存，不需要手动调用 fetchReserves
@@ -145,6 +152,43 @@ export function SwapSection({
     return { value: impactValue, display, color }
   }, [amountIn, expectedOut, reserves, direction])
 
+  // 点击外部关闭设置面板
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (settingsRef.current && !settingsRef.current.contains(event.target as Node)) {
+        setShowSettings(false)
+      }
+    }
+    if (showSettings) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [showSettings])
+
+  // 处理滑点选择
+  const handleSlippageSelect = (value: number) => {
+    setSlippage(value)
+    setCustomSlippage('')
+  }
+
+  // 处理自定义滑点输入
+  const handleCustomSlippage = (value: string) => {
+    setCustomSlippage(value)
+    const num = parseFloat(value)
+    if (!isNaN(num) && num > 0 && num <= 100) {
+      setSlippage(num)
+    }
+  }
+
+  // 计算最小输出量（考虑滑点，-1 表示无视滑点）
+  const minAmountOut = useMemo(() => {
+    if (!expectedOut || parseFloat(expectedOut) <= 0) return '0'
+    // 无视滑点时返回 0
+    if (slippage === -1) return '0'
+    const slippageMultiplier = 1 - slippage / 100
+    return (parseFloat(expectedOut) * slippageMultiplier).toFixed(6)
+  }, [expectedOut, slippage])
+
   // 切换方向
   const handleFlipDirection = () => {
     setDirection(prev => (prev === 'AtoB' ? 'BtoA' : 'AtoB'))
@@ -178,13 +222,15 @@ export function SwapSection({
       // 步骤 2: 交换
       updateStep(1, '确认交换交易')
       const deadline = BigInt(Math.floor(Date.now() / 1000) + 3600)
+      // 使用滑点计算最小输出量
+      const minOut = parseEther(minAmountOut)
       const swapHash = await walletClient.writeContract({
         address: CONTRACTS.Router,
         abi: UniswapV2RouterABI,
         functionName: 'swapExactTokensForTokens',
         args: [
           parseEther(amountIn),
-          0n,
+          minOut,
           [tokenIn, tokenOut],
           address,
           deadline
@@ -227,15 +273,84 @@ export function SwapSection({
         {/* 标题栏 */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-border/30">
           <h3 className="text-base font-semibold">Swap</h3>
-          <button 
-            className="p-1.5 rounded-lg hover:bg-muted/50 transition-colors"
-            title="设置"
-          >
-            <svg className="w-4 h-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </button>
+          <div className="relative" ref={settingsRef}>
+            <button 
+              className="p-1.5 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+              title="设置"
+              onClick={() => setShowSettings(!showSettings)}
+            >
+              <svg className="w-4 h-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </button>
+
+            {/* 设置面板 */}
+            {showSettings && (
+              <div className="absolute right-0 top-full mt-2 w-80 p-4 rounded-xl bg-card border border-border shadow-xl z-50">
+                <h4 className="text-sm font-semibold mb-3">交易设置</h4>
+                
+                {/* 滑点容忍度 */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">滑点容忍度</span>
+                    <span className="text-sm font-medium">
+                      {slippage === -1 ? '无视' : `${slippage}%`}
+                    </span>
+                  </div>
+                  
+                  {/* 预设选项 */}
+                  <div className="grid grid-cols-4 gap-2">
+                    {SLIPPAGE_OPTIONS.map((option) => (
+                      <button
+                        key={option}
+                        onClick={() => handleSlippageSelect(option)}
+                        className={`py-1.5 px-2 text-sm rounded-lg transition-colors ${
+                          slippage === option && !customSlippage
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-muted hover:bg-muted/80'
+                        }`}
+                      >
+                        {option === -1 ? '无视' : `${option}%`}
+                      </button>
+                    ))}
+                  </div>
+                  
+                  {/* 自定义输入 */}
+                  <div className="relative">
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      value={customSlippage}
+                      onChange={(e) => {
+                        // 只允许数字和小数点
+                        const val = e.target.value.replace(/[^0-9.]/g, '')
+                        handleCustomSlippage(val)
+                      }}
+                      placeholder="自定义滑点"
+                      className={`w-full py-2 px-3 text-sm rounded-lg bg-muted outline-none placeholder:text-muted-foreground/60 ${
+                        customSlippage ? 'ring-1 ring-primary' : ''
+                      }`}
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                      %
+                    </span>
+                  </div>
+
+                  {/* 滑点警告 */}
+                  {slippage === -1 && (
+                    <p className="text-xs text-blue-400">教学模式：忽略滑点保护，接受任意成交价格</p>
+                  )}
+                  {slippage !== -1 && slippage < 0.1 && (
+                    <p className="text-xs text-yellow-500">滑点过低可能导致交易失败</p>
+                  )}
+                  {slippage > 5 && (
+                    <p className="text-xs text-orange-500">高滑点可能导致不利成交价格</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="p-4 space-y-1">
@@ -291,8 +406,12 @@ export function SwapSection({
                 <span className="text-muted-foreground">0.30%</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">最小获得</span>
-                <span>{(parseFloat(expectedOut) * 0.995).toFixed(6)} {tokenOutInfo.symbol}</span>
+                <span className="text-muted-foreground">
+                  最小获得 {slippage === -1 ? '(无视滑点)' : `(${slippage}% 滑点)`}
+                </span>
+                <span>
+                  {slippage === -1 ? '不限制' : `${minAmountOut} ${tokenOutInfo.symbol}`}
+                </span>
               </div>
             </div>
           )}
@@ -352,9 +471,14 @@ function TokenInput({
       </div>
       <div className="flex items-center gap-3">
         <input
-          type="number"
+          type="text"
+          inputMode="decimal"
           value={value}
-          onChange={e => onChange?.(e.target.value)}
+          onChange={e => {
+            // 只允许数字和小数点
+            const val = e.target.value.replace(/[^0-9.]/g, '')
+            onChange?.(val)
+          }}
           placeholder={placeholder}
           disabled={!editable || disabled}
           className="flex-1 bg-transparent text-2xl font-medium outline-none placeholder:text-muted-foreground/50 disabled:cursor-default disabled:opacity-70"

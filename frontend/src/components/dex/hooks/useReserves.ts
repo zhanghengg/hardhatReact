@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { formatEther } from 'viem'
 import { useReadContracts } from 'wagmi'
 import { CONTRACTS } from '@/config/contracts'
@@ -71,10 +71,18 @@ export function useReserves() {
     }
   }, [data])
 
-  // 手动刷新
-  const fetchReserves = async () => {
-    await refetch()
-  }
+  // 手动刷新状态
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
-  return { reserves, loading: isLoading, fetchReserves }
+  // 手动刷新
+  const fetchReserves = useCallback(async () => {
+    setIsRefreshing(true)
+    try {
+      await refetch()
+    } finally {
+      setIsRefreshing(false)
+    }
+  }, [refetch])
+
+  return { reserves, loading: isLoading, isRefreshing, fetchReserves }
 }

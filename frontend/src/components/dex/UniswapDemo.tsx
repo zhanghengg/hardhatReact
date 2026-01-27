@@ -38,7 +38,7 @@ export function UniswapDemo() {
   const [connectionMode, setConnectionMode] = useState<ConnectionMode>('test')
 
   // 使用 wagmi hooks - 数据会自动缓存，不需要手动触发查询
-  const { balances, fetchBalances } = useBalances(account)
+  const { balances, fetchBalances, isRefreshing } = useBalances(account)
 
   // 自动连接 Demo 账户（仅在客户端执行）
   useEffect(() => {
@@ -76,7 +76,7 @@ export function UniswapDemo() {
 
       {account && (
         <>
-          <BalanceSection balances={balances} onRefresh={fetchBalances} />
+          <BalanceSection balances={balances} onRefresh={fetchBalances} isRefreshing={isRefreshing} />
 
           <SwapSection
             account={account}

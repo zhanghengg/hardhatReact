@@ -3,6 +3,7 @@ import type { Balances } from '../types'
 interface BalanceSectionProps {
   balances: Balances
   onRefresh: () => void
+  isRefreshing?: boolean
 }
 
 // 代币配置
@@ -16,7 +17,7 @@ const TOKEN_CONFIG = [
 /**
  * 余额展示组件 - 现代风格
  */
-export function BalanceSection({ balances, onRefresh }: BalanceSectionProps) {
+export function BalanceSection({ balances, onRefresh, isRefreshing = false }: BalanceSectionProps) {
   return (
     <div className="rounded-2xl border border-border/50 bg-gradient-to-b from-card to-card/80 shadow-lg overflow-hidden">
       {/* 标题栏 */}
@@ -24,10 +25,16 @@ export function BalanceSection({ balances, onRefresh }: BalanceSectionProps) {
         <h3 className="text-base font-semibold">余额</h3>
         <button 
           onClick={onRefresh}
-          className="p-1.5 rounded-lg hover:bg-muted/50 transition-colors"
+          disabled={isRefreshing}
+          className="p-1.5 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           title="刷新余额"
         >
-          <svg className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg 
+            className={`w-4 h-4 text-muted-foreground hover:text-foreground transition-colors ${isRefreshing ? 'animate-spin' : ''}`} 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
         </button>

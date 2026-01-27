@@ -271,8 +271,8 @@ EVM 链检测项：
     image: '/projects/simple-dex.png',
     demoUrl: '/projects/simple-dex',
     githubUrl: '#',
-    contractAddress: '本地 Hardhat 节点',
-    network: 'Localhost',
+    contractAddress: '已部署至 Sepolia 测试网',
+    network: 'Sepolia',
     features: [
       '代币交换功能 (恒定乘积公式)',
       '添加/移除流动性',
