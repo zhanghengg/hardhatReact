@@ -242,3 +242,111 @@
 
  ✓ Starting...
  ✓ Ready in 2s
+ ○ Compiling /_not-found ...
+Client network socket disconnected before secure TLS connection was established
+
+Retrying 1/3...
+Client network socket disconnected before secure TLS connection was established
+
+Retrying 1/3...
+Client network socket disconnected before secure TLS connection was established
+
+Retrying 2/3...
+Client network socket disconnected before secure TLS connection was established
+
+Retrying 2/3...
+Client network socket disconnected before secure TLS connection was established
+
+Retrying 3/3...
+Client network socket disconnected before secure TLS connection was established
+
+Retrying 3/3...
+[Error: Client network socket disconnected before secure TLS connection was established] {
+  code: 'ECONNRESET',
+  path: undefined,
+  host: undefined,
+  port: undefined,
+  localAddress: undefined
+}
+ ⨯ Failed to download `Exo 2` from Google Fonts. Using fallback font instead.
+
+Failed to fetch `Exo 2` from Google Fonts.}
+[Error: Client network socket disconnected before secure TLS connection was established] {
+  code: 'ECONNRESET',
+  path: undefined,
+  host: undefined,
+  port: undefined,
+  localAddress: undefined
+}
+ ⨯ Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Failed to fetch `Inter` from Google Fonts.}
+ ✓ Compiled /_not-found in 27s (4320 modules)
+ GET /_next/static/chunks/_app-pages-browser_node_modules_viem__esm_utils_ccip_js.js 404 in 27417ms
+ ○ Compiling /projects/simple-dex ...
+ ✓ Compiled /projects/simple-dex in 1431ms (4448 modules)
+ GET /projects/simple-dex 200 in 1951ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 761ms (4470 modules)
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 868ms
+ GET /icon.png?c2ed453ef5135195 200 in 1095ms
+ GET /icon.png?c2ed453ef5135195 200 in 40ms
+ GET /projects/simple-dex 200 in 397ms
+ GET /icon.png?c2ed453ef5135195 200 in 145ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 53ms
+ GET /icon.png?c2ed453ef5135195 200 in 11ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1444ms (4564 modules)
+ GET / 200 in 1624ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 238ms
+ ○ Compiling /projects ...
+ ✓ Compiled /projects in 1245ms (4555 modules)
+ GET /projects 200 in 1405ms
+ ✓ Compiled /_not-found in 345ms (4560 modules)
+ GET /_next/static/chunks/app/projects/LayoutGroupContext.mjs.map 404 in 603ms
+ GET /projects/simple-dex 200 in 20ms
+ GET /projects 200 in 19ms
+ GET /projects/simple-dex 200 in 32ms
+ GET /projects 200 in 22ms
+ GET /projects/simple-dex 200 in 68ms
+ ✓ Compiled in 1600ms (4569 modules)
+ GET /projects/simple-dex 200 in 74ms
+ GET / 200 in 54ms
+ GET /projects 200 in 83ms
+ GET /projects/simple-dex 200 in 15ms
+ GET /projects 200 in 16ms
+ ○ Compiling /projects/[slug] ...
+ ✓ Compiled /projects/[slug] in 963ms (4602 modules)
+ GET /projects/hidex 200 in 1738ms
+ GET /projects 200 in 132ms
+ GET /projects/simple-dex 200 in 409ms
+ ○ Compiling /icon.png ...
+ ✓ Compiled /icon.png in 601ms (2461 modules)
+ GET /icon.png?c2ed453ef5135195 200 in 707ms
+ GET /projects/nft-marketplace 200 in 148ms
+ GET /projects 200 in 47ms
+ GET /projects/multi-sig-wallet 200 in 51ms
+ GET /projects/multi-sig-wallet 200 in 341ms
+ GET /icon.png?c2ed453ef5135195 200 in 33ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 932ms (4624 modules)
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 1145ms
+ GET /projects 200 in 28ms
+ GET /_next/static/chunks/app/projects/LayoutGroupContext.mjs.map 404 in 44ms
+ GET /projects/multi-sig-wallet 200 in 124ms
+ GET /projects 200 in 9ms
+ GET /projects/multi-sig-wallet 200 in 55ms
+ GET /projects 200 in 14ms
+ GET / 200 in 32ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 91ms
+ GET / 200 in 145ms
+ GET /icon.png?c2ed453ef5135195 200 in 40ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 47ms
+ GET /_next/static/chunks/app/LayoutGroupContext.mjs.map 404 in 50ms
+ GET /icon.png?c2ed453ef5135195 200 in 13ms
+ GET /projects/a402-launchpad 200 in 88ms
+ GET /projects 200 in 20ms
+ GET /_next/static/chunks/app/projects/LayoutGroupContext.mjs.map 404 in 110ms
+ GET / 200 in 18ms
+ GET /projects 200 in 88ms
+ GET /projects/simple-dex 200 in 44ms

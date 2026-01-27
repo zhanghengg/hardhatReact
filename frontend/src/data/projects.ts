@@ -268,7 +268,7 @@ EVM 链检测项：
 - UniswapV2Router: 用户交互入口
 - UniswapV2Library: 价格计算辅助库`,
     tags: ['DeFi', 'AMM', 'Solidity', 'Uniswap V2'],
-    image: '',
+    image: '/projects/simple-dex.png',
     demoUrl: '/projects/simple-dex',
     githubUrl: '#',
     contractAddress: '本地 Hardhat 节点',
