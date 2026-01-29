@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Github, TrendingUp, Layers, FileCode, Zap } from 'lucide-react'
+import { ArrowLeft, Github, TrendingUp, Layers, FileCode, Zap, AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -91,6 +91,19 @@ export default function TradingViewPage() {
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Zap className="h-4 w-4 text-green-500" />
             <span>实时数据</span>
+          </div>
+        </div>
+
+        {/* VPN 访问提示 */}
+        <div className="mb-4 p-4 rounded-lg border border-amber-500/30 bg-amber-500/10">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+            <div className="text-sm">
+              <p className="font-medium text-amber-500">网络访问提示</p>
+              <p className="text-muted-foreground mt-1">
+                币安 K 线数据需要通过 VPN 访问。如未开启 VPN，可能无法正常请求数据，图表将无法正常展示。
+              </p>
+            </div>
           </div>
         </div>
 
