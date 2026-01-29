@@ -4,8 +4,8 @@ import { useEffect, useRef, useCallback } from 'react'
 import { BinanceDatafeed } from './datafeed'
 import type { TVWidget, ChartingLibraryWidgetOptions } from './types'
 
-// TradingView Charting Library CDN 地址
-const LIB_BASE = 'https://hidex.ai/res/charting_library/charting_library/'
+// TradingView Charting Library 本地路径
+const LIB_BASE = '/charting_library/'
 
 /**
  * 动态加载脚本

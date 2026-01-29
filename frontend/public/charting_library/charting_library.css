@@ -1,0 +1,62 @@
+/* Placeholder CSS for TradingView Charting Library
+   NOTE: This is a minimal stylesheet to avoid 404 and provide basic dark theme variables.
+   For production, replace this file with the official charting_library.css from TradingView.
+*/
+
+:root {
+  --tv-color-background: #131722;
+  --tv-color-pane-background: #0b1221;
+  --tv-color-pane-background-secondary: #0f172a;
+  --tv-color-toolbar: #0b1221;
+  --tv-color-text: #d1d5db;
+  --tv-color-text-secondary: #9ca3af;
+  --tv-color-border: #1f2937;
+  --tv-color-accent: #26a69a;
+  --tv-color-down: #ef4444;
+}
+
+/* Container fallback styles */
+.tv-chart-container,
+#tv_chart_container,
+.tradingview-chart {
+  background: var(--tv-color-pane-background);
+  color: var(--tv-color-text);
+}
+
+/* Loading state */
+.tv-spinner,
+.chart-loading,
+.tv-loading {
+  display: inline-block;
+}
+
+/* Generic resets to avoid layout glitches */
+.tv-chart {
+  box-sizing: border-box;
+}
+
+.tv-chart *,
+.tradingview-chart * {
+  box-sizing: inherit;
+}
+
+/* Toolbar background fallback */
+.chart-controls-bar,
+.chart-controls-bar-wrap,
+.chart-page,
+.header-chart-panel-sizer {
+  background: var(--tv-color-toolbar) !important;
+}
+
+/* Status line text */
+.chart-status-line,
+.status-line {
+  color: var(--tv-color-text) !important;
+}
+
+/* Borders */
+.tv-border,
+.separator,
+.layout__area--center {
+  border-color: var(--tv-color-border) !important;
+}
