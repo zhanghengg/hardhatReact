@@ -284,6 +284,42 @@ EVM 链检测项：
     status: 'completed'
   },
   {
+    slug: 'tradingview',
+    title: 'TradingView K 线图',
+    description:
+      '基于 TradingView Charting Library 和币安实时数据的专业 K 线图表',
+    longDescription: `这是一个专业级的 K 线图表实现，展示了如何将 TradingView Charting Library 与币安实时数据源集成。
+
+核心模块包括：
+- BinanceDatafeed: 自定义 Datafeed 适配器，直接调用币安 API
+- BinanceStreaming: WebSocket 实时数据流管理
+- TradingViewChart: 图表组件封装
+
+数据流：
+- 历史数据通过币安 REST API 获取
+- 实时更新通过 WebSocket 推送
+
+技术亮点：
+- 完整实现 TradingView Datafeed API 接口
+- 支持多周期切换（1m ~ 1W）
+- 支持交易对搜索和切换
+- WebSocket 自动重连机制`,
+    tags: ['TradingView', 'Binance API', 'WebSocket', 'TypeScript'],
+    image: '/projects/tradingview.png',
+    demoUrl: '/projects/tradingview',
+    githubUrl: '#',
+    features: [
+      '币安实时 K 线数据',
+      'WebSocket 实时推送更新',
+      '多周期切换 (1m ~ 1W)',
+      '交易对搜索与切换',
+      '技术指标支持',
+      '深色主题适配'
+    ],
+    techStack: ['TradingView Charting Library', 'Binance REST API', 'Binance WebSocket', 'Next.js', 'TypeScript', 'React'],
+    status: 'completed'
+  },
+  {
     slug: 'nft-marketplace',
     title: 'NFT Marketplace',
     description: '一个简洁的 NFT 交易市场，支持铸造、上架和购买 NFT',

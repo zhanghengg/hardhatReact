@@ -13,7 +13,7 @@ interface ProjectPageProps {
 }
 
 // 有专门页面的项目 slug 列表（这些项目有独立的 /projects/xxx/page.tsx）
-const projectsWithDedicatedPages = ['simple-dex']
+const projectsWithDedicatedPages = ['simple-dex', 'tradingview']
 
 export async function generateStaticParams() {
   // 排除有专门页面的项目，避免路由冲突
