@@ -2,32 +2,34 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Github, TrendingUp, Layers, FileCode, Zap, AlertTriangle } from 'lucide-react'
+import { ArrowLeft, Github, TrendingUp, Layers, FileCode, Zap, AlertTriangle, Database } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { TradingViewChart, SymbolSearch, IntervalSelector } from '@/components/trading'
+import { TradingViewChart, SymbolSearch, IntervalSelector, DataSourceSelector } from '@/components/trading'
+import type { DataSource } from '@/components/trading'
 
 const project = {
   title: 'TradingView K 线图',
-  description: '基于 TradingView Charting Library 和币安实时数据的专业 K 线图表',
-  tags: ['TradingView', 'Binance API', 'WebSocket', 'TypeScript'],
+  description: '基于 TradingView Charting Library 的 K 线图表Demo，支持 OKX 和 Binance 双数据源',
+  tags: ['TradingView', 'OKX API', 'Binance API', 'WebSocket', 'TypeScript'],
   features: [
-    '币安实时 K 线数据',
+    '多数据源支持 (OKX/Binance)',
     'WebSocket 实时推送更新',
     '多周期切换 (1m ~ 1W)',
     '交易对搜索与切换',
     '技术指标支持',
     '深色主题适配',
   ],
-  techStack: ['TradingView Charting Library', 'Binance REST API', 'Binance WebSocket', 'Next.js', 'TypeScript'],
-  longDescription: `这是一个专业级的 K 线图表实现，展示了如何将 TradingView Charting Library 与币安实时数据源集成。
+  techStack: ['TradingView Charting Library', 'OKX API', 'Binance API', 'WebSocket', 'Next.js', 'TypeScript'],
+  longDescription: `这是一个 K 线图表的Demo，展示了如何将 TradingView Charting Library 与多个交易所数据源集成。
 
 核心模块包括：
-- BinanceDatafeed: 自定义 Datafeed 适配器，直接调用币安 API
-- BinanceStreaming: WebSocket 实时数据流管理
+- OkxDatafeed / BinanceDatafeed: 自定义 Datafeed 适配器
+- OkxStreaming / BinanceStreaming: WebSocket 实时数据流管理
 - TradingViewChart: 图表组件封装
+- DataSourceSelector: 数据源切换组件
 
 数据流：
 - 历史数据通过 REST API 获取
@@ -37,6 +39,7 @@ const project = {
 export default function TradingViewPage() {
   const [symbol, setSymbol] = useState('BTCUSDT')
   const [interval, setInterval] = useState('60')
+  const [dataSource, setDataSource] = useState<DataSource>('okx')
 
   return (
     <div className="min-h-screen py-20">
@@ -86,6 +89,11 @@ export default function TradingViewPage() {
           <SymbolSearch value={symbol} onChange={setSymbol} />
           <IntervalSelector value={interval} onChange={setInterval} />
           
+          <div className="flex items-center gap-2">
+            <Database className="h-4 w-4 text-muted-foreground" />
+            <DataSourceSelector value={dataSource} onChange={setDataSource} />
+          </div>
+          
           <div className="flex-1" />
           
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -94,18 +102,20 @@ export default function TradingViewPage() {
           </div>
         </div>
 
-        {/* VPN 访问提示 */}
-        <div className="mb-4 p-4 rounded-lg border border-amber-500/30 bg-amber-500/10">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
-            <div className="text-sm">
-              <p className="font-medium text-amber-500">网络访问提示</p>
-              <p className="text-muted-foreground mt-1">
-                币安 K 线数据需要通过 VPN 访问。如未开启 VPN，可能无法正常请求数据，图表将无法正常展示。
-              </p>
+        {/* VPN 访问提示 - 仅在使用 Binance 数据源时显示 */}
+        {dataSource === 'binance' && (
+          <div className="mb-4 p-4 rounded-lg border border-amber-500/30 bg-amber-500/10">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+              <div className="text-sm">
+                <p className="font-medium text-amber-500">网络访问提示</p>
+                <p className="text-muted-foreground mt-1">
+                  币安 K 线数据需要通过 VPN 访问。如未开启 VPN，可能无法正常请求数据，图表将无法正常展示。
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* 主要内容区域 */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -114,9 +124,11 @@ export default function TradingViewPage() {
             <div className="rounded-xl border border-border/50 bg-card/30 overflow-hidden">
               <div className="h-[600px]">
                 <TradingViewChart
+                  key={dataSource} // 切换数据源时重新渲染图表
                   symbol={symbol}
                   interval={interval}
                   theme="Dark"
+                  dataSource={dataSource}
                   onSymbolChange={setSymbol}
                   onIntervalChange={setInterval}
                 />
@@ -146,7 +158,9 @@ export default function TradingViewPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">数据源</span>
-                    <span>Binance</span>
+                    <span className={dataSource === 'okx' ? 'text-blue-500' : 'text-yellow-500'}>
+                      {dataSource === 'okx' ? 'OKX' : 'Binance'}
+                    </span>
                   </div>
                 </div>
               </CardContent>

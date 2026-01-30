@@ -11,7 +11,7 @@ import { ContractAddresses, PoolInfoSection } from '@/components/dex/components'
 
 const project = {
   title: 'Simple DEX',
-  description: '一个基于 Uniswap V2 机制的简化版去中心化交易所',
+  description: '一个基于 Uniswap V2 机制的简化版去中心化交易所Demo，本人实现了演示前端以及智能合约的开发部署。',
   tags: ['DeFi', 'AMM', 'Solidity', 'Uniswap V2'],
   features: [
     '代币交换功能 (恒定乘积公式)',
@@ -21,7 +21,7 @@ const project = {
     '0.3% 交易手续费'
   ],
   techStack: ['Solidity', 'Hardhat', 'Next.js', 'viem', 'TailwindCSS'],
-  longDescription: `这是一个教学目的的 DEX 实现，展示了 AMM（自动做市商）的核心原理。
+  longDescription: `这是一个 DEX 的Demo，展示了 AMM（自动做市商）的核心原理。
 
 核心合约包括：
 - UniswapV2Factory: 创建和管理交易对

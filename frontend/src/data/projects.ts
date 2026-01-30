@@ -19,19 +19,19 @@ export const projects: Project[] = [
     slug: 'a402-launchpad',
     title: 'A402 - Meme Launchpad',
     description:
-      '基于 x402 协议构建的 Meme 代币发射平台，支持 1 USDC 低门槛参与、无 Gas 铸造和迁移前退款',
+      '基于 x402 协议构建的 Meme 代币发射平台，支持 1 USDC 低门槛参与、无 Gas 铸造和迁移前退款。本人负责项目的前端开发和智能合约开发。',
     longDescription: `A402 是一个基于 x402 协议的 Meme 代币发射平台，部署在 Base 链上。本人负责项目的前端开发和智能合约开发。
 
 【智能合约开发】
 
 合约架构设计（分层架构）：
 - Manager 层：X402LaunchPadManager 作为用户交互入口，管理代币创建、批量购买和迁移触发
-- Controller 层：X402TokenController 封装核心交易逻辑，采用 BeaconProxy 模式实现可升级
+- Controller 层：X402TokenController 封装核心交易逻辑，管理对应代币，采用 BeaconProxy 模式实现可升级
 - Token 层：X402Token 继承 ERC20 和 EIP-3009，支持授权转账和迁移后手续费机制
 
 核心技术实现：
 - EIP-3009 授权转账：实现 transferWithAuthorization 和 receiveWithAuthorization，用户签名后由 Operator 代付 Gas 完成转账
-- Bonding Curve 机制：预售阶段采用固定汇率 (exchangeRate)，当募集金额达到 migrateThreshold 时触发 DEX 迁移
+- 固定汇率预售机制：预售阶段采用固定汇率 (exchangeRate)，当募集金额达到 migrateThreshold 时触发 DEX 迁移
 - Uniswap V2 集成：调用 Router.addLiquidity() 添加流动性，并将 LP Token 发送至死地址实现永久锁定
 - 可升级合约：使用 OpenZeppelin Upgradeable + BeaconProxy 模式，支持 Controller 逻辑热升级
 - 权限控制：基于 AccessControlEnumerable 实现 OPERATOR_ROLE、CLAIM_ROLE 等角色管理
@@ -48,7 +48,7 @@ export const projects: Project[] = [
 核心功能实现：
 - x402-fetch 支付流程：集成 x402 协议实现 Gasless 铸造，前端处理签名授权和支付验证
 - 代币创建表单：React Hook Form + Zod 验证，Pinata 上传图片至 IPFS
-- 交易面板：实时余额查询、滑点设置、授权检查、交易状态轮询
+- 交易面板：实时余额查询、授权检查、交易状态轮询
 - 响应式适配：TailwindCSS + postcss-pxtorem 实现移动端适配
 - 国际化：i18next 实现中英文切换，支持浏览器语言自动检测`,
     tags: ['Solidity', 'DeFi', 'Next.js', 'Base', 'Full-Stack'],
@@ -56,14 +56,13 @@ export const projects: Project[] = [
     demoUrl: 'https://a402.space/',
     features: [
       'EIP-3009 Gasless 授权转账',
-      'Bonding Curve + DEX 自动迁移',
+      '固定汇率预售机制 + DEX 自动迁移',
       'BeaconProxy 可升级合约',
       'LP Token 永久锁定',
       'AccessControl 权限管理',
       'wagmi/viem 链上交互封装',
       'Privy Web3 身份认证',
       'x402 协议支付集成',
-      'React Hook Form + Zod 表单',
       'i18next 国际化'
     ],
     techStack: [
@@ -86,33 +85,33 @@ export const projects: Project[] = [
     network: 'Base',
     status: 'completed'
   },
+
+// 【多链钱包集成】
+
+// - Privy 实现 Web3 身份认证，支持社交账号（Google/Twitter/Email）和钱包（MetaMask/Phantom）多种登录方式
+// - 封装 usePrivyWalletsBalance Hook，聚合查询用户在 Solana 和 EVM 链上的资产余额
+// - Solana Web3.js 处理 SPL Token 交互，Ethers.js 处理 ERC20 交互，抽象统一的资产管理接口
+// - 助记词派生多链地址，使用 ed25519-hd-key 和 bip39 实现 HD 钱包
+// - 交易面板：实时价格轮询、滑点计算、Gas 估算，支持快捷交易和高级设置
   {
     slug: 'hidex',
     title: 'Hidex - AI Crypto Trading Signals',
     description:
-      '专业的 AI 驱动加密货币交易信号平台，提供智能跟单、新币发现、Alpha 报告等功能，支持 Solana/EVM 多链',
-    longDescription: `Hidex 是一个功能完善的 AI 加密货币交易信号平台，本人负责项目的前端开发工作。
+      '专业的 AI 驱动加密货币交易信号平台，提供智能跟单、新币发现、Alpha 报告等功能，支持 Solana/EVM 多链。本人负责项目的前端开发工作。',
+    longDescription: `Hidex 是一个功能完善的 AI 加密货币交易信号平台。
 
 【技术架构】
 
-- React 18 + Vite + TypeScript 构建，采用模块化目录结构（view/components/hooks/store/api）
-- Redux Toolkit + Zustand 混合状态管理，createSlice 管理全局状态，Zustand 处理轻量级局部状态
+- React 18 + Vite + TypeScript 构建，采用模块化设计
+- Zustand 全局状态管理，Immer 实现不可变数据更新
 - 封装 Axios 请求层，统一拦截器处理 Token 刷新、错误码映射和请求重试
 - Sentry 集成实现错误监控和性能追踪
-
-【多链钱包集成】
-
-- Privy 实现 Web3 身份认证，支持社交账号（Google/Twitter/Email）和钱包（MetaMask/Phantom）多种登录方式
-- 封装 usePrivyWalletsBalance Hook，聚合查询用户在 Solana 和 EVM 链上的资产余额
-- Solana Web3.js 处理 SPL Token 交互，Ethers.js 处理 ERC20 交互，抽象统一的资产管理接口
-- 助记词派生多链地址，使用 ed25519-hd-key 和 bip39 实现 HD 钱包
 
 【核心功能实现】
 
 - TradingView 图表集成：封装 Datafeed 和 Streaming 模块，实现实时 K 线数据推送和自定义指标
 - 信号列表：react-virtualized 虚拟滚动优化长列表渲染，useInfiniteScroll 自定义 Hook 实现无限加载
 - 信号推送：封装 useSignalPushNotification Hook，结合 Web Notification API 实现浏览器通知
-- 交易面板：实时价格轮询、滑点计算、Gas 估算，支持快捷交易和高级设置
 
 【UI/UX 优化】
 
@@ -126,9 +125,8 @@ export const projects: Project[] = [
     features: [
       'Privy 多方式 Web3 登录',
       'Solana + EVM 多链资产管理',
-      'TradingView K线图深度集成',
+      'TradingView K线图集成',
       'react-virtualized 虚拟滚动',
-      'Redux Toolkit + Zustand 状态管理',
       'Web Notification 信号推送',
       '深色/浅色主题切换',
       'i18next 国际化',
@@ -158,7 +156,7 @@ export const projects: Project[] = [
     slug: 'hidex-tg-bot',
     title: 'Hidex Telegram Bot',
     description:
-      '多链加密货币代币信息查询机器人，支持 Solana/EVM 链代币实时数据查询、安全检测和智能资金信号推送',
+      '多链加密货币代币信息查询机器人，支持 Solana/EVM 链代币实时数据查询、安全检测和智能资金信号推送。本人负责整个项目的Node.js开发。',
     longDescription: `Hidex Telegram Bot 是一个专业的加密货币代币信息查询机器人，支持多链实时数据查询和智能信号推送。本人负责整个项目的后端开发。
 
 【项目架构】
@@ -217,8 +215,7 @@ EVM 链检测项：
 
 - Inline Keyboard：刷新按钮、交易链接、图表链接等动态按钮
 - Callback Query：处理 refresh 等回调事件，实现消息原地更新
-- Reply 模式：引用原消息回复，保持上下文关联
-- 代理支持：SOCKS5 代理配置，解决网络访问限制`,
+- Reply 模式：引用原消息回复，保持上下文关联`,
     tags: ['Node.js', 'Telegram Bot', 'Web3', 'Solana', 'Multi-Chain'],
     image: '/projects/telegramBot.png',
     demoUrl: 'https://t.me/Hidex_Global_Bot',
@@ -253,7 +250,7 @@ EVM 链检测项：
     title: 'Simple DEX',
     description:
       '一个基于 Uniswap V2 机制的简化版去中心化交易所，支持代币交换和流动性提供',
-    longDescription: `这是一个教学目的的 DEX 实现，展示了 AMM（自动做市商）的核心原理。
+    longDescription: `这是一个 DEX 实现的Demo，展示了 AMM（自动做市商）的核心原理。
     
 用户可以：
 - 在两种 ERC20 代币之间进行交换
@@ -287,36 +284,38 @@ EVM 链检测项：
     slug: 'tradingview',
     title: 'TradingView K 线图',
     description:
-      '基于 TradingView Charting Library 和币安实时数据的专业 K 线图表',
-    longDescription: `这是一个专业级的 K 线图表实现，展示了如何将 TradingView Charting Library 与币安实时数据源集成。
+      '基于 TradingView Charting Library 的 K 线图表Demo，支持 OKX 和 Binance 双数据源切换',
+    longDescription: `这是一个 K 线图表的Demo，展示了如何将 TradingView Charting Library 与多个交易所数据源集成。
 
 核心模块包括：
-- BinanceDatafeed: 自定义 Datafeed 适配器，直接调用币安 API
-- BinanceStreaming: WebSocket 实时数据流管理
+- OkxDatafeed / BinanceDatafeed: 自定义 Datafeed 适配器，支持双数据源切换
+- OkxStreaming / BinanceStreaming: WebSocket 实时数据流管理
 - TradingViewChart: 图表组件封装
+- DataSourceSelector: 数据源切换组件
 
 数据流：
-- 历史数据通过币安 REST API 获取
+- 历史数据通过 OKX/Binance REST API 获取
 - 实时更新通过 WebSocket 推送
 
 技术亮点：
+- 多数据源架构设计，支持 OKX 和 Binance 一键切换
 - 完整实现 TradingView Datafeed API 接口
 - 支持多周期切换（1m ~ 1W）
 - 支持交易对搜索和切换
 - WebSocket 自动重连机制`,
-    tags: ['TradingView', 'Binance API', 'WebSocket', 'TypeScript'],
+    tags: ['TradingView', 'OKX API', 'Binance API', 'WebSocket', 'TypeScript'],
     image: '/projects/tradingview.png',
     demoUrl: '/projects/tradingview',
     githubUrl: '#',
     features: [
-      '币安实时 K 线数据',
+      '多数据源支持 (OKX/Binance)',
       'WebSocket 实时推送更新',
       '多周期切换 (1m ~ 1W)',
       '交易对搜索与切换',
       '技术指标支持',
       '深色主题适配'
     ],
-    techStack: ['TradingView Charting Library', 'Binance REST API', 'Binance WebSocket', 'Next.js', 'TypeScript', 'React'],
+    techStack: ['TradingView Charting Library', 'OKX REST API', 'OKX WebSocket', 'Binance REST API', 'Binance WebSocket', 'Next.js', 'TypeScript', 'React'],
     status: 'completed'
   },
   {
@@ -358,6 +357,7 @@ export const skills = {
   frontend: [
     'React',
     'Next.js',
+    'Vue',
     'TypeScript',
     'TailwindCSS',
     'ethers.js',
@@ -366,5 +366,5 @@ export const skills = {
   ],
   smart_contract: ['Solidity', 'Hardhat', 'Foundry', 'OpenZeppelin'],
   blockchain: ['Ethereum', 'EVM Chains', 'IPFS', 'The Graph'],
-  tools: ['Git', 'VS Code', 'Remix','jenkins']
+  tools: ['Git', 'Cursor', 'Remix','Jenkins']
 }

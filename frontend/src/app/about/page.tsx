@@ -12,14 +12,15 @@ import { useI18n } from '@/i18n';
 export default function AboutPage() {
   const { t } = useI18n();
 
-  const experiences = [
-    {
-      period: t.about.expPeriod,
-      title: t.about.expTitle,
-      company: t.about.expCompany,
-      description: t.about.expDesc,
-    },
-  ];
+  // 工作经历暂时隐藏
+  // const experiences = [
+  //   {
+  //     period: t.about.expPeriod,
+  //     title: t.about.expTitle,
+  //     company: t.about.expCompany,
+  //     description: t.about.expDesc,
+  //   },
+  // ];
 
   const socialLinks = [
     { icon: Send, label: 'Telegram', href: 'https://t.me/AugustMake', username: '@AugustMake' },
@@ -99,7 +100,7 @@ export default function AboutPage() {
               <CardContent className="pt-6">
                 <h3 className="font-medium mb-3 text-purple-500">{t.about.frontendDev}</h3>
                 <div className="flex flex-wrap gap-2">
-                  {['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'ethers.js', 'wagmi', 'viem'].map((skill) => (
+                  {['React', 'Next.js', 'Vue','TypeScript', 'TailwindCSS', 'ethers.js', 'wagmi', 'viem'].map((skill) => (
                     <Badge key={skill} variant="secondary">{skill}</Badge>
                   ))}
                 </div>
@@ -109,7 +110,7 @@ export default function AboutPage() {
               <CardContent className="pt-6">
                 <h3 className="font-medium mb-3 text-cyan-500">{t.about.smartContractDev}</h3>
                 <div className="flex flex-wrap gap-2">
-                  {['Solidity', 'Hardhat', 'Foundry', 'OpenZeppelin', 'ERC20', 'ERC721'].map((skill) => (
+                  {['Solidity', 'Hardhat', 'Foundry', 'OpenZeppelin', 'ERC20','EIP-712','EIP-3009','ERC-4337','EIP-7702'].map((skill) => (
                     <Badge key={skill} variant="secondary">{skill}</Badge>
                   ))}
                 </div>
@@ -118,8 +119,8 @@ export default function AboutPage() {
           </div>
         </motion.div>
 
-        {/* Experience */}
-        <motion.div
+        {/* Experience - 暂时隐藏 */}
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
@@ -140,7 +141,7 @@ export default function AboutPage() {
               </Card>
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
 
         <Separator className="my-12" />
 

@@ -115,9 +115,11 @@ export function ProjectsSection() {
         >
           <TitleCard />
           
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
+          {projects
+            .filter((project) => project.status !== 'planned')
+            .map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
           
           <CTACard />
         </motion.div>
