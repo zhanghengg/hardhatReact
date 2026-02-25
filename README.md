@@ -1,15 +1,24 @@
 # hardhatReact
 
+[![CI](https://github.com/zhanghengg/hardhatReact/actions/workflows/ci.yml/badge.svg)](https://github.com/zhanghengg/hardhatReact/actions/workflows/ci.yml)
+[![Live Demo](https://img.shields.io/badge/demo-0xmro.online-0ea5e9)](https://0xmro.online/)
+[![Deploy](https://img.shields.io/badge/deploy-cloudflare-f97316)](https://0xmro.online/)
+
 一个 Web3 全栈 Monorepo：`Hardhat + Solidity` 合约工程 + `Next.js` 前端应用。
 
 > 适合用于展示「前端 + 智能合约」一体化开发能力。
+
+## Live Demo
+
+- Production: `https://0xmro.online/`
+- Hosting: Cloudflare Pages
 
 ## Tech Stack
 
 - **Smart Contracts**: Solidity `0.8.24`, Hardhat, OpenZeppelin
 - **Frontend**: Next.js 15, React, TypeScript, TailwindCSS
 - **Web3 Client**: wagmi, viem, ethers
-- **Deploy/Runtime**: Local Hardhat Node, Sepolia (optional)
+- **Deploy/Runtime**: Local Hardhat Node, Sepolia (optional), Cloudflare Pages
 
 ## Repository Structure
 
@@ -17,6 +26,13 @@
 - `frontend/`：前端工程（项目展示页 + Web3 交互）
 - `scripts/`：一键本地开发脚本（启动链、部署、启动前端）
 - `strategies/`：TradingView Pine Script 策略示例
+
+## Architecture
+
+- `contracts` 负责 Solidity 编译、测试、部署，并导出 ABI 到前端
+- `scripts/dev-start.sh` 串联本地开发流程（起链 → 编译 → 部署 → 启前端）
+- `frontend` 通过 `src/lib/contracts.ts` 和 `src/abi` 与合约交互
+- 线上环境通过 Cloudflare Pages 部署
 
 ## Key Features
 
@@ -99,6 +115,13 @@ PRIVATE_KEY=your_private_key_without_0x
 
 - `.gitignore`（忽略 `node_modules`、构建产物、日志、IDE 文件）
 - `README.md`（项目说明、运行方式、结构化命令）
+
+## CI
+
+GitHub Actions 会在 `push` / `pull_request` 时自动执行：
+
+- `contracts`: compile + test
+- `frontend`: build
 
 ## License
 
