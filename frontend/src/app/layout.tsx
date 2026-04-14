@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { I18nProvider } from "@/i18n";
 import { Web3Provider } from "@/components/Web3Provider";
 import { ChatBot } from "@/components/ChatBot";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -57,6 +58,7 @@ export default function RootLayout({
             </I18nProvider>
           </ThemeProvider>
         </Web3Provider>
+        <Analytics />
       </body>
     </html>
   );
