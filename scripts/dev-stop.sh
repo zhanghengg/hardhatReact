@@ -5,7 +5,7 @@ ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 DEV_DIR="$ROOT_DIR/.dev"
 
 HARDHAT_PORT=8545
-VITE_PORT=5173
+NEXT_PORT=5173
 
 log() { echo -e "[dev-stop] $*"; }
 
@@ -51,10 +51,10 @@ kill_by_port() {
 mkdir -p "$DEV_DIR"
 
 kill_by_pidfile "Hardhat" "$DEV_DIR/hardhat.pid"
-kill_by_pidfile "Vite" "$DEV_DIR/vite.pid"
+kill_by_pidfile "Next.js" "$DEV_DIR/next.pid"
 
 # Fallback by port if needed
 kill_by_port "$HARDHAT_PORT" "Hardhat"
-kill_by_port "$VITE_PORT" "Vite"
+kill_by_port "$NEXT_PORT" "Next.js"
 
 log "Done."

@@ -15,6 +15,7 @@ node_modules/
 
 # Build & cache
 contracts/artifacts/
+contracts/bin/
 contracts/cache/
 contracts/typechain-types/
 frontend/.next/

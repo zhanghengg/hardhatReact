@@ -1,85 +1,70 @@
 'use client';
 
 import Link from 'next/link';
-import { Send, Twitter, Mail } from 'lucide-react';
+import { ArrowRight, Mail, Send, Twitter } from 'lucide-react';
 import { useI18n } from '@/i18n';
+import { profile } from '@/data/profile';
 
 export function Footer() {
   const { t } = useI18n();
+  const year = new Date().getFullYear().toString();
 
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <div>
-            <div className="text-xl font-bold bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
-              web3.0xMRO
-            </div>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {t.footer.desc}
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">{t.footer.quickLinks}</h3>
-            <ul className="mt-4 space-y-2">
-              <li>
-                <Link href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  {t.nav.home}
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  {t.nav.projects}
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  {t.nav.about}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">{t.footer.contact}</h3>
-            <div className="mt-4 flex space-x-4">
-              <a
-                href="https://t.me/AugustMake"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Telegram"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Send className="h-5 w-5" />
-              </a>
-              <a
-                href="https://x.com/zhero85762818"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="mailto:zh517113444@gmail.com"
-                aria-label="Email"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Mail className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
+    <footer className="border-t border-foreground bg-background">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 border-x border-border md:grid-cols-[1.1fr_1.9fr_1.3fr_auto]">
+        <div className="border-b border-border px-6 py-8 md:border-b-0 md:border-r">
+          <div className="font-[family-name:var(--font-exo2)] text-3xl font-black">0xMRO</div>
+          <p className="mt-3 max-w-xs text-sm text-muted-foreground">{t.footer.desc}</p>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border">
-          <p className="text-center text-sm text-muted-foreground">
-            {t.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
+        <div className="border-b border-border px-6 py-8 md:border-b-0 md:border-r">
+          <p className="font-mono text-xs uppercase text-muted-foreground">Full-stack Web3 engineer</p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            {t.footer.copyright.replace('{year}', year)}
           </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-4 border-b border-border px-6 py-8 md:border-b-0 md:border-r">
+          <Link href="/projects" className="text-sm font-semibold underline-offset-4 hover:underline">
+            {t.nav.projects}
+          </Link>
+          <span className="text-muted-foreground">/</span>
+          <Link href="/about" className="text-sm font-semibold underline-offset-4 hover:underline">
+            {t.nav.about}
+          </Link>
+          <span className="text-muted-foreground">/</span>
+          <a href={`mailto:${profile.contact.email}`} className="text-sm font-semibold underline-offset-4 hover:underline">
+            Email
+          </a>
+        </div>
+
+        <div className="flex items-center gap-2 px-6 py-8">
+          <a
+            href={profile.contact.telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Telegram"
+            className="grid size-10 place-items-center border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+          >
+            <Send className="size-4" />
+          </a>
+          <a
+            href={profile.contact.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter"
+            className="grid size-10 place-items-center border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+          >
+            <Twitter className="size-4" />
+          </a>
+          <a
+            href={`mailto:${profile.contact.email}`}
+            aria-label="Email"
+            className="grid size-10 place-items-center border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+          >
+            <Mail className="size-4" />
+          </a>
+          <ArrowRight className="ml-2 size-5 text-foreground" />
         </div>
       </div>
     </footer>

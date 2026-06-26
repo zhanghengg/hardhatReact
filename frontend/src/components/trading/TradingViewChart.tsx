@@ -208,7 +208,7 @@ export function TradingViewChart({
         widgetRef.current.setSymbol(symbol, interval, () => {
           console.log('[TradingViewChart] Symbol/interval updated')
         })
-      } catch (e) {
+      } catch {
         // 图表可能还未就绪
       }
     }

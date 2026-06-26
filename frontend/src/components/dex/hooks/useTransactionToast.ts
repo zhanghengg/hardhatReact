@@ -4,7 +4,6 @@ import type { ToastData, TransactionStep } from '../types'
 
 // Sepolia 区块浏览器交易链接
 const SEPOLIA_TX_EXPLORER = 'https://sepolia.etherscan.io/tx'
-const LOCAL_TX_EXPLORER = '' // 本地没有区块浏览器
 
 // Toast 自动消失时间 (毫秒)
 const TOAST_DURATION = 5000

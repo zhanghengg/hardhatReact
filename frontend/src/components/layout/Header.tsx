@@ -2,15 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { Twitter, Menu, X, Send } from 'lucide-react';
+import { Menu, Send, Twitter, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useI18n } from '@/i18n';
-
+import { profile } from '@/data/profile';
 
 export function Header() {
   const pathname = usePathname();
@@ -18,36 +17,34 @@ export function Header() {
   const { t } = useI18n();
 
   const navItems = [
-    { href: '/', label: t.nav.home },
-    { href: '/projects', label: t.nav.projects },
-    { href: '/about', label: t.nav.about },
+    { href: '/', label: t.nav.home, active: pathname === '/' },
+    { href: '/projects', label: t.nav.projects, active: pathname.startsWith('/projects') },
+    { href: '/about', label: t.nav.about, active: pathname.startsWith('/about') },
+    { href: '/about#contact', label: 'Contact', active: false },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="text-xl font-bold bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent"
-            >
-              web3.0xMRO
-            </motion.div>
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-border bg-background/92 backdrop-blur-md">
+      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-[72px] items-center justify-between gap-6">
+          <Link href="/" className="group flex items-center gap-3">
+            <span className="font-[family-name:var(--font-exo2)] text-2xl font-black leading-none tracking-normal text-foreground">
+              0xMRO
+            </span>
+            <span className="hidden h-5 w-px bg-border sm:block" />
+            <span className="hidden font-mono text-[11px] uppercase text-muted-foreground sm:block">
+              Web3 systems
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden items-center gap-8 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary',
-                  pathname === item.href
-                    ? 'text-primary'
-                    : 'text-muted-foreground'
+                  'relative py-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground',
+                  item.active && 'text-foreground after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:bg-[var(--site-cyan)]'
                 )}
               >
                 {item.label}
@@ -55,66 +52,62 @@ export function Header() {
             ))}
           </div>
 
-          {/* Social Links & Theme Toggle & Language Toggle */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden items-center gap-2 md:flex">
             <LanguageToggle />
             <ThemeToggle />
-            <Button variant="ghost" size="icon" asChild>
-              <a href="https://t.me/AugustMake" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-                <Send className="h-5 w-5" />
+            <Button variant="outline" size="icon" asChild>
+              <a href={profile.contact.telegram} target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                <Send data-icon="inline-start" />
               </a>
             </Button>
-            <Button variant="ghost" size="icon" asChild>
-              <a href="https://x.com/zhero85762818" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                <Twitter className="h-5 w-5" />
+            <Button variant="outline" size="icon" asChild>
+              <a href={profile.contact.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                <Twitter data-icon="inline-start" />
               </a>
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
           <Button
-            variant="ghost"
+            variant="outline"
             size="icon"
             className="md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? <X data-icon="inline-start" /> : <Menu data-icon="inline-start" />}
           </Button>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="md:hidden py-4 border-t border-border"
-          >
+          <div className="flex flex-col gap-2 border-t border-border py-4 md:hidden">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={cn(
-                  'block py-2 text-sm font-medium transition-colors hover:text-primary',
-                  pathname === item.href
-                    ? 'text-primary'
-                    : 'text-muted-foreground'
+                  'border-b border-border/70 py-3 text-sm font-semibold transition-colors hover:text-foreground',
+                  item.active ? 'text-foreground' : 'text-muted-foreground'
                 )}
               >
                 {item.label}
               </Link>
             ))}
-            <div className="flex items-center space-x-4 pt-4 mt-4 border-t border-border">
+            <div className="mt-2 flex items-center gap-2">
               <LanguageToggle />
               <ThemeToggle />
-              <a href="https://t.me/AugustMake" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-                <Send className="h-5 w-5 text-muted-foreground hover:text-primary" />
-              </a>
-              <a href="https://x.com/zhero85762818" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary" />
-              </a>
+              <Button variant="outline" size="icon" asChild>
+                <a href={profile.contact.telegram} target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                  <Send data-icon="inline-start" />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon" asChild>
+                <a href={profile.contact.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                  <Twitter data-icon="inline-start" />
+                </a>
+              </Button>
             </div>
-          </motion.div>
+          </div>
         )}
       </nav>
     </header>

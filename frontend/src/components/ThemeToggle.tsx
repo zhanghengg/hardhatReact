@@ -21,9 +21,9 @@ export function ThemeToggle() {
         transition={{ duration: 0.3 }}
       >
         {theme === 'dark' ? (
-          <Moon className="h-5 w-5" />
+          <Moon data-icon="inline-start" />
         ) : (
-          <Sun className="h-5 w-5" />
+          <Sun data-icon="inline-start" />
         )}
       </motion.div>
     </Button>

@@ -150,7 +150,7 @@ export function SwapSection({
     }
 
     return { value: impactValue, display, color }
-  }, [amountIn, expectedOut, reserves, direction])
+  }, [amountIn, expectedOut, reserves, direction, FEE_MULTIPLIER])
 
   // 点击外部关闭设置面板
   useEffect(() => {

@@ -1,10 +1,21 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import { useTheme } from './ThemeProvider';
 
 interface FluidCanvasProps {
   className?: string;
+}
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
 }
 
 // 配置参数
@@ -1671,7 +1682,10 @@ export function FluidCanvas({ className = '' }: FluidCanvasProps) {
     };
   }, []);
 
+  const isMobile = useIsMobile();
+
   useEffect(() => {
+    if (isMobile) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -1681,7 +1695,20 @@ export function FluidCanvas({ className = '' }: FluidCanvasProps) {
       cancelAnimationFrame(animationRef.current);
       cleanup?.();
     };
-  }, [initFluidSimulation, isDark]);
+  }, [initFluidSimulation, isDark, isMobile]);
+
+  if (isMobile) {
+    return (
+      <div
+        className={`absolute inset-0 w-full h-full ${className}`}
+        style={{
+          background: isDark
+            ? 'radial-gradient(ellipse at 30% 50%, rgba(139, 92, 246, 0.15), transparent 60%), radial-gradient(ellipse at 70% 50%, rgba(6, 182, 212, 0.1), transparent 60%)'
+            : 'radial-gradient(ellipse at 30% 50%, rgba(139, 92, 246, 0.08), transparent 60%), radial-gradient(ellipse at 70% 50%, rgba(6, 182, 212, 0.06), transparent 60%)',
+        }}
+      />
+    );
+  }
 
   return (
     <canvas

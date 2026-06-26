@@ -1,156 +1,110 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { ArrowLeft, Github, FileCode, Layers } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
-import { UniswapDemo } from '@/components/dex/UniswapDemo'
-import { ContractAddresses, PoolInfoSection } from '@/components/dex/components'
+import Link from 'next/link';
+import { ArrowLeft, ArrowRight, FileCode, Layers } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { UniswapDemo } from '@/components/dex/UniswapDemo';
+import { ContractAddresses, PoolInfoSection } from '@/components/dex/components';
+import { projects } from '@/data/projects';
+import { useI18n } from '@/i18n';
 
-const project = {
-  title: 'Simple DEX',
-  description: '一个基于 Uniswap V2 机制的简化版去中心化交易所Demo，本人实现了演示前端以及智能合约的开发部署。',
-  tags: ['DeFi', 'AMM', 'Solidity', 'Uniswap V2'],
-  features: [
-    '代币交换功能 (恒定乘积公式)',
-    '添加/移除流动性',
-    'LP 代币机制',
-    'TWAP 价格预言机',
-    '0.3% 交易手续费'
-  ],
-  techStack: ['Solidity', 'Hardhat', 'Next.js', 'viem', 'TailwindCSS'],
-  longDescription: `这是一个 DEX 的Demo，展示了 AMM（自动做市商）的核心原理。
-
-核心合约包括：
-- UniswapV2Factory: 创建和管理交易对
-- UniswapV2Pair: 实现 AMM 核心逻辑  
-- UniswapV2Router: 用户交互入口
-- UniswapV2Library: 价格计算辅助库
-
-合约实现了恒定乘积公式 (x * y = k) 来确定交换价格。`
-}
+const project = projects.find((p) => p.slug === 'simple-dex')!;
 
 export default function SimpleDexPage() {
+  const { t } = useI18n();
+
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Button */}
+    <div className="min-h-screen border-b border-border bg-background">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
         <Link
           href="/projects"
-          className="inline-flex items-center text-muted-foreground hover:text-foreground mb-8 transition-colors"
+          className="inline-flex items-center gap-2 font-mono text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
         >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          返回作品集
+          <ArrowLeft className="size-4" />
+          {t.projectDetail.backToProjects}
         </Link>
 
-        {/* Project Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <h1 className="text-3xl sm:text-4xl font-bold">{project.title}</h1>
-            <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
-              已完成
-            </Badge>
-          </div>
-
-          <p className="text-lg text-muted-foreground mb-6">{project.description}</p>
-
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.tags.map(tag => (
-              <Badge key={tag} variant="secondary">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-4">
-            <Button variant="outline" asChild>
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <Github className="mr-2 h-4 w-4" />
-                查看代码
-              </a>
-            </Button>
-          </div>
-        </div>
-
-        <Separator className="my-8" />
-
-        {/* 主要内容区域 - 两栏布局 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* 左侧: 演示区域 */}
+        <header className="mt-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <h2 className="text-xl font-semibold mb-4">🎮 在线演示</h2>
-            <div className="rounded-xl border border-border/50 bg-card/30 p-4">
+            <div className="mb-5 flex flex-wrap gap-2">
+              <Badge variant="outline">{t.projectDetail.statusCompleted}</Badge>
+              <Badge variant="secondary">{project.network}</Badge>
+            </div>
+            <h1 className="font-[family-name:var(--font-exo2)] text-5xl font-black leading-none tracking-normal sm:text-6xl lg:text-7xl">
+              {project.title}
+            </h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{project.description}</p>
+          </div>
+          <Button variant="outline" asChild>
+            <Link href="/projects">
+              Projects
+              <ArrowRight data-icon="inline-end" />
+            </Link>
+          </Button>
+        </header>
+
+        <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <section>
+            <div className="mb-4 flex items-center justify-between border-b border-border pb-3">
+              <h2 className="text-2xl font-bold">{t.projectDetail.onlineDemo}</h2>
+              <span className="font-mono text-xs uppercase text-[var(--site-cyan)]">Live interface</span>
+            </div>
+            <div className="border border-border bg-card p-4">
               <UniswapDemo />
             </div>
-          </div>
+          </section>
 
-          {/* 右侧: 项目信息 */}
-          <div className="space-y-6">
-            {/* 合约地址 */}
+          <aside className="flex flex-col gap-6">
             <ContractAddresses />
-
-            {/* 池子信息 */}
             <PoolInfoSection />
 
-            {/* Features */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <Layers className="h-5 w-5 text-purple-500" />
-                  功能特性
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {project.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span className="text-purple-500 mt-1">•</span>
-                      <span className="text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+            <section className="border border-border bg-card p-6">
+              <h2 className="flex items-center gap-2 font-mono text-sm font-semibold uppercase text-[var(--site-cyan)]">
+                <Layers className="size-4" />
+                {t.projectDetail.features}
+              </h2>
+              <div className="mt-5 flex flex-col gap-3">
+                {project.features.map((feature, index) => (
+                  <div key={feature} className="grid grid-cols-[32px_1fr] gap-3 border-b border-border pb-3 last:border-b-0 last:pb-0">
+                    <span className="font-mono text-sm text-muted-foreground">{String(index + 1).padStart(2, '0')}</span>
+                    <p className="text-sm leading-6 text-muted-foreground">{feature}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
 
-            {/* Tech Stack */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <FileCode className="h-5 w-5 text-cyan-500" />
-                  技术栈
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {project.techStack.map(tech => (
-                    <Badge key={tech} variant="outline">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <section className="border border-border bg-card p-6">
+              <h2 className="flex items-center gap-2 font-mono text-sm font-semibold uppercase text-[var(--site-red)]">
+                <FileCode className="size-4" />
+                {t.projectDetail.techStack}
+              </h2>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {project.techStack.map((tech) => (
+                  <Badge key={tech} variant="outline">
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </section>
 
-            {/* Long Description */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">项目详情</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="prose prose-invert max-w-none">
-                  {project.longDescription.split('\n').map((paragraph, index) => (
-                    <p key={index} className="text-muted-foreground mb-2 last:mb-0 text-sm">
-                      {paragraph}
+            <section className="border border-border bg-card p-6">
+              <h2 className="text-2xl font-bold">{t.projectDetail.projectDetails}</h2>
+              <div className="mt-5 flex flex-col gap-3">
+                {project.longDescription
+                  .split('\n')
+                  .map((line) => line.trim())
+                  .filter(Boolean)
+                  .map((line, index) => (
+                    <p key={`${line}-${index}`} className="text-sm leading-7 text-muted-foreground">
+                      {line}
                     </p>
                   ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </section>
+          </aside>
         </div>
       </div>
     </div>
-  )
+  );
 }

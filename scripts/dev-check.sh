@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PORT_HARDHAT=8545
-PORT_VITE=5173
+PORT_NEXT=5173
 RPC="http://127.0.0.1:${PORT_HARDHAT}"
 
 log() { echo -e "[dev-check] $*"; }
@@ -36,7 +36,7 @@ check_hardhat_rpc() {
 }
 
 check_port "$PORT_HARDHAT" "Hardhat"
-check_port "$PORT_VITE" "Vite/React"
+check_port "$PORT_NEXT" "Next.js"
 
 # If Hardhat seems up, probe JSON-RPC
 if lsof -iTCP:"${PORT_HARDHAT}" -sTCP:LISTEN -P -n >/dev/null 2>&1; then

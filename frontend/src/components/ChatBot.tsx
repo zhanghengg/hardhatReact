@@ -18,23 +18,8 @@ export function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [hasAutoOpened, setHasAutoOpened] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-
-  // 检测是否为PC端（桌面端）
-  const isDesktop = () => {
-    if (typeof window === 'undefined') return false
-    return window.innerWidth >= 768
-  }
-
-  // 按钮动画完成后，PC端自动打开聊天框
-  const handleButtonAnimationComplete = () => {
-    if (!hasAutoOpened && isDesktop()) {
-      setIsOpen(true)
-      setHasAutoOpened(true)
-    }
-  }
 
   // 自动滚动到底部
   const scrollToBottom = () => {
@@ -147,12 +132,12 @@ export function ChatBot() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring' }}
-        onAnimationComplete={handleButtonAnimationComplete}
       >
         <Button
           size="icon-lg"
           onClick={() => setIsOpen(!isOpen)}
-          className="h-14 w-14 rounded-full shadow-lg bg-linear-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600"
+          className="size-12 rounded-[4px] shadow-[4px_4px_0_var(--site-cyan)]"
+          aria-label={isOpen ? 'Close chat' : 'Open chat'}
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -162,7 +147,7 @@ export function ChatBot() {
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 90, opacity: 0 }}
               >
-                <X className="h-6 w-6" />
+                <X data-icon="inline-start" />
               </motion.div>
             ) : (
               <motion.div
@@ -171,7 +156,7 @@ export function ChatBot() {
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: -90, opacity: 0 }}
               >
-                <MessageCircle className="h-6 w-6" />
+                <MessageCircle data-icon="inline-start" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -186,35 +171,35 @@ export function ChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25 }}
-            className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-3rem)] bg-background border border-border rounded-2xl shadow-2xl overflow-hidden"
+            className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-3rem)] overflow-hidden border border-border bg-background shadow-[8px_8px_0_rgba(10,167,223,0.18)]"
           >
             {/* 头部 */}
-            <div className="bg-linear-to-r from-purple-500 to-cyan-500 p-4 text-white">
+            <div className="border-b border-border bg-card p-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                  <Bot className="h-5 w-5" />
+                <div className="flex size-10 items-center justify-center border border-border bg-background">
+                  <Bot className="size-5 text-[var(--site-cyan)]" />
                 </div>
                 <div>
                   <h3 className="font-semibold">{t.chatbot?.title || 'AI 助手'}</h3>
-                  <p className="text-sm text-white/80">{t.chatbot?.subtitle || '有什么可以帮你的？'}</p>
+                  <p className="text-sm text-muted-foreground">{t.chatbot?.subtitle || '有什么可以帮你的？'}</p>
                 </div>
               </div>
             </div>
 
             {/* 消息区域 */}
-            <div className="h-[350px] overflow-y-auto p-4 space-y-4">
+            <div className="flex h-[350px] flex-col gap-4 overflow-y-auto p-4">
               {messages.length === 0 ? (
-                <div className="space-y-3">
+                <div className="flex flex-col gap-3">
                   <p className="text-sm text-muted-foreground text-center">
                     {t.chatbot?.welcome || '👋 你好！我是这个网站的 AI 助手，可以帮你了解项目和技术栈。'}
                   </p>
-                  <div className="space-y-2">
+                  <div className="flex flex-col gap-2">
                     <p className="text-xs text-muted-foreground">{t.chatbot?.tryAsking || '试试问我：'}</p>
                     {suggestedQuestions.map((q, i) => (
                       <button
                         key={i}
                         onClick={() => setInput(q)}
-                        className="block w-full text-left text-sm p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors"
+                        className="block w-full border border-border bg-muted p-2 text-left text-sm transition-colors hover:bg-accent"
                       >
                         {q}
                       </button>
@@ -228,27 +213,27 @@ export function ChatBot() {
                     className={`flex gap-2 ${message.role === 'user' ? 'flex-row-reverse' : ''}`}
                   >
                     <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                      className={`flex size-8 shrink-0 items-center justify-center border ${
                         message.role === 'user'
-                          ? 'bg-purple-500 text-white'
-                          : 'bg-muted'
+                          ? 'border-primary bg-primary text-primary-foreground'
+                          : 'border-border bg-muted'
                       }`}
                     >
                       {message.role === 'user' ? (
-                        <User className="h-4 w-4" />
+                        <User className="size-4" />
                       ) : (
-                        <Bot className="h-4 w-4" />
+                        <Bot className="size-4" />
                       )}
                     </div>
                     <div
-                      className={`max-w-[80%] p-3 rounded-2xl text-sm ${
+                      className={`max-w-[80%] border p-3 text-sm ${
                         message.role === 'user'
-                          ? 'bg-purple-500 text-white rounded-tr-sm'
-                          : 'bg-muted rounded-tl-sm'
+                          ? 'border-primary bg-primary text-primary-foreground'
+                          : 'border-border bg-muted'
                       }`}
                     >
                       {message.content || (
-                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <Loader2 className="size-4 animate-spin" />
                       )}
                     </div>
                   </div>
@@ -267,18 +252,18 @@ export function ChatBot() {
                   onChange={e => setInput(e.target.value)}
                   placeholder={t.chatbot?.placeholder || '输入消息...'}
                   disabled={isLoading}
-                  className="flex-1 px-4 py-2 rounded-full border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 disabled:opacity-50"
+                  className="flex-1 rounded-[4px] border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring/40 disabled:opacity-50"
                 />
                 <Button
                   type="submit"
                   size="icon"
                   disabled={isLoading || !input.trim()}
-                  className="rounded-full bg-purple-500 hover:bg-purple-600"
+                  className="rounded-[4px]"
                 >
                   {isLoading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 data-icon="inline-start" className="animate-spin" />
                   ) : (
-                    <Send className="h-4 w-4" />
+                    <Send data-icon="inline-start" />
                   )}
                 </Button>
               </div>

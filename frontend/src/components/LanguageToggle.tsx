@@ -18,7 +18,7 @@ export function LanguageToggle() {
       onClick={toggleLanguage}
       title={language === 'zh' ? 'Switch to English' : '切换到中文'}
     >
-      <Languages className="h-5 w-5" />
+      <Languages data-icon="inline-start" />
       <span className="sr-only">
         {language === 'zh' ? 'Switch to English' : '切换到中文'}
       </span>

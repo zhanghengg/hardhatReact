@@ -38,7 +38,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 const theme = localStorage.getItem('theme');
-                if (theme !== 'light') {
+                if (theme === 'dark') {
                   document.documentElement.classList.add('dark');
                 }
               })();
@@ -51,7 +51,7 @@ export default function RootLayout({
           <ThemeProvider>
             <I18nProvider>
               <Header />
-              <main className="pt-16">{children}</main>
+              <main className="pt-[73px]">{children}</main>
               <Footer />
               <ChatBot />
             </I18nProvider>

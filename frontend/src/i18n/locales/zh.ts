@@ -86,9 +86,34 @@ export const zh = {
 
   // 项目页面扩展
   projectsPage: {
-    subtitle:
-      '',
+    subtitle: '',
     noProjects: '暂无项目，敬请期待..'
+  },
+
+  // 项目详情页
+  projectDetail: {
+    backToProjects: '返回作品集',
+    statusCompleted: '已完成',
+    statusInProgress: '进行中',
+    statusPlanned: '计划中',
+    features: '功能特性',
+    techStack: '技术栈',
+    contractInfo: '合约信息',
+    network: '网络',
+    contractAddress: '合约地址',
+    projectDetails: '项目详情',
+    liveLink: '在线链接',
+    viewCode: '查看代码',
+    demoArea: '项目演示区域',
+    onlineDemo: '🎮 在线演示',
+    currentPair: '当前交易对',
+    symbol: '符号',
+    interval: '周期',
+    dataSource: '数据源',
+    realTimeData: '实时数据',
+    vpnTitle: '网络访问提示',
+    vpnDesc: '币安 K 线数据需要通过 VPN 访问。如未开启 VPN，可能无法正常请求数据，图表将无法正常展示。',
+    viewDetails: '查看详情'
   },
 
   // AI 聊天机器人
@@ -173,6 +198,30 @@ export type Locale = {
     sendEmail: string
   }
   projectsPage: { subtitle: string; noProjects: string }
+  projectDetail: {
+    backToProjects: string
+    statusCompleted: string
+    statusInProgress: string
+    statusPlanned: string
+    features: string
+    techStack: string
+    contractInfo: string
+    network: string
+    contractAddress: string
+    projectDetails: string
+    liveLink: string
+    viewCode: string
+    demoArea: string
+    onlineDemo: string
+    currentPair: string
+    symbol: string
+    interval: string
+    dataSource: string
+    realTimeData: string
+    vpnTitle: string
+    vpnDesc: string
+    viewDetails: string
+  }
   chatbot: {
     title: string
     subtitle: string

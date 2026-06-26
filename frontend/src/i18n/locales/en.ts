@@ -99,6 +99,32 @@ export const en: Locale = {
     noProjects: 'No projects yet, stay tuned...'
   },
 
+  // Project detail page
+  projectDetail: {
+    backToProjects: 'Back to Projects',
+    statusCompleted: 'Completed',
+    statusInProgress: 'In Progress',
+    statusPlanned: 'Planned',
+    features: 'Features',
+    techStack: 'Tech Stack',
+    contractInfo: 'Contract Info',
+    network: 'Network',
+    contractAddress: 'Contract Address',
+    projectDetails: 'Project Details',
+    liveLink: 'Live Link',
+    viewCode: 'View Code',
+    demoArea: 'Project Demo Area',
+    onlineDemo: '🎮 Live Demo',
+    currentPair: 'Current Pair',
+    symbol: 'Symbol',
+    interval: 'Interval',
+    dataSource: 'Data Source',
+    realTimeData: 'Real-time Data',
+    vpnTitle: 'Network Access Notice',
+    vpnDesc: 'Binance K-line data requires VPN access. Without VPN, data requests may fail and charts may not display properly.',
+    viewDetails: 'View Details'
+  },
+
   // AI Chatbot
   chatbot: {
     title: 'Web3 Assistant',

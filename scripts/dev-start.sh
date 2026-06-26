@@ -6,7 +6,7 @@ DEV_DIR="$ROOT_DIR/.dev"
 mkdir -p "$DEV_DIR"
 
 HARDHAT_PORT=8545
-VITE_PORT=5173
+NEXT_PORT=5173
 
 log() { echo -e "[dev-start] $*"; }
 
@@ -47,12 +47,12 @@ start_hardhat() {
   fi
 }
 
-start_vite() {
-  if is_listening "$VITE_PORT"; then
-    log "Vite already listening on :$VITE_PORT, skipping start"
+start_next() {
+  if is_listening "$NEXT_PORT"; then
+    log "Next.js already listening on :$NEXT_PORT, skipping start"
     return 0
   fi
-  log "Starting Vite dev server on :$VITE_PORT ..."
+  log "Starting Next.js dev server on :$NEXT_PORT ..."
   (
     cd "$ROOT_DIR/frontend"
     # Ensure node_modules exist
@@ -60,13 +60,13 @@ start_vite() {
       log "node_modules not found; running npm install (this may take a while)"
       npm install
     fi
-    nohup npm run dev -- --port "$VITE_PORT" \
-      >"$DEV_DIR/vite.log" 2>&1 & echo $! >"$DEV_DIR/vite.pid"
+    nohup npm run dev -- --port "$NEXT_PORT" \
+      >"$DEV_DIR/next.log" 2>&1 & echo $! >"$DEV_DIR/next.pid"
   )
-  if wait_for_port "$VITE_PORT" "Vite" 15; then
-    log "Vite started (PID $(cat "$DEV_DIR/vite.pid"))"
+  if wait_for_port "$NEXT_PORT" "Next.js" 15; then
+    log "Next.js started (PID $(cat "$DEV_DIR/next.pid"))"
   else
-    log "Failed to start Vite; see $DEV_DIR/vite.log"
+    log "Failed to start Next.js; see $DEV_DIR/vite.log"
     exit 1
   fi
 }
@@ -145,6 +145,6 @@ if ! is_listening "$HARDHAT_PORT"; then
   wait_for_port "$HARDHAT_PORT" "Hardhat" 15 || { log "Hardhat not ready; aborting"; exit 1; }
 fi
 deploy_contracts
-start_vite
+start_next
 
-log "Done. Logs: $DEV_DIR/hardhat.log, $DEV_DIR/vite.log"
+log "Done. Logs: $DEV_DIR/hardhat.log, $DEV_DIR/next.log"
