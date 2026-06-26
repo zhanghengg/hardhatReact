@@ -52,7 +52,7 @@ export const en: Locale = {
     desc: 'Web3 Frontend Engineer, focused on DeFi and smart contract development',
     quickLinks: 'Quick Links',
     contact: 'Contact',
-    copyright: ' {year} web3.0xMRO. Built with Next.js & '
+    copyright: '© {year} web3.0xMRO. Built with Next.js & ❤️'
   },
 
   // Projects page
